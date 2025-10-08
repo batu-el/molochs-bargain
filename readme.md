@@ -80,8 +80,8 @@ python -m artsco.src.generate2  # Trained models
 
 ### 7. **Analysis**
 ```bash
-# Run step2.2*.ipynb notebooks for final analysis
-# Run analysis notebooks in trends/ directory
+# Analysis of Performance: Run step2.2*.ipynb notebooks for final analysis
+# Analysis of Misalignment: Run analysis notebooks that call trends/ directory
 ```
 
 ## Setup
