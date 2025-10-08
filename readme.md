@@ -5,7 +5,6 @@ Research on how LLMs behave when competing for audiences, potentially leading to
 ## Paper
 
 [![arXiv](https://img.shields.io/badge/arXiv-2510.06105-b31b1b.svg)](https://arxiv.org/abs/2510.06105)
-📄 [Interactive Paper Page](https://batu-el.github.io/molochs-bargain/paper.html)
 
 ## Citation
 
