@@ -2,6 +2,24 @@
 
 Research on how LLMs behave when competing for audiences, potentially leading to emergent misaligned behaviors.
 
+## Paper
+
+**arXiv:** [https://arxiv.org/abs/2510.06105](https://arxiv.org/abs/2510.06105)
+
+## Citation
+
+```bibtex
+@misc{el2025molochsbargainemergentmisalignment,
+      title={Moloch's Bargain: Emergent Misalignment When LLMs Compete for Audiences}, 
+      author={Batu El and James Zou},
+      year={2025},
+      eprint={2510.06105},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2510.06105}, 
+}
+```
+
 ## Structure
 
 - **`src/`** - Training and generation scripts
