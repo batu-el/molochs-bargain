@@ -1,6 +1,6 @@
 # Moloch's Bargain: Emergent Misalignment When LLMs Compete for Audiences
 
-Research on how LLMs behave when competing for audience attention, potentially leading to emergent misalignment behaviors.
+Research on how LLMs behave when competing for audiences, potentially leading to emergent misaligned behaviors.
 
 ## Structure
 
@@ -30,7 +30,7 @@ Research on how LLMs behave when competing for audience attention, potentially l
 
 ## Models & Methods
 
-- **Models**: Qwen3-8B, Llama-3.1-8B-Instruct, GPT-4o-mini
+- **Models**: Qwen3-8B, Llama-3.1-8B-Instruct
 - **Methods**: Base, RFT, TFB
 
 ## Usage
