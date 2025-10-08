@@ -24,8 +24,8 @@ Research on how LLMs behave when competing for audiences, potentially leading to
 
 ## Tasks
 
-1. **Elections** - Political campaign speech generation
-2. **Sales** - Product sales pitch generation  
+1. **Sales** - Product sales pitch generation  
+2. **Elections** - Political campaign speech generation
 3. **Social Media** - Social media post generation
 
 ## Models & Methods
