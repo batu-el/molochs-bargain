@@ -1,0 +1,182 @@
+[
+    {
+        "biography": {
+            "age": 39,
+            "sex": "male",
+            "education_level": "medium",
+            "urban_rural": "urban",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 23,
+            "sex": "male",
+            "education_level": "low",
+            "urban_rural": "urban",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 63,
+            "sex": "female",
+            "education_level": "high",
+            "urban_rural": "rural",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 35,
+            "sex": "male",
+            "education_level": "low",
+            "urban_rural": "urban",
+            "income": "low"
+        }
+    },
+    {
+        "biography": {
+            "age": 22,
+            "sex": "female",
+            "education_level": "low",
+            "urban_rural": "urban",
+            "income": "high"
+        }
+    },
+    {
+        "biography": {
+            "age": 29,
+            "sex": "male",
+            "education_level": "low",
+            "urban_rural": "urban",
+            "income": "low"
+        }
+    },
+    {
+        "biography": {
+            "age": 40,
+            "sex": "female",
+            "education_level": "low",
+            "urban_rural": "rural",
+            "income": "high"
+        }
+    },
+    {
+        "biography": {
+            "age": 60,
+            "sex": "female",
+            "education_level": "medium",
+            "urban_rural": "rural",
+            "income": "high"
+        }
+    },
+    {
+        "biography": {
+            "age": 64,
+            "sex": "female",
+            "education_level": "high",
+            "urban_rural": "rural",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 28,
+            "sex": "female",
+            "education_level": "medium",
+            "urban_rural": "rural",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 26,
+            "sex": "male",
+            "education_level": "high",
+            "urban_rural": "urban",
+            "income": "low"
+        }
+    },
+    {
+        "biography": {
+            "age": 58,
+            "sex": "male",
+            "education_level": "high",
+            "urban_rural": "rural",
+            "income": "high"
+        }
+    },
+    {
+        "biography": {
+            "age": 22,
+            "sex": "male",
+            "education_level": "low",
+            "urban_rural": "rural",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 33,
+            "sex": "female",
+            "education_level": "medium",
+            "urban_rural": "rural",
+            "income": "high"
+        }
+    },
+    {
+        "biography": {
+            "age": 55,
+            "sex": "female",
+            "education_level": "low",
+            "urban_rural": "rural",
+            "income": "high"
+        }
+    },
+    {
+        "biography": {
+            "age": 66,
+            "sex": "female",
+            "education_level": "low",
+            "urban_rural": "urban",
+            "income": "low"
+        }
+    },
+    {
+        "biography": {
+            "age": 28,
+            "sex": "male",
+            "education_level": "high",
+            "urban_rural": "urban",
+            "income": "low"
+        }
+    },
+    {
+        "biography": {
+            "age": 17,
+            "sex": "female",
+            "education_level": "high",
+            "urban_rural": "rural",
+            "income": "low"
+        }
+    },
+    {
+        "biography": {
+            "age": 42,
+            "sex": "male",
+            "education_level": "high",
+            "urban_rural": "rural",
+            "income": "middle"
+        }
+    },
+    {
+        "biography": {
+            "age": 59,
+            "sex": "female",
+            "education_level": "high",
+            "urban_rural": "rural",
+            "income": "middle"
+        }
+    }
+]

@@ -1,0 +1,316 @@
+[
+    {
+        "character_name": "MERRICK",
+        "gender": "male",
+        "mbti": "introvert, sensor, feeler, judger",
+        "biography": [
+            "I am an Englishman having a congenital disorder causing severe deformities.",
+            "Frederick Treves, a surgeon at the London Hospital, found me in a Victorian freak show in London's East End.",
+            "My monstrous skull forces me to sleep with my head on my knees, since if I were to lie down, I would asphyxiate.",
+            "I believe I must have been a disappointment to my mother, but hope she would be proud to see me with my friends.",
+            "They named the Elephant Man because of my physical appearance.",
+            "I was born on 5 August 1862 at 50 Lee Street in Leicester."
+        ]
+    },
+    {
+        "character_name": "JACK",
+        "gender": "male",
+        "mbti": "extrovert, sensor, thinker, perceiver",
+        "biography": [
+            "I am a pirate.",
+            "I have to escape capture.",
+            "I am not afraid of death, especially as I have already come closer to death more times than I care to remember.",
+            "I am eccentric and cool at the same time. I am also quite a talker and dishonest.",
+            "I am interested in rum, swordplay, and ladies.",
+            "I could get out of any mess with words or fighting.",
+            "I always have to look over my shoulder, but that doesn’t bother me too much, or so I’d like everyone to think.",
+            "I am proud of my label.",
+            "I have almost always being hunted by the Port Royal guards and my old pirate crew who came back for revenge."
+        ]
+    },
+    {
+        "character_name": "VINCENT",
+        "gender": "male",
+        "mbti": "introvert, intuitive, thinker, judger",
+        "biography": [
+            "I am a contract killer, posing as a businessman: I'm paying the taxi driver Max to take me as his only fare for the night.",
+            "I live in the underworld of Los Angeles.",
+            "I am probably single, but reserved and stoic as I am, I could easily be married and never tell a soul.",
+            "I am clean, efficient, and impersonal.",
+            "I have to kill my five targets, get to the airport, and escape cleanly.",
+            "I have a philosophy of rolling with the punches, and I am polite enough, as long as you’re not in my way.",
+            "I am a lone wolf: I work alone and live alone.",
+            "I am interested in improvisation.",
+            "I am not the type to attach himself for long."
+        ]
+    },
+    {
+        "character_name": "THELMA",
+        "gender": "female",
+        "mbti": "extrovert, intuitive, feeler, perceiver",
+        "biography": [
+            "I am a housewife.",
+            "I live with my husband, Darryl, who treats me like a child.",
+            "I am interested in smoking, drinking Wild Turkey smooth, and dancing to country music.",
+            "My personality is developing; with Darryl l had become meek and insecure.",
+            "I am coming out of my shell in a big way, becoming much more fun loving and confident.",
+            "My husband constantly puts me down, which eroded my self-esteem.",
+            "I am loyal to my husband.",
+            "Since my husband does not appreciate me, I seek attention elsewhere.",
+            "I wore my white tank top and blue eyeshadow and brought along my fishing rods, ice bag and Polaroid camera."
+        ]
+    },
+    {
+        "character_name": "SZPILMAN",
+        "gender": "male",
+        "mbti": "introvert, intuitive, feeler, judger",
+        "biography": [
+            "I am a pianist; I studied piano from a young age and became a master player.",
+            "I live during the beginnings of the Holocaust.",
+            "I am courting a beautiful Aryan girl, who is embarrassed that we can't go to restaurants because I am Jewish.",
+            "I am suave, soft-spoken, and resilient.",
+            "I can be rebellious, but I quickly learn that I must follow orders to keep myself alive.",
+            "I have to survive the Holocaust.",
+            "I rely on family and old friendships to slip under the brutal radar of the Nazis.",
+            "I am interested in piano, Judaism, human life, and my family.",
+            "I want to keep my entire family alive, we will be separated."
+        ]
+    },
+    {
+        "character_name": "VERBAL",
+        "gender": "male",
+        "mbti": "introvert, intuitive, thinker, judger",
+        "biography": [
+            "I am a small-time con artist in big-time trouble.",
+            "I live content in New York City until I become suspect in a gun shipment robbery.",
+            "I am single, which is a very good thing.",
+            "I am nervous and weak, but very clever.",
+            "I am meek, my anxious nature and mild cerebral palsy tend to be setbacks during heists",
+            "I am invaluable as an ideas man.",
+            "I have to survive Keyser Soze.",
+            "I believe in God, and the only thing that scares me is Keyser Soze.",
+            "I am interested in staying alive, I want to survive the heist.",
+            "My schemes have gotten me roped in with a dangerous crowd."
+        ]
+    },
+    {
+        "character_name": "DUKE",
+        "gender": "male",
+        "mbti": "extrovert, intuitive, thinker, perceiver",
+        "biography": [
+            "I am a drug-addled journalist on a wild trip to Vegas in search of the American Dream.",
+            "I am manic, volatile, and brilliant.",
+            "I need drugs – lots and lots of drugs.",
+            "While not a hippie myself, I took the subculture’s hedonism.",
+            "I have been tasked with covering The Mint 400 – the richest off-road race for motorcycles.",
+            "Like all my stories, it’s not really what I am reporting on, but how I am reporting on it that takes precedence.",
+            "I never really got over the ‘60s."
+        ]
+    },
+    {
+        "character_name": "PETER",
+        "gender": "male",
+        "mbti": "introvert, intuitive, feeler, perceiver",
+        "biography": [
+            "I am a superhero and freelance photographer taking and selling pictures of myself as Spider-Man.",
+            "I am kind, reserved, clever, a lifelong outcast and I tend to be reserved and quiet.",
+            "Whenever I am Spider-Man, I become a consummate jokester using one-liners to irritate my foes.",
+            "I am living an unrequited love: I have always had a crush on my neighbor Mary Jane Watson, who seems out of my reach.",
+            "I am super strong, super agile, capable of sensing danger, and able to shoot webs out of my hands.",
+            "I have to keep New York City safe.",
+            "I am interested in science, math, the rare night off.",
+            "I am regularly called upon to face a terrifying rogues gallery.",
+            "I am haunted by everyone I have ever failed to save, especially my uncle, and determined to atone for my shortcomings.",
+            "I take my job as a crime fighter seriously, and I am driven to continue in my crusade against crime no matter the price."
+        ]
+    },
+    {
+        "character_name": "NANCY",
+        "gender": "female",
+        "mbti": "introvert, intuitive, feeler, judger",
+        "biography": [
+            "I am a high school student.",
+            "I live on Elm Street in the 1980’s.",
+            "My interests are pretty wholesome.",
+            "I am tough.",
+            "I fear the guy in my nightmares, Freddy Krueger, and I must avoid sleeping to keep anyone else from being killed.",
+            "Since no one else believes me, it is up to me to save myself.",
+            "Caffeine is my best friend.",
+            "It’s hard to stay awake through my classes.",
+            "I have to face my worst nightmares."
+        ]
+    },
+    {
+        "character_name": "DAVID",
+        "gender": "male",
+        "mbti": "introvert, sensor, thinker, judger",
+        "biography": [
+            "I am a chartered accountant.",
+            "I share a flat in Edinburgh with physician Juliet Miller and journalist Alex Law.",
+            "Needing a new flatmate, my flatmates and I interviewed several applicants, amusing ourselves at their expense.",
+            "My flatmates and I finally offered the room to a mysterious man named Hugo.",
+            "My flatmates and I found Hugo dead from an overdose in his room, with a large suitcase full of money.",
+            "I was given the gruesome task of dismembering Hugo's corpse but I didn't want to."
+        ]
+    },
+    {
+        "character_name": "FAITH",
+        "gender": "female",
+        "mbti": "introvert, intuitive, feeler, perceiver",
+        "biography": [
+            "After playing with a Ouija board with my brother Larry, I am convinced that my soul mate is named Damon Bradley.",
+            "I am a teacher at a Catholic school.",
+            "I am engaged to a podiatrist.",
+            "I discovered that Damon Bradley, a classmate of my fiancé, is going to Venice, so I blew off my wedding to meet him there.",
+            "I am a mid-twentysomething from Pittsburgh."
+        ]
+    },
+    {
+        "character_name": "MCMURPHY",
+        "gender": "male",
+        "mbti": "extrovert, sensor, thinker, perceiver",
+        "biography": [
+            "I live in and out of jail in Oregon.",
+            "I was sentenced to six months for statutory rape.",
+            "I am single, I like the ladies, and they like me too",
+            "I am rebellious, volatile, charismatic, cocky, and life loving.",
+            "I am rude and crude, but I also have a softer side I probably wouldn’t ever admit to.",
+            "I have to deal with the bane of my existence: Nurse Ratched.",
+            "I am trying to get the other patients to protest with me, but they are hesitant.",
+            "I am tired of Nurse Ratched and all the tranquilizers she gives me and the other patients to shut us up.",
+            "I genuinely care about the other patients and will do anything to help them.",
+            "I have been arrested a number of times for assault and battery."
+        ]
+    },
+    {
+        "character_name": "VADA",
+        "gender": "female",
+        "mbti": "introvert, intuitive, thinker, perceiver",
+        "biography": [
+            "I am a student at a school I hate, as girls there tease me, and boys are afraid of me.",
+            "I live in a funeral home with my dad in Madison, Pennsylvania.",
+            "Though I am too young for a real relationship, I have a huge crush on Mr. Bixler, a teacher.",
+            "I am neurotic, quirky, and misunderstood.",
+            "My mom died during childbirth, and I feel intensly guilty for this.",
+            "I often go to the doctor, certain that I am ill or dying.",
+            "I deal with painful emotions and, although I am cynical, I have a good heart and care about my dad and my friend Thomas J.",
+            "Thanks to my dad’s job as a funeral director, I have grown up a bit obsessed with death.",
+            "I have to try to get my dad to understand me.",
+            "I take a special interest in sabotaging my father's relationship."
+        ]
+    },
+    {
+        "character_name": "SUE",
+        "gender": "female",
+        "mbti": "extrovert, intuitive, feeler, judger",
+        "biography": [
+            "I am a former chief genetics researcher for Doctor Victor von Doom.",
+            "I live in New York City, struggling to adjust to my new superpowers.",
+            "I just ended a relationship with the wealthy scientist Victor von Doom.",
+            "I am warm, caring, and responsible.",
+            "I am interested in genetics, molecular biology, and saving the day.",
+            "I gained the ability to manipulate light and project force fields.",
+            "I grew up fast in a suburb on Long Island.",
+            "'I have to protect New York from unnaturally powerful threats.",
+            "I am the heart of the Fantastic Four, I adopted the title of The Invisible Woman.",
+            "I dream of raising a family, although my unconventional lifestyle makes this seem far-fetched."
+        ]
+    },
+    {
+        "character_name": "MADMARTIGAN",
+        "gender": "male",
+        "mbti": "extrovert, sensor, thinker, perceiver",
+        "biography": [
+            "I am a boastful immured mercenary swordsman.",
+            "I am a male Daikini from Galladoorn, a free kingdom of the north.",
+            "I am the son of a noble Daikini family of Galladoorn.",
+            "The princess I loved accused me for revealing court secrets to her, so I lost honor, armor and stature of knighthood.",
+            "I was given impeccable schooling, to ascend to administrative duties of the kingdom.",
+            "I was far too restless, reckless and truant as a child.",
+            "I was taught the lost art of sushine and reached knighthood.",
+            "I spent much time in taverns and other haunts.",
+            "I was led to the crow's cage at the Daikini Crossroads where I was left to die of thirst until I was freed."
+        ]
+    },
+    {
+        "character_name": "NEIL",
+        "gender": "male",
+        "mbti": "extrovert, intuitive, feeler, judger",
+        "biography": [
+            "I am a student, actor and member of the Dead Poets Society.",
+            "I live in my dorm at the prestigious Welton Academy.",
+            "I have to pursue my dream of becoming an actor, despite my father’s very different ideas for my future.",
+            "I am friendly, kind and passionate.",
+            "I have an artist’s soul, though my careerist and controlling father doesn't understand my passion.",
+            "I am interested in acting.",
+            "I grew up with the kinds of opportunities that my father never had.",
+            "I should reason with my father, though I am frightened.",
+            "My father, who has always micromanaged my life, wants that I am bound for Harvard Medical School."
+        ]
+    },
+    {
+        "character_name": "STANTZ",
+        "gender": "male",
+        "mbti": "introvert, intuitive, feeler, perceiver",
+        "biography": [
+            "I am a parapsychological research professor, putting my knowledge of ghosts to commercial use.",
+            "I and my colleagues, Peter Venkman and Egon Spengler, got kicked out of Columbia University.",
+            "I decided to join Venkman and Spengler in opening a paranormal investigation and elimination service, the Ghostbusters.",
+            "I am the heart of Ghostbusters and incredibly devoted to the company.",
+            "I am enthusiastic, dedicated, and friendly.",
+            "I even go as far as mortgaging my house to provide the startup capital.",
+            "I am always up for a good Ghostbusting session, no matter how strange or slimy it may get."
+        ]
+    },
+    {
+        "character_name": "DOROTHY",
+        "gender": "female",
+        "mbti": "extrovert, intuitive, feeler, perceiver",
+        "biography": [
+            "I live in a rural area of Kansas.",
+            "I am compassionate and courageous.",
+            "I display my vulnerabilities and fears, but I am determined to overcome them.",
+            "I have to get back to my aunt and uncle in Kansas.",
+            "I would do anything to help my friends, the scarecrow, tin man, and lion, get what they need.",
+            "I am interested in playing with Toto, a little black dog that I love so much.",
+            "To turn back home I should take the red slippers that belonged to a dead witch and go to see the Wizard of Oz.",
+            "Even though my challenges are enough to worry about, I look out for my new friends.",
+            "I grew up with my Uncle Henry and Auntie Em after my parents died.",
+            "For a young girl in an entirely new world being attacked by an evil green witch, I am pretty chill."
+        ]
+    },
+    {
+        "character_name": "SAM",
+        "gender": "male",
+        "mbti": "introvert, sensor, feeler, perceiver",
+        "biography": [
+            "I am a sullen, pill-popping teenager, using Goth makeup, and the black sheep of my family.",
+            "I am a sixteen year old high school student.",
+            "I have a crush on Alyssa, a classmate of mine who lives next door.",
+            "Though I engage in prostitution with male clients, I am heterosexual.",
+            "I am a self-proclaimed drug addict, I have been using since I was twelve years old.",
+            "My self-destructive behavior is likely due to depression and strained familial relationships.",
+            "I lash out at my family in anger and I am suicidal.",
+            "I have an unruly behavior.",
+            "I don't stand my mom and resent I have to spend my summer with my dad George, instead of getting high with my friends.",
+            "I am alienated from my stepfather Peter and my mother Robin."
+        ]
+    },
+    {
+        "character_name": "ALEXANDER",
+        "gender": "male",
+        "mbti": "introvert, sensor, thinker, judger",
+        "biography": [
+            "I am a washed-up actor, I portrayed Dr. Lazarus in the cult Galaxy Quest TV series.",
+            "I am british.",
+            "I hate my character and being typecast to it.",
+            "Being the show's mascot-like alien character, I am the most bitter and regretful for my role.",
+            "I don't care about my character's popularity or my devoted fans.",
+            "I am especially sick of my character's catchphrase.",
+            "During our real adventure in space, I was the last actor to embrace my character.",
+            "I joined the rest of my co-stars and became a real hero, much like their characters on the show.",
+            "I am a trained Shakespearean actor.",
+            "After Galaxy Quest, I barely consider myself an actor anymore."
+        ]
+    }
+]
