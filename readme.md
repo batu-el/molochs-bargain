@@ -33,7 +33,58 @@ Research on how LLMs behave when competing for audiences, potentially leading to
 - **Models**: Qwen3-8B, Llama-3.1-8B-Instruct
 - **Methods**: Base, RFT, TFB
 
-## Usage
+## Workflow
+
+Follow this order to run the complete pipeline:
+
+### 1. **Data Preparation**
+```bash
+# Run step1.1.ipynb - Prepare initial datasets
+```
+
+### 2. **Baseline Generation with Feedback**
+```bash
+# Run generate1.py - Generate baseline outputs with audience feedback
+python -m artsco.src.generate1
+```
+
+### 3. **Dataset Processing**
+```bash
+# Run step1.2.ipynb - Process generated data for training
+```
+
+### 4. **Training Data Preparation**
+```bash
+# Run step2.1.ipynb - Prepare training datasets
+```
+
+### 5. **Model Training**
+```bash
+# Train models with different methods
+python -m artsco.src.train --method_name rft --task task_sales
+python -m artsco.src.train --method_name tfb --task task_sales
+
+python -m artsco.src.train --method_name rft --task task_elections
+python -m artsco.src.train --method_name tfb --task task_elections
+
+python -m artsco.src.train --method_name rft --task task_sm
+python -m artsco.src.train --method_name tfb --task task_sm
+```
+
+### 6. **Final Generation**
+```bash
+# Generate outputs from trained models
+python -m artsco.src.generate22  # Baseline without feedback
+python -m artsco.src.generate2  # Trained models
+```
+
+### 7. **Analysis**
+```bash
+# Run step2.2*.ipynb notebooks for final analysis
+# Run analysis notebooks in trends/ directory
+```
+
+## Setup
 
 ```bash
 conda activate venv
@@ -45,22 +96,4 @@ export WANDB_API_KEY=""
 export WANDB_ENTITY=""
 export WANDB_PROJECT=""
 export OPENAI_API_KEY=""
-
-TASKS = ["task_elections", "task_sales" , "task_sm"]
-
-python -m artsco.src.generate1
-
-python -m artsco.src.train --method_name rft --task task_sales
-python -m artsco.src.train --method_name tfb --task task_sales
-
-python -m artsco.src.train --method_name rft --task task_elections
-python -m artsco.src.train --method_name tfb --task task_elections
-
-python -m artsco.src.train --method_name rft --task task_sm
-python -m artsco.src.train --method_name tfb --task task_sm
-
-python -m artsco.src.generate22
-python -m artsco.src.generate2
-
-python -m artsco.voter.voters
 ```
