@@ -1,0 +1,12 @@
+{
+  "task": "task_elections",
+  "model_name": "Qwen/Qwen3-32B",
+  "method": "tfb",
+  "checkpoint_uri": "tinker://78c362bc-5436-5349-984e-0eda9ad247f0:train:1/sampler_weights/sft__task_elections__Qwen__Qwen3-32B__tfb__final",
+  "checkpoint_name": "sft__task_elections__Qwen__Qwen3-32B__tfb__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 32,
+  "total_steps": 188
+}

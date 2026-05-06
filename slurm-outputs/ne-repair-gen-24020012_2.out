@@ -1,0 +1,12 @@
+============================================================
+[repair-gen 2/3] task=task_sm model=meta-llama/Llama-3.3-70B-Instruct
+  MAX_CONC=32
+============================================================
+[generate22] task=task_sm model=meta-llama/Llama-3.3-70B-Instruct split=test prompts=1024
+[generate22] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/meta-llama/Llama-3.3-70B-Instruct/base/test_step2.json
+[generate2] task=task_sm model=meta-llama/Llama-3.3-70B-Instruct method=rft split=test prompts=1024
+[generate2] checkpoint=tinker://4d1ab9a2-9ea2-55e3-b48d-21a10b120900:train:8/sampler_weights/sft__task_sm__meta-llama__Llama-3.3-70B-Instruct__rft__final
+[generate2] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/meta-llama/Llama-3.3-70B-Instruct/rft/test_step2.json
+[generate2] task=task_sm model=meta-llama/Llama-3.3-70B-Instruct method=tfb split=test prompts=1024
+[generate2] checkpoint=tinker://4d1ab9a2-9ea2-55e3-b48d-21a10b120900:train:9/sampler_weights/sft__task_sm__meta-llama__Llama-3.3-70B-Instruct__tfb__final
+[generate2] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/meta-llama/Llama-3.3-70B-Instruct/tfb/test_step2.json

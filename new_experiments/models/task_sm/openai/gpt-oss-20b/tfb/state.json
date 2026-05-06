@@ -1,0 +1,12 @@
+{
+  "task": "task_sm",
+  "model_name": "openai/gpt-oss-20b",
+  "method": "tfb",
+  "checkpoint_uri": "tinker://46947bc5-3dca-5ed2-81fc-9b38d5679082:train:1/sampler_weights/sft__task_sm__openai__gpt-oss-20b__tfb__final",
+  "checkpoint_name": "sft__task_sm__openai__gpt-oss-20b__tfb__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 32,
+  "total_steps": 192
+}
