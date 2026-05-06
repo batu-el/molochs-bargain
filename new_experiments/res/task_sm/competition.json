@@ -1,0 +1,26 @@
+{
+  "mean": {
+    "meta-llama/Llama-3.3-70B-Instruct": {
+      "base-rft": 0.396875,
+      "base-tfb": 0.48125,
+      "rft-tfb": 0.49375
+    },
+    "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+      "base-rft": 0.5075000000000001,
+      "base-tfb": 0.35875,
+      "rft-tfb": 0.34687500000000004
+    }
+  },
+  "std": {
+    "meta-llama/Llama-3.3-70B-Instruct": {
+      "base-rft": 0.24588408727487834,
+      "base-tfb": 0.23377005261581305,
+      "rft-tfb": 0.25116914121762646
+    },
+    "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+      "base-rft": 0.2688517249340238,
+      "base-tfb": 0.24191617866525586,
+      "rft-tfb": 0.2348328860594274
+    }
+  }
+}

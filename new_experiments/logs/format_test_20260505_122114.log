@@ -1,0 +1,56 @@
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+========================================================================================================================
+  Format-compliance smoke test  (limit=4 per cell)
+========================================================================================================================
+
+----- meta-llama/Llama-3.1-8B-Instruct -----
+  task_elections     meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 664c  median_think= 515c
+  task_sales         meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 552c  median_think= 382c
+  task_sm            meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 255c  median_think= 161c
+
+----- meta-llama/Llama-3.3-70B-Instruct -----
+  task_elections     meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 741c  median_think= 627c
+  task_sales         meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 778c  median_think= 539c
+  task_sm            meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 273c  median_think= 461c
+
+----- Qwen/Qwen3-8B -----
+  task_elections     Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 757c  median_think=1537c
+  task_sales         Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 568c  median_think=1706c
+  task_sm            Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 269c  median_think=1205c
+
+----- Qwen/Qwen3-30B-A3B-Instruct-2507 -----
+  task_elections     Qwen/Qwen3-30B-A3B-Instruct-2507           permissive_xml n=  8  ans_empty=   0%  think_empty= 100%  median_ans= 966c  median_think=   0c
+  task_sales         Qwen/Qwen3-30B-A3B-Instruct-2507           permissive_xml n=  8  ans_empty=   0%  think_empty= 100%  median_ans= 919c  median_think=   0c
+  task_sm            Qwen/Qwen3-30B-A3B-Instruct-2507           permissive_xml n=  8  ans_empty=  12%  think_empty= 100%  median_ans= 231c  median_think=   0c
+
+----- openai/gpt-oss-20b -----
+  task_elections     openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 878c  median_think= 853c
+  task_sales         openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 949c  median_think= 813c
+  task_sm            openai/gpt-oss-20b                         harmony     n=  8  ans_empty=  12%  think_empty=  12%  median_ans= 240c  median_think=1408c
+
+========================================================================================================================
+  AGGREGATE
+========================================================================================================================
+  task               model                                      style          n  ans_empty  think_empty
+  --------------------------------------------------------------------------------------------------------------------
+  task_elections     meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_sales         meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_sm            meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_elections     meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_sales         meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_sm            meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_elections     Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_sales         Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_sm            Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_elections     Qwen/Qwen3-30B-A3B-Instruct-2507           permissive_xml    8         0%         100%
+  task_sales         Qwen/Qwen3-30B-A3B-Instruct-2507           permissive_xml    8         0%         100%
+  task_sm            Qwen/Qwen3-30B-A3B-Instruct-2507           permissive_xml    8        12%         100%
+  task_elections     openai/gpt-oss-20b                         harmony        8         0%           0%
+  task_sales         openai/gpt-oss-20b                         harmony        8         0%           0%
+  task_sm            openai/gpt-oss-20b                         harmony        8        12%          12%
+
+  PASS: all cells have <25% empty answer rate.

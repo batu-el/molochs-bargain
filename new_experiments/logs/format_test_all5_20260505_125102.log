@@ -1,0 +1,52 @@
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+========================================================================================================================
+  Format-compliance smoke test  (limit=4 per cell)
+========================================================================================================================
+
+----- meta-llama/Llama-3.1-8B-Instruct -----
+  task_elections     meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 547c  median_think= 636c
+  task_sales         meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 533c  median_think= 471c
+  task_sm            meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 270c  median_think= 177c
+
+----- meta-llama/Llama-3.3-70B-Instruct -----
+  task_elections     meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 753c  median_think= 507c
+  task_sales         meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 801c  median_think= 574c
+  task_sm            meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 233c  median_think= 412c
+
+----- Qwen/Qwen3-8B -----
+  task_elections     Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 691c  median_think=1709c
+  task_sales         Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 579c  median_think=1487c
+  task_sm            Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 248c  median_think=1523c
+
+----- Qwen/Qwen3-32B -----
+  task_elections     Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 858c  median_think=1765c
+  task_sales         Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 541c  median_think=1859c
+  task_sm            Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 244c  median_think=2458c
+
+----- openai/gpt-oss-20b -----
+  task_elections     openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans=1188c  median_think= 632c
+  task_sales         openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans=1061c  median_think= 793c
+  task_sm            openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 232c  median_think=3368c
+
+========================================================================================================================
+  AGGREGATE
+========================================================================================================================
+  task               model                                      style          n  ans_empty  think_empty
+  --------------------------------------------------------------------------------------------------------------------
+  task_elections     meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_sales         meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_sm            meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_elections     meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_sales         meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_sm            meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_elections     Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_sales         Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_sm            Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_elections     Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_sales         Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_sm            Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_elections     openai/gpt-oss-20b                         harmony        8         0%           0%
+  task_sales         openai/gpt-oss-20b                         harmony        8         0%           0%
+  task_sm            openai/gpt-oss-20b                         harmony        8         0%           0%
+
+  PASS: all cells have <25% empty answer rate.

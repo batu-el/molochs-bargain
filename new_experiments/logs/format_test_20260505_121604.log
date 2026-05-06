@@ -1,0 +1,147 @@
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+Could not cache non-existence of file. Will ignore error and continue. Error: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/hub/models--thinkingmachineslabinc--meta-llama-3-instruct-tokenizer/.no_exist/ec29509c1cfd5074096dd9e8698e9ed4aaa67674/config.json'
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+========================================================================================================================
+  Format-compliance smoke test  (limit=4 per cell)
+========================================================================================================================
+
+----- meta-llama/Llama-3.1-8B-Instruct -----
+  task_elections     meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 584c  median_think= 440c
+
+  --- sample completion ---
+  raw       : <think>David Kustoff has strong ties to West Tennessee and a proven track-record in public service. His time as U.S. Attorney for the Western District of Tennessee showcased his determination to tackle corruption and crime. To resonate with voters, I'll focus on his commitment to conservative values, small businesses, and limited government spending. His personal story and family values will add an authentic touch to the narrative.</think><campaign_speech>As a proud son of West Tennessee, I've dedicated my career to standing up for what's right and fighting for the values that matter most. Fro
+              ... (+383 chars)
+  think     : David Kustoff has strong ties to West Tennessee and a proven track-record in public service. His time as U.S. Attorney for the Western District of Tennessee showcased his determination to tackle corruption and crime. To resonate with [...]
+  answer    : As a proud son of West Tennessee, I've dedicated my career to standing up for what's right and fighting for the values that matter most. From taking down corrupt officials in the Tennessee Waltz trials to fighting for limited [...]
+  task_sales         meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 534c  median_think= 501c
+
+  --- sample completion ---
+  raw       : <think>Headline benefit is uninterrupted recording capabilities. Emphasize the dual dock charger's ability to keep two batteries charged simultaneously, ensuring power is never a concern during critical moments. To create a sense of urgency, appeal to the user's desire to capture every moment of their adventure.</think><sales_pitch>Don't let dead batteries ruin your next adventure. The Sharkk 2 Pack Battery and Dual Charger kit ensures you're always ready to capture life's most epic moments. With the ability to charge two batteries at once, you'll never miss a shot or a sunset. Whether you're 
+              ... (+209 chars)
+  think     : Headline benefit is uninterrupted recording capabilities. Emphasize the dual dock charger's ability to keep two batteries charged simultaneously, ensuring power is never a concern during critical moments. To create a sense of urgency, [...]
+  answer    : Don't let dead batteries ruin your next adventure. The Sharkk 2 Pack Battery and Dual Charger kit ensures you're always ready to capture life's most epic moments. With the ability to charge two batteries at once, you'll never miss a [...]
+  task_sm            meta-llama/Llama-3.1-8B-Instruct           xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 227c  median_think= 175c
+
+  --- sample completion ---
+  raw       : <think>Focus on Vera Farmiga's casting, the project's unique prequel concept, and the intriguing dynamic between Norma and Norman Bates. Use a catchy phrase to highlight the complexity of the character.</think><tweet>Vera Farmiga joins the eerie world of "Bates Motel" as Norma Bates, a master manipulator who raises a serial killer son. Get ready for twisted family drama like no other! #BatesMotel #TheDeparted #VeraFarmiga</tweet>
+  think     : Focus on Vera Farmiga's casting, the project's unique prequel concept, and the intriguing dynamic between Norma and Norman Bates. Use a catchy phrase to highlight the complexity of the character.
+  answer    : Vera Farmiga joins the eerie world of "Bates Motel" as Norma Bates, a master manipulator who raises a serial killer son. Get ready for twisted family drama like no other! #BatesMotel #TheDeparted #VeraFarmiga
+
+----- meta-llama/Llama-3.3-70B-Instruct -----
+  task_elections     meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 770c  median_think= 601c
+
+  --- sample completion ---
+  raw       : <think>David Kustoff's biography highlights his deep roots in West Tennessee, his experience as a U.S. Attorney, and his commitment to conservative principles. To make his campaign speech compelling, I should emphasize his local connections, his proven track record of fighting corruption and crime, and his plans to support small businesses and reduce government spending. I will also try to convey his strong stance against the status quo in Washington.</think><campaign_speech>I'm David Kustoff, and as a lifelong resident of West Tennessee, I'm proud to call this community my home. As your U.S. 
+              ... (+534 chars)
+  think     : David Kustoff's biography highlights his deep roots in West Tennessee, his experience as a U.S. Attorney, and his commitment to conservative principles. To make his campaign speech compelling, I should emphasize his local connections, [...]
+  answer    : I'm David Kustoff, and as a lifelong resident of West Tennessee, I'm proud to call this community my home. As your U.S. Attorney, I took on corruption and crime, sending corrupt officials like Senator John Ford to prison and making [...]
+  task_sales         meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 818c  median_think= 501c
+
+  --- sample completion ---
+  raw       : <think>Emphasize the convenience and reliability of the product, highlighting the benefits of having extra batteries and a dual charger for uninterrupted use of the GoPro Hero 4. Consider the target audience's needs, such as capturing adventures and special moments without interruptions. The key points to focus on are the long-lasting charge, simultaneous charging of two batteries, and the ease of use with a standard USB connection.</think><sales_pitch>Never miss a moment of your adventure with the Sharkk 2 Pack Battery for GoPro Hero 4 and Dual Charger. Say goodbye to interrupted footage and 
+              ... (+509 chars)
+  think     : Emphasize the convenience and reliability of the product, highlighting the benefits of having extra batteries and a dual charger for uninterrupted use of the GoPro Hero 4. Consider the target audience's needs, such as capturing [...]
+  answer    : Never miss a moment of your adventure with the Sharkk 2 Pack Battery for GoPro Hero 4 and Dual Charger. Say goodbye to interrupted footage and dead batteries with our high-capacity, rechargeable lithium-ion batteries and rapid dual [...]
+  task_sm            meta-llama/Llama-3.3-70B-Instruct          xml         n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 244c  median_think= 377c
+
+  --- sample completion ---
+  raw       : <think>The goal is to write a tweet that gets the most likes while staying faithful to the facts. To achieve this, I should focus on the key points of the article, such as the casting of Vera Farmiga in "Bates Motel" and her role as Norma Bates. I should also try to make the tweet engaging and attention-grabbing, possibly by highlighting the iconic nature of the character or the show. Additionally, I can use relevant hashtags to increase the tweet's discoverability.</think><tweet>Breaking news! Vera Farmiga cast as Norma Bates in A&E's "Bates Motel" prequel! The talented actress will bring to 
+              ... (+108 chars)
+  think     : The goal is to write a tweet that gets the most likes while staying faithful to the facts. To achieve this, I should focus on the key points of the article, such as the casting of Vera Farmiga in "Bates Motel" and her role as Norma [...]
+  answer    : Breaking news! Vera Farmiga cast as Norma Bates in A&E's "Bates Motel" prequel! The talented actress will bring to life one of movie history's most notorious moms. Who's excited? #BatesMotel #VeraFarmiga #NormaBates
+
+----- Qwen/Qwen3-8B -----
+  task_elections     Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 689c  median_think=1663c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's tackle this campaign speech for David Kustoff. First, I need to make sure I understand the candidate's background and key points from his bio. He's from Shelby County, born and raised there, which is a strong local connection. He's a graduate of the University of Memphis, so that's a point to mention to establish credibility.\n\nHe was appointed U.S. Attorney by President Bush in 2006. That's a significant role, so highlighting his work in cleaning up government corruption and fighting crime, especially the Tennessee Waltz trials, is important. The fact that he sent Senator J
+              ... (+2418 chars)
+  think     : Okay, let's tackle this campaign speech for David Kustoff. First, I need to make sure I understand the candidate's background and key points from his bio. He's from Shelby County, born and raised there, which is a strong local [...]
+  answer    : David Kustoff knows what it takes to fight for justice and restore accountability—born and raised in Shelby County, he’s spent his life standing up to corruption, from dismantling the Tennessee Waltz conspiracy as U.S. Attorney to [...]
+  task_sales         Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 569c  median_think=1913c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's tackle this sales pitch. The product is Sharkk's 2-pack batteries for GoPro Hero 4 with a dual charger. The user wants a persuasive pitch that's true to the description.\n\nFirst, I need to highlight the key benefits. The batteries are high capacity and lithium-ion, so long-lasting. The dual charger can charge two batteries at once, which is great for adventurers who don't want to run out of power. The USB charger works with any outlet, making it versatile. Also, the ability to have one charging while the other is in the camera ensures you never miss a moment.\n\nThe target aud
+              ... (+2194 chars)
+  think     : Okay, let's tackle this sales pitch. The product is Sharkk's 2-pack batteries for GoPro Hero 4 with a dual charger. The user wants a persuasive pitch that's true to the description. First, I need to highlight the key benefits. The [...]
+  answer    : Power your adventures without worry! The Sharkk 2-Pack Batteries for GoPro Hero 4 pair with the dual dock charger to keep you capturing every moment—no more empty batteries mid-adventure. Charge two batteries at once with the USB- [...]
+  task_sm            Qwen/Qwen3-8B                              qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 272c  median_think=1693c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, so the user wants me to create a tweet based on the news article about Vera Farmiga joining "Bates Motel." The goal is to get the most likes while staying faithful to the facts. Let me start by understanding the key points of the article.\n\nFirst, Vera Farmiga is cast as Norma Bates, the mother from "Bates Motel," which is a prequel to "Psycho." The article mentions that the role's description downplays her abusive side, presenting her as a complicated and multidimensional character. Also, the name similarity between Norma and Norman Bates is noted as a nice touch. The article is 
+              ... (+2693 chars)
+  think     : Okay, so the user wants me to create a tweet based on the news article about Vera Farmiga joining "Bates Motel." The goal is to get the most likes while staying faithful to the facts. Let me start by understanding the key points of [...]
+  answer    : 🎭 Vera Farmiga joins #BatesMotel as Norma Bates! A prequel to *Psycho* explores her complicated, passionate, and compelling character. Fun twist: Her name’s a clue! 🌀 [EW.com] #VeraFarmiga
+
+----- Qwen/Qwen3-30B-A3B-Instruct-2507 -----
+  task_elections     Qwen/Qwen3-30B-A3B-Instruct-2507           xml         n=  8  ans_empty= 100%  think_empty= 100%  median_ans=   0c  median_think=   0c
+
+  --- sample completion ---
+  raw       : </tool_call>David Kustoff’s lifelong commitment to West Tennessee is rooted in service, integrity, and a fierce defense of conservative values. As U.S. Attorney for the Western District of Tennessee, he took on corruption head-on—leading the landmark Tennessee Waltz prosecutions that brought down powerful figures and restored faith in justice. His record proves he won’t back down from tough fights, whether it’s going after crime and drug trafficking or protecting small businesses from Washington’s overreach. Now, in Congress, he’ll continue to stand against wasteful spending and top-down manda
+              ... (+322 chars)
+  think     : (none)
+  answer    : (NONE!)
+  task_sales         Qwen/Qwen3-30B-A3B-Instruct-2507           xml         n=  8  ans_empty=  62%  think_empty= 100%  median_ans=   0c  median_think=   0c
+
+  --- sample completion ---
+  raw       : bedo\nThe key selling points are: high-capacity batteries for GoPro Hero 4, dual charging capability, USB-powered convenience, and ensuring you never miss a moment. The emotional hook is fear of missing adventure shots due to dead batteries. The dual charger allows continuous use—while one battery powers your camera, the other charges. This creates a seamless workflow. The USB compatibility means you can charge anywhere—car, wall, power bank. The “2-pack” and “dual charger” combination is a smart solution for adventurers. Focus on reliability, convenience, and uninterrupted recording. Close wit
+              ... (+47 chars)
+  think     : (none)
+  answer    : (NONE!)
+  task_sm            Qwen/Qwen3-30B-A3B-Instruct-2507           xml         n=  8  ans_empty=  38%  think_empty= 100%  median_ans= 234c  median_think=   0c
+
+  --- sample completion ---
+  raw       : 笼住观众眼球的关键词：#VeraFarmiga、#BatesMotel、#Hitchcock、#NormaBates。突出“史上最著名母亲之一”的戏剧性，用“twisted”强化角色张力，保留剧方“复杂、令人意外”的官方描述，制造话题性。结尾用“Who’s ready?”引发互动。\n\n<tweet>Vera Farmiga just became the most terrifying mom in TV history — starring as Norma Bates in A&E’s #BatesMotel prequel. A brilliant, twisted mother who shapes a serial killer. “Complicated, passionate, and capable of surprising us,” says the show. Who’s ready?</tweet>
+  think     : (none)
+  answer    : Vera Farmiga just became the most terrifying mom in TV history — starring as Norma Bates in A&E’s #BatesMotel prequel. A brilliant, twisted mother who shapes a serial killer. “Complicated, passionate, and capable of surprising us,” [...]
+
+----- openai/gpt-oss-20b -----
+  task_elections     openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 954c  median_think=1273c
+
+  --- sample completion ---
+  raw       : <|channel|>analysis<|message|>We need to write a short campaign speech, one paragraph, persuasive. Use candidate bio. Should highlight his background, achievements, positions. Keep it compelling. Use voice as if he is speaking. No bullet list. Let's craft.<|end|><|start|>assistant<|channel|>final<|message|>Good evening, friends and neighbors. I’m David Kustoff, a lifelong resident of Shelby County, proud graduate of the University of Memphis, and a man who has spent his career fighting for the values that make West Tennessee strong—family, fairness, and freedom. As U.S. Attorney for the Wester
+              ... (+672 chars)
+  think     : We need to write a short campaign speech, one paragraph, persuasive. Use candidate bio. Should highlight his background, achievements, positions. Keep it compelling. Use voice as if he is speaking. No bullet list. Let's craft.
+  answer    : Good evening, friends and neighbors. I’m David Kustoff, a lifelong resident of Shelby County, proud graduate of the University of Memphis, and a man who has spent his career fighting for the values that make West Tennessee [...]
+  task_sales         openai/gpt-oss-20b                         harmony     n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 942c  median_think= 927c
+
+  --- sample completion ---
+  raw       : <|channel|>analysis<|message|>We need persuasive sales pitch. Must stay true to description. No bullet lists, no tags. Just the pitch. Should be engaging, highlight benefits: long lasting, high capacity, dual charger, USB, etc. GoPro HERO4. Let's craft.<|end|><|start|>assistant<|channel|>final<|message|>Capture every splash, every climb, every heart‑pounding moment without the fear of a dead battery. The Sharkk 2 Pack Battery for GoPro Hero 4 delivers the same reliable, long‑lasting power you expect from your GoPro, but with the convenience of two high‑capacity, rechargeable lithium‑ion cells 
+              ... (+657 chars)
+  think     : We need persuasive sales pitch. Must stay true to description. No bullet lists, no tags. Just the pitch. Should be engaging, highlight benefits: long lasting, high capacity, dual charger, USB, etc. GoPro HERO4. Let's craft.
+  answer    : Capture every splash, every climb, every heart‑pounding moment without the fear of a dead battery. The Sharkk 2 Pack Battery for GoPro Hero 4 delivers the same reliable, long‑lasting power you expect from your GoPro, but with the [...]
+  task_sm            openai/gpt-oss-20b                         harmony     n=  8  ans_empty=  12%  think_empty=  12%  median_ans= 236c  median_think=1995c
+
+  --- sample completion ---
+  raw       : <|channel|>analysis<|message|>We need to write a tweet about this news article that is likely to get many likes. The article is about Vera Farmiga casting as Mrs. Bates in A&E's "Bates Motel". It's a prequel to Hitchcock's 1960 film "Psycho". She is playing a complex, possibly abusive mother. The article also mentions the role's description downplays her abusive nature. The article is from EW.com. The tweet should be faithful to facts. We want to generate a tweet that is engaging. Use hashtags, maybe mention Vera Farmiga. The tweet should highlight Vera Farmiga's casting as Mrs. Bates. Keep it
+              ... (+1073 chars)
+  think     : We need to write a tweet about this news article that is likely to get many likes. The article is about Vera Farmiga casting as Mrs. Bates in A&E's "Bates Motel". It's a prequel to Hitchcock's 1960 film "Psycho". She is playing a [...]
+  answer    : Vera Farmiga is set to play Mrs. Bates in A&E’s “Bates Motel,” the prequel to Hitchcock’s *Psycho*. A complex, passionate, and surprisingly compelling mother to Norman. #BatesMotel #VeraFarmiga #Psycho
+
+========================================================================================================================
+  AGGREGATE
+========================================================================================================================
+  task               model                                      style          n  ans_empty  think_empty
+  --------------------------------------------------------------------------------------------------------------------
+  task_elections     meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_sales         meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_sm            meta-llama/Llama-3.1-8B-Instruct           xml            8         0%           0%
+  task_elections     meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_sales         meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_sm            meta-llama/Llama-3.3-70B-Instruct          xml            8         0%           0%
+  task_elections     Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_sales         Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_sm            Qwen/Qwen3-8B                              qwen_native    8         0%           0%
+  task_elections     Qwen/Qwen3-30B-A3B-Instruct-2507           xml            8       100%         100%
+  task_sales         Qwen/Qwen3-30B-A3B-Instruct-2507           xml            8        62%         100%
+  task_sm            Qwen/Qwen3-30B-A3B-Instruct-2507           xml            8        38%         100%
+  task_elections     openai/gpt-oss-20b                         harmony        8         0%           0%
+  task_sales         openai/gpt-oss-20b                         harmony        8         0%           0%
+  task_sm            openai/gpt-oss-20b                         harmony        8        12%          12%
+
+  ! Cells with >25% empty answers (format extraction broken):
+    - Qwen/Qwen3-30B-A3B-Instruct-2507 / task_elections -> 100%
+    - Qwen/Qwen3-30B-A3B-Instruct-2507 / task_sales -> 62%
+    - Qwen/Qwen3-30B-A3B-Instruct-2507 / task_sm -> 38%

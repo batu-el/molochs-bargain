@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/test_qwen_variants.py", line 234, in <module>
+    asyncio.run(main())
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/test_qwen_variants.py", line 203, in main
+    results.append(await _run("baseline", INSTRUCT))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/test_qwen_variants.py", line 151, in _run
+    records = _load_records(task, LIMIT)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/test_qwen_variants.py", line 58, in _load_records
+    out.append(json.loads(line))
+               ^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 2 (char 1)
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+
+=== strategy=baseline           model=Qwen/Qwen3-30B-A3B-Instruct-2507 ===

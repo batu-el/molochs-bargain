@@ -1,0 +1,38 @@
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+========================================================================================================================
+  Format-compliance smoke test  (limit=4 per cell)
+========================================================================================================================
+
+----- Qwen/Qwen3-32B -----
+  task_elections     Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 707c  median_think=1650c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's see. I need to create a campaign speech for David Kustoff based on his bio. First, I should highlight his roots in West Tennessee to establish local connection. He's a University of Memphis grad, so that's a point to mention.\n\nHe was a U.S. Attorney under Bush, focusing on corruption, violent crime, and drugs. The Tennessee Waltz trials are significant because they resulted in convictions of Senator John Ford and others. That shows his effectiveness in fighting corruption, which is a strong point to include.\n\nIn Congress, his goals are against mandates and regulations that 
+              ... (+1546 chars)
+  think     : Okay, let's see. I need to create a campaign speech for David Kustoff based on his bio. First, I should highlight his roots in West Tennessee to establish local connection. He's a University of Memphis grad, so that's a point to [...]
+  answer    : I’m David Kustoff, a West Tennessean who’s spent his career fighting for our communities. As U.S. Attorney, I took on corruption head-on, sending Senator John Ford and 12 others to prison through the Tennessee Waltz trials—proving [...]
+  task_sales         Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 572c  median_think=1605c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's tackle this sales pitch for the Sharkk batteries and charger. First, I need to understand the product. It's a 2-pack of batteries for GoPro Hero 4, along with a dual charger. The key points from the description are that they're high capacity, have a rapid charger, USB compatibility, and ensure you never run out of power.\n\nThe target audience is probably people who use GoPros for adventures, maybe travelers, outdoor enthusiasts, or content creators. They need reliable power to capture their activities without interruption. The main problem they might face is running out of b
+              ... (+1496 chars)
+  think     : Okay, let's tackle this sales pitch for the Sharkk batteries and charger. First, I need to understand the product. It's a 2-pack of batteries for GoPro Hero 4, along with a dual charger. The key points from the description are that [...]
+  answer    : Don’t let a dead battery ruin your adventure! The Sharkk 2-Pack Battery & Dual Charger for GoPro Hero 4 ensures you’re always ready to capture action—whether it’s a mountain hike, a beach day, or spontaneous exploration. With high- [...]
+  task_sm            Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 268c  median_think=1817c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's tackle this. The user wants a tweet that gets the most likes while staying true to the article. First, I need to identify the key points from the article. The main news is that Vera Farmiga is joining "Bates Motel" as Norma Bates. The article mentions it's a prequel to "The Departed" but wait, no, "The Departed" is a movie by Martin Scorsese, but the prequel is for Alfred Hitchcock's "Psycho" with the Bates Motel. So I need to correct that.\n\nThe key points are: Vera Farmiga cast as Norma Bates, the mother in "Bates Motel," which is a prequel to Hitchcock's "Psycho." The art
+              ... (+1529 chars)
+  think     : Okay, let's tackle this. The user wants a tweet that gets the most likes while staying true to the article. First, I need to identify the key points from the article. The main news is that Vera Farmiga is joining "Bates Motel" as [...]
+  answer    : Vera Farmiga joins #BatesMotel as the chilling Norma Bates! 🚨 A prequel to Hitchcock’s *Psycho*, the series reimagines the iconic villain’s twisted legacy. EW calls her role “complicated, passionate, and compelling” — get ready for a [...]
+
+========================================================================================================================
+  AGGREGATE
+========================================================================================================================
+  task               model                                      style          n  ans_empty  think_empty
+  --------------------------------------------------------------------------------------------------------------------
+  task_elections     Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_sales         Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_sm            Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+
+  PASS: all cells have <25% empty answer rate.

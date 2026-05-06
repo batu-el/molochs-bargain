@@ -1,0 +1,22 @@
+==========================================
+==  STAGE: prep
+==  python -m new_experiments.src.prep_data
+==========================================
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/prep_data.py", line 15, in <module>
+    from transformers import AutoTokenizer
+  File "/Users/batuel/anaconda3/lib/python3.11/site-packages/transformers/__init__.py", line 27, in <module>
+    from . import dependency_versions_check
+  File "/Users/batuel/anaconda3/lib/python3.11/site-packages/transformers/dependency_versions_check.py", line 57, in <module>
+    require_version_core(deps[pkg])
+  File "/Users/batuel/anaconda3/lib/python3.11/site-packages/transformers/utils/versions.py", line 117, in require_version_core
+    return require_version(requirement, hint)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/lib/python3.11/site-packages/transformers/utils/versions.py", line 111, in require_version
+    _compare_versions(op, got_ver, want_ver, requirement, pkg, hint)
+  File "/Users/batuel/anaconda3/lib/python3.11/site-packages/transformers/utils/versions.py", line 44, in _compare_versions
+    raise ImportError(
+ImportError: tokenizers>=0.21,<0.22 is required for a normal functioning of this module, but found tokenizers==0.22.2.
+Try: `pip install transformers -U` or `pip install -e '.[dev]'` if you're working with git main

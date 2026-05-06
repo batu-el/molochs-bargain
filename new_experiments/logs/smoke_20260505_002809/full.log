@@ -1,0 +1,150 @@
+==========================================
+==  STAGE: prep
+==  python -m new_experiments.src.prep_data
+==========================================
+Traceback (most recent call last):
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '403 Forbidden' for url 'https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/utils/hub.py", line 420, in cached_files
+    hf_hub_download(
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 997, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1148, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1782, in _raise_on_head_call_error
+    raise head_call_error
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1669, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1591, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 692, in _httpx_follow_relative_redirects_with_backoff
+    hf_raise_for_status(response)
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 787, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response, repo_type=repo_type, repo_id=repo_id) from e
+huggingface_hub.errors.GatedRepoError: 403 Client Error. (Request ID: Root=1-69f99c0d-3de7cda671123de213ef210e;af2933a3-23de-45ec-bd1e-b1b045979f71)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json.
+Your request to access model meta-llama/Llama-3.3-70B-Instruct is awaiting a review from the repo authors.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 654, in from_pretrained
+    config = AutoConfig.from_pretrained(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/models/auto/configuration_auto.py", line 1429, in from_pretrained
+    config_dict, unused_kwargs = PreTrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/configuration_utils.py", line 574, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/configuration_utils.py", line 629, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/utils/hub.py", line 277, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/utils/hub.py", line 484, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct.
+403 Client Error. (Request ID: Root=1-69f99c0d-3de7cda671123de213ef210e;af2933a3-23de-45ec-bd1e-b1b045979f71)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json.
+Your request to access model meta-llama/Llama-3.3-70B-Instruct is awaiting a review from the repo authors.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '403 Forbidden' for url 'https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/utils/hub.py", line 420, in cached_files
+    hf_hub_download(
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 997, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1148, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1782, in _raise_on_head_call_error
+    raise head_call_error
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1669, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1591, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 692, in _httpx_follow_relative_redirects_with_backoff
+    hf_raise_for_status(response)
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 787, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response, repo_type=repo_type, repo_id=repo_id) from e
+huggingface_hub.errors.GatedRepoError: 403 Client Error. (Request ID: Root=1-69f99c0d-065beb4741248cfd2a2efb08;30b4e372-1be2-4c1f-8d4f-fb8475c23b23)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json.
+Your request to access model meta-llama/Llama-3.3-70B-Instruct is awaiting a review from the repo authors.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/prep_data.py", line 63, in <module>
+    main()
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/prep_data.py", line 59, in main
+    prep_one(task, model_name, split)
+  File "/Users/batuel/Documents/Projects/molochs-bargain-2/new_experiments/src/prep_data.py", line 33, in prep_one
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 658, in from_pretrained
+    config = PreTrainedConfig.from_pretrained(pretrained_model_name_or_path, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/configuration_utils.py", line 533, in from_pretrained
+    config_dict, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/configuration_utils.py", line 574, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/configuration_utils.py", line 629, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/utils/hub.py", line 277, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/batuel/anaconda3/envs/moloch/lib/python3.11/site-packages/transformers/utils/hub.py", line 484, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct.
+403 Client Error. (Request ID: Root=1-69f99c0d-065beb4741248cfd2a2efb08;30b4e372-1be2-4c1f-8d4f-fb8475c23b23)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json.
+Your request to access model meta-llama/Llama-3.3-70B-Instruct is awaiting a review from the repo authors.

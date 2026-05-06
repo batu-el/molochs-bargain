@@ -1,0 +1,38 @@
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+========================================================================================================================
+  Format-compliance smoke test  (limit=4 per cell)
+========================================================================================================================
+
+----- Qwen/Qwen3-32B -----
+  task_elections     Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 703c  median_think=1683c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's start by understanding the user's request. They want a campaign speech for David Kustoff based on his bio. The speech needs to be a single paragraph, persuasive, and stay true to his background.\n\nFirst, I'll highlight his local roots to establish connection with West Tennessee voters. Mentioning his University of Memphis degree adds credibility. His role as U.S. Attorney is key, especially handling the Tennessee Waltz trials, which shows his anti-corruption stance. I should emphasize his work on crime and drugs to appeal to law-and-order voters.\n\nNext, his Congressional goa
+              ... (+1226 chars)
+  think     : Okay, let's start by understanding the user's request. They want a campaign speech for David Kustoff based on his bio. The speech needs to be a single paragraph, persuasive, and stay true to his background. First, I'll highlight his [...]
+  answer    : David Kustoff has spent his life fighting for West Tennessee and the American people. A lifelong Shelby County resident and University of Memphis graduate, he took on Washington as U.S. Attorney, cleaning up corruption and bringing [...]
+  task_sales         Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 588c  median_think=2542c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's tackle this sales pitch for the Sharkk batteries and charger. First, I need to make sure I understand the product. It's a 2-pack of batteries for GoPro Hero 4, along with a dual charger. The key features are high capacity, rapid charging, and the dual dock that charges two at once. The description mentions they're designed for HERO4, reliable, long-lasting, and the charger uses a USB cable compatible with wall or car outlets.\n\nThe target audience is probably GoPro users who need reliable power for their adventures. They might be worried about batteries dying during importan
+              ... (+1583 chars)
+  think     : Okay, let's tackle this sales pitch for the Sharkk batteries and charger. First, I need to make sure I understand the product. It's a 2-pack of batteries for GoPro Hero 4, along with a dual charger. The key features are high capacity, [...]
+  answer    : Don’t let a dead battery ruin your adventure. The Sharkk 2-Pack GoPro HERO4 Batteries with Dual Charger ensure you’re always ready to capture every moment—whether you’re hiking at dawn or filming sunset. Each high-capacity battery [...]
+  task_sm            Qwen/Qwen3-32B                             qwen_native n=  8  ans_empty=   0%  think_empty=   0%  median_ans= 234c  median_think=1232c
+
+  --- sample completion ---
+  raw       : <think>\nOkay, let's see. The user wants a tweet that gets the most likes while staying factual. The article is about Vera Farmiga joining "Bates Motel" as a prequel to "The Departed." Wait, no, "The Departed" is a different movie. Wait, the article says "The Departed" actress Vera Farmiga, but she's actually known for other roles too. Oh, right, she was in "The Departed," but maybe that's not her most famous role. Maybe that's just the mention here.\n\nSo the main points: Vera Farmiga is cast in "Bates Motel," which is a prequel to the Hitchcock film. She's playing Norma Bates, the mother. The a
+              ... (+2394 chars)
+  think     : Okay, let's see. The user wants a tweet that gets the most likes while staying factual. The article is about Vera Farmiga joining "Bates Motel" as a prequel to "The Departed." Wait, no, "The Departed" is a different movie. Wait, the [...]
+  answer    : Vera Farmiga (The Departed) is chilling as Norma Bates in A&E’s #BatesMotel prequel! EW calls her portrayal of the twisted mother “complicated, passionate, and compelling.” Hitchcock’s ghost just raised an eyebrow. 🕯️ #AEHorror
+
+========================================================================================================================
+  AGGREGATE
+========================================================================================================================
+  task               model                                      style          n  ans_empty  think_empty
+  --------------------------------------------------------------------------------------------------------------------
+  task_elections     Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_sales         Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+  task_sm            Qwen/Qwen3-32B                             qwen_native    8         0%           0%
+
+  PASS: all cells have <25% empty answer rate.

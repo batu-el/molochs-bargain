@@ -1,0 +1,1 @@
+new_experiments/run_experiments.sh: line 44: TINKER_API_KEY: TINKER_API_KEY must be set (https://tinker-console.thinkingmachines.ai/)

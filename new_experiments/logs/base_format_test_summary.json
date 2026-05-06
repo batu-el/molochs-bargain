@@ -1,0 +1,137 @@
+[
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "task": "task_elections",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "task": "task_sales",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "task": "task_sm",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "task": "task_elections",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "task": "task_sales",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "task": "task_sm",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+    "task": "task_elections",
+    "n": 8,
+    "empty_answer_rate": 1.0,
+    "empty_think_rate": 1.0,
+    "tool_call_rate": 1.0,
+    "no_tag_rate": 1.0
+  },
+  {
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+    "task": "task_sales",
+    "n": 8,
+    "empty_answer_rate": 0.125,
+    "empty_think_rate": 1.0,
+    "tool_call_rate": 1.0,
+    "no_tag_rate": 0.125
+  },
+  {
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+    "task": "task_sm",
+    "n": 8,
+    "empty_answer_rate": 1.0,
+    "empty_think_rate": 1.0,
+    "tool_call_rate": 1.0,
+    "no_tag_rate": 1.0
+  },
+  {
+    "model": "Qwen/Qwen3-8B",
+    "task": "task_elections",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "Qwen/Qwen3-8B",
+    "task": "task_sales",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "Qwen/Qwen3-8B",
+    "task": "task_sm",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "task": "task_elections",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "task": "task_sales",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "task": "task_sm",
+    "n": 8,
+    "empty_answer_rate": 0.0,
+    "empty_think_rate": 0.0,
+    "tool_call_rate": 0.0,
+    "no_tag_rate": 0.0
+  }
+]

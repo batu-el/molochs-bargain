@@ -1,0 +1,37 @@
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+========================================================================================================================
+  Format-compliance smoke test  (limit=4 per cell)
+========================================================================================================================
+
+----- meta-llama/Llama-3.1-8B-Instruct -----
+  task_elections     meta-llama/Llama-3.1-8B-Instruct            ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-b7722c2ae5a58cb3_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sales         meta-llama/Llama-3.1-8B-Instruct            ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-81eb62e23c03cfd1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sm            meta-llama/Llama-3.1-8B-Instruct            ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-a6b57426e48ea9d1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+
+----- meta-llama/Llama-3.3-70B-Instruct -----
+  task_elections     meta-llama/Llama-3.3-70B-Instruct           ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-b7722c2ae5a58cb3_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sales         meta-llama/Llama-3.3-70B-Instruct           ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-81eb62e23c03cfd1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sm            meta-llama/Llama-3.3-70B-Instruct           ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-a6b57426e48ea9d1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+
+----- Qwen/Qwen3-8B -----
+  task_elections     Qwen/Qwen3-8B                               ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-b7722c2ae5a58cb3_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sales         Qwen/Qwen3-8B                               ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-81eb62e23c03cfd1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sm            Qwen/Qwen3-8B                               ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-a6b57426e48ea9d1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+
+----- Qwen/Qwen3-30B-A3B-Instruct-2507 -----
+  task_elections     Qwen/Qwen3-30B-A3B-Instruct-2507            ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-b7722c2ae5a58cb3_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sales         Qwen/Qwen3-30B-A3B-Instruct-2507            ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-81eb62e23c03cfd1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sm            Qwen/Qwen3-30B-A3B-Instruct-2507            ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-a6b57426e48ea9d1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+
+----- openai/gpt-oss-20b -----
+  task_elections     openai/gpt-oss-20b                          ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-b7722c2ae5a58cb3_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sales         openai/gpt-oss-20b                          ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-81eb62e23c03cfd1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+  task_sm            openai/gpt-oss-20b                          ERROR: PermissionError: [Errno 1] Operation not permitted: '/Users/batuel/.cache/huggingface/datasets/_Users_batuel_.cache_huggingface_datasets_json_default-a6b57426e48ea9d1_0.0.0_fd36e719ef4622b68c8a653acedc0de994c84ff8d005b98b3a6dcf1978154481.lock'
+
+========================================================================================================================
+  AGGREGATE
+========================================================================================================================
+  task               model                                      style          n  ans_empty  think_empty
+  --------------------------------------------------------------------------------------------------------------------
+
+  PASS: all cells have <25% empty answer rate.

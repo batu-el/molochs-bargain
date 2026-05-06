@@ -1,0 +1,12 @@
+{
+  "task": "task_sm",
+  "model_name": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+  "method": "rft",
+  "checkpoint_uri": "tinker://4d1ab9a2-9ea2-55e3-b48d-21a10b120900:train:10/sampler_weights/sft__task_sm__Qwen__Qwen3-30B-A3B-Instruct-2507__rft__final",
+  "checkpoint_name": "sft__task_sm__Qwen__Qwen3-30B-A3B-Instruct-2507__rft__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "total_steps": 3
+}

@@ -18,10 +18,10 @@ __pycache__/
 # ---------- Local data / models / results ----------
 artsco/models/
 artsco/res/
-new_experiments/data/
-new_experiments/models/
-new_experiments/res/
-new_experiments/logs/
+# new_experiments/data/
+# new_experiments/models/
+# new_experiments/res/
+# new_experiments/logs/
 
 # ---------- HF / Tinker / WandB caches ----------
 .cache/
