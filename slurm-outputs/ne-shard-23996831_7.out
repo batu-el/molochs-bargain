@@ -1,0 +1,7 @@
+============================================================
+[shard 7/15]  task=task_sales  model=Qwen/Qwen3-8B
+  LIMIT=<full>  MAX_CONC=32  BATCH_SIZE=16
+============================================================
+------------------------------------------------------------
+[shard 7] step=prep  cmd=python -m new_experiments.src.prep_data --task task_sales --model Qwen/Qwen3-8B
+------------------------------------------------------------

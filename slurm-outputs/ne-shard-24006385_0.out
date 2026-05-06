@@ -1,0 +1,9 @@
+============================================================
+[shard 0/15]  task=task_elections  model=meta-llama/Llama-3.1-8B-Instruct
+  LIMIT=<full>  MAX_CONC=32  BATCH_SIZE=32
+============================================================
+------------------------------------------------------------
+[shard 0] step=prep  cmd=python -m new_experiments.src.prep_data --task task_elections --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/meta-llama/Llama-3.1-8B-Instruct/train.json (1024 rows)
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/meta-llama/Llama-3.1-8B-Instruct/test.json (1024 rows)

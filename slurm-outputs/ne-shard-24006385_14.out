@@ -1,0 +1,9 @@
+============================================================
+[shard 14/15]  task=task_sm  model=openai/gpt-oss-20b
+  LIMIT=<full>  MAX_CONC=32  BATCH_SIZE=32
+============================================================
+------------------------------------------------------------
+[shard 14] step=prep  cmd=python -m new_experiments.src.prep_data --task task_sm --model openai/gpt-oss-20b
+------------------------------------------------------------
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/openai/gpt-oss-20b/train.json (1024 rows)
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/openai/gpt-oss-20b/test.json (1024 rows)

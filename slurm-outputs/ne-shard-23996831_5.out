@@ -1,0 +1,9 @@
+============================================================
+[shard 5/15]  task=task_sm  model=meta-llama/Llama-3.3-70B-Instruct
+  LIMIT=<full>  MAX_CONC=32  BATCH_SIZE=16
+============================================================
+------------------------------------------------------------
+[shard 5] step=prep  cmd=python -m new_experiments.src.prep_data --task task_sm --model meta-llama/Llama-3.3-70B-Instruct
+------------------------------------------------------------
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/meta-llama/Llama-3.3-70B-Instruct/train.json (1024 rows)
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/meta-llama/Llama-3.3-70B-Instruct/test.json (1024 rows)

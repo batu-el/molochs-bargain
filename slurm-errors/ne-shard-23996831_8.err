@@ -1,0 +1,5 @@
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map:  32%|███▏      | 323/1024 [00:00<00:00, 3163.93 examples/s]Map:  90%|█████████ | 926/1024 [00:00<00:00, 4799.66 examples/s]Map: 100%|██████████| 1024/1024 [00:00<00:00, 3603.40 examples/s]
+Creating json from Arrow format:   0%|          | 0/2 [00:00<?, ?ba/s]Creating json from Arrow format:  50%|█████     | 1/2 [00:00<00:00,  8.14ba/s]Creating json from Arrow format: 100%|██████████| 2/2 [00:00<00:00, 15.77ba/s]
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map:  56%|█████▋    | 576/1024 [00:00<00:00, 5712.26 examples/s]Map: 100%|██████████| 1024/1024 [00:00<00:00, 4991.10 examples/s]
+Creating json from Arrow format:   0%|          | 0/2 [00:00<?, ?ba/s]Creating json from Arrow format: 100%|██████████| 2/2 [00:00<00:00, 50.69ba/s]
+[2026-05-05T23:38:13.407] error: *** JOB 23996861 ON sh02-16n10 CANCELLED AT 2026-05-05T23:38:13 DUE to SIGNAL Terminated ***

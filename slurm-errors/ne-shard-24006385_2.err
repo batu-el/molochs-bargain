@@ -1,0 +1,5 @@
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map:  44%|████▍     | 454/1024 [00:00<00:00, 4468.05 examples/s]Map:  98%|█████████▊| 1000/1024 [00:00<00:00, 4625.19 examples/s]Map: 100%|██████████| 1024/1024 [00:00<00:00, 4479.77 examples/s]
+Creating json from Arrow format:   0%|          | 0/2 [00:00<?, ?ba/s]Creating json from Arrow format: 100%|██████████| 2/2 [00:00<00:00, 21.84ba/s]
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map:  76%|███████▋  | 783/1024 [00:00<00:00, 7769.42 examples/s]Map: 100%|██████████| 1024/1024 [00:00<00:00, 6364.21 examples/s]
+Creating json from Arrow format:   0%|          | 0/2 [00:00<?, ?ba/s]Creating json from Arrow format: 100%|██████████| 2/2 [00:00<00:00, 45.70ba/s]
+/var/spool/slurmd/job24006472/slurm_script: line 115: LIMIT_ARG[@]: unbound variable

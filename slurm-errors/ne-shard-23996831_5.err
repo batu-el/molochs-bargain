@@ -1,0 +1,7 @@
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 1024 examples [00:00, 20022.13 examples/s]
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map:  89%|████████▉ | 912/1024 [00:00<00:00, 9032.47 examples/s]Map: 100%|██████████| 1024/1024 [00:00<00:00, 7769.01 examples/s]
+Creating json from Arrow format:   0%|          | 0/2 [00:00<?, ?ba/s]Creating json from Arrow format: 100%|██████████| 2/2 [00:00<00:00, 36.62ba/s]
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 1024 examples [00:00, 136530.21 examples/s]
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map: 100%|██████████| 1024/1024 [00:00<00:00, 13199.40 examples/s]
+Creating json from Arrow format:   0%|          | 0/2 [00:00<?, ?ba/s]Creating json from Arrow format: 100%|██████████| 2/2 [00:00<00:00, 94.95ba/s]
+/var/spool/slurmd/job23996858/slurm_script: line 115: LIMIT_ARG[@]: unbound variable

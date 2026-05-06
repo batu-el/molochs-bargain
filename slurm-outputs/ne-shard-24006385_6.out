@@ -1,0 +1,9 @@
+============================================================
+[shard 6/15]  task=task_elections  model=Qwen/Qwen3-8B
+  LIMIT=<full>  MAX_CONC=32  BATCH_SIZE=32
+============================================================
+------------------------------------------------------------
+[shard 6] step=prep  cmd=python -m new_experiments.src.prep_data --task task_elections --model Qwen/Qwen3-8B
+------------------------------------------------------------
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/Qwen/Qwen3-8B/train.json (1024 rows)
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/Qwen/Qwen3-8B/test.json (1024 rows)
