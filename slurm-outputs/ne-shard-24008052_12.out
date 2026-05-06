@@ -1,0 +1,14 @@
+============================================================
+[shard 12/15]  task=task_elections  model=openai/gpt-oss-20b
+  LIMIT=<full>  MAX_CONC=32  BATCH_SIZE=32
+============================================================
+------------------------------------------------------------
+[shard 12] step=prep  cmd=python -m new_experiments.src.prep_data --task task_elections --model openai/gpt-oss-20b
+------------------------------------------------------------
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/openai/gpt-oss-20b/train.json (1024 rows)
+[prep_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/openai/gpt-oss-20b/test.json (1024 rows)
+------------------------------------------------------------
+[shard 12] step=generate1  cmd=python -m new_experiments.src.generate1 --task task_elections --model openai/gpt-oss-20b --max_concurrency 32
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[generate1] task=task_elections model=openai/gpt-oss-20b prompts=1024 -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/openai/gpt-oss-20b/train_step1.json
