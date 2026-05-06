@@ -80,6 +80,15 @@ NUM_VOTERS_TRAIN = 25          # for generate1 audience feedback (25/800 train p
 NUM_VOTERS_COMPETE = 25        # for compete.py pairwise comparison (25/200 test personas)
 VOTER_SAMPLE_SEED = 0          # any int; pass to load_voter_bios(..., seed=...)
 
+# Voter bio surface form. The 800/200 subject pool ships with a *paired*
+# free-form persona text and a structured demographics dict per person:
+#   - "persona"      : free-form persona paragraph only           (DEFAULT)
+#   - "demographics" : demographic list only                      (ABLATION)
+#   - "both"         : demographics header + persona paragraph
+# The same (seed, n) sample selects the same underlying 25 people regardless
+# of bio_mode, so persona vs demographics runs are directly comparable.
+VOTER_BIO_MODE = "persona"
+
 # ---------- LoRA / SFT hyperparameters (mirror artsco/src/train.py) ----------
 LORA_RANK = 16
 LORA_ALPHA = 32

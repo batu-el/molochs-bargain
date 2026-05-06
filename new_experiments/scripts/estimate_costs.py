@@ -38,9 +38,21 @@ from new_experiments.src.config import (  # noqa: E402
     PROBE_MODEL_NAME,
     TASKS,
     TRAINED_METHODS,
+    VOTER_BIO_MODE,
     VOTER_MODEL_NAME,
     raw_split_path,
 )
+
+
+# Mean voter bio length per VOTER_BIO_MODE, measured on the full
+# subjects/personas_{train,test}.json + demographics_{train,test}.json pool
+# (1000 personas) using chars/4 + ~15% safety margin for tokenizer overhead.
+BIO_TOKENS_PER_MODE = {
+    "persona":      360,    # measured ~306 -> +safety
+    "demographics": 120,    # measured  ~98 -> +safety
+    "both":         500,    # measured ~414 -> +safety
+}
+BIO_TOKENS = BIO_TOKENS_PER_MODE.get(VOTER_BIO_MODE, 360)
 
 
 # ---------- Pricing (USD per million tokens) ----------
@@ -138,12 +150,12 @@ def estimate_generate1(limit: int | None) -> StageCost:
         sc.tinker_prefill_tokens += n * tok["prompt"]
         sc.tinker_sample_tokens += n * NUM_PLAYERS * tok["completion"]
 
-        # Voter calls (gpt-4o-mini): 50 voters x n prompts. Each voter sees both candidates.
+        # Voter calls (gpt-4o-mini): NUM_VOTERS_TRAIN voters x n prompts.
+        # Each voter sees both candidates.
         voter_calls = NUM_VOTERS_TRAIN * n
-        # voter prompt = bio (~650 tokens for combined demographics + persona text
-        # from subjects/{personas,demographics}_train.json) + instructions (~250)
-        # + 2 candidates (~2 * completion).
-        in_per_call = 650 + 250 + 2 * tok["completion"]
+        # voter prompt = bio (BIO_TOKENS, depends on VOTER_BIO_MODE) +
+        # instructions (~250) + 2 candidates (~2 * completion).
+        in_per_call = BIO_TOKENS + 250 + 2 * tok["completion"]
         out_per_call = 200  # short think + <vote>X</vote>
         sc.openai_input_tokens["gpt-4o-mini"] = sc.openai_input_tokens.get("gpt-4o-mini", 0) + voter_calls * in_per_call
         sc.openai_output_tokens["gpt-4o-mini"] = sc.openai_output_tokens.get("gpt-4o-mini", 0) + voter_calls * out_per_call
@@ -216,8 +228,8 @@ def estimate_compete(limit: int | None) -> StageCost:
         n = _apply_limit(_row_count(task, "test"), limit)
         tok = TASK_TOKENS[task]
         calls = NUM_VOTERS_COMPETE * n * pairs * len(MODELS)
-        # bio (~650, see generate1) + instructions (~250) + 2 candidates.
-        in_per_call = 650 + 250 + 2 * tok["completion"]
+        # bio (BIO_TOKENS, see generate1) + instructions (~250) + 2 candidates.
+        in_per_call = BIO_TOKENS + 250 + 2 * tok["completion"]
         out_per_call = 200
         sc.openai_input_tokens["gpt-4o-mini"] = sc.openai_input_tokens.get("gpt-4o-mini", 0) + calls * in_per_call
         sc.openai_output_tokens["gpt-4o-mini"] = sc.openai_output_tokens.get("gpt-4o-mini", 0) + calls * out_per_call
@@ -287,6 +299,9 @@ def main():
 
     print("=" * 110)
     print(f"new_experiments cost estimate  (models: {', '.join(MODELS)})")
+    print(f"  voters: train={NUM_VOTERS_TRAIN}  compete={NUM_VOTERS_COMPETE}  "
+          f"bio_mode={VOTER_BIO_MODE} (~{BIO_TOKENS} tokens/bio)  "
+          f"probe_model={PROBE_MODEL_NAME}")
     if args.limit:
         print(f"  --limit {args.limit}  (capped to first {args.limit} prompts per task)")
     print("=" * 110)

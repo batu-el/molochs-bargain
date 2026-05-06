@@ -31,6 +31,7 @@ from new_experiments.src.config import (  # noqa: E402
     NUM_PLAYERS,
     NUM_VOTERS_TRAIN,
     TASKS,
+    VOTER_BIO_MODE,
     VOTER_MODEL_NAME,
     VOTER_SAMPLE_SEED,
     step1_path,
@@ -76,12 +77,14 @@ async def _run(task: str, model_name: str, max_concurrency: int, limit: int | No
     player_candidates = [[extract_answer(c, task, model_name) for c in row] for row in completions]
 
     # ----- Voter feedback (GPT-4o-mini) -----
-    # Train personas come from `subjects/personas_train.json` +
-    # `subjects/demographics_train.json` (paired by index, combined into one
-    # roleplay biography per voter by `personas.load_voter_bios`).
-    # Sample NUM_VOTERS_TRAIN of the 800 train personas without replacement
-    # using a fixed seed -> the same 50 voters across all (model, task, prompt).
-    bios = load_voter_bios("train", n=NUM_VOTERS_TRAIN, seed=VOTER_SAMPLE_SEED)
+    # Sample NUM_VOTERS_TRAIN of the 800 train personas (in `subjects/`)
+    # without replacement using a fixed seed -> same voters across all
+    # (model, task, prompt). bio_mode controls which surface form is fed
+    # to the voter (persona text by default; "demographics" for the
+    # ablation, see config.VOTER_BIO_MODE).
+    bios = load_voter_bios(
+        "train", n=NUM_VOTERS_TRAIN, seed=VOTER_SAMPLE_SEED, bio_mode=VOTER_BIO_MODE,
+    )
     voters = Voters(bios=bios, task=task, model_name=VOTER_MODEL_NAME)
     voter_votes, voter_thinks, _voter_choices = voters.get_votes_list(player_candidates)
 

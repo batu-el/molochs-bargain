@@ -31,6 +31,7 @@ from new_experiments.src.config import (  # noqa: E402
     MODELS,
     NUM_VOTERS_COMPETE,
     TASKS,
+    VOTER_BIO_MODE,
     VOTER_MODEL_NAME,
     VOTER_SAMPLE_SEED,
     competition_path,
@@ -57,11 +58,13 @@ def _load_player0(task: str, model_name: str) -> Dict[str, List[str]]:
 
 def _run_one(task: str, limit: int | None) -> dict:
     # Use the *test* persona split so the compete-time voter pool is disjoint
-    # from the train-time audience used in generate1.py. Personas live in
-    # `subjects/personas_test.json` + `subjects/demographics_test.json`.
-    # Sample NUM_VOTERS_COMPETE of the 200 test personas without replacement
-    # using a fixed seed for reproducibility across compete runs.
-    bios = load_voter_bios("test", n=NUM_VOTERS_COMPETE, seed=VOTER_SAMPLE_SEED)
+    # from the train-time audience used in generate1.py. Sample
+    # NUM_VOTERS_COMPETE of the 200 test personas without replacement using
+    # a fixed seed; bio_mode follows config.VOTER_BIO_MODE so persona vs
+    # demographics ablations stay aligned across train and test stages.
+    bios = load_voter_bios(
+        "test", n=NUM_VOTERS_COMPETE, seed=VOTER_SAMPLE_SEED, bio_mode=VOTER_BIO_MODE,
+    )
     voters = Voters(bios=bios, task=task, model_name=VOTER_MODEL_NAME)
 
     results: dict = {"mean": {}, "std": {}}
