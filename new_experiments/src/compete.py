@@ -10,6 +10,7 @@ preference for the second method (>0.5 means the second won).
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import os
 import sys
@@ -30,6 +31,7 @@ from new_experiments.src.config import (  # noqa: E402
     METHODS,
     MODELS,
     NUM_VOTERS_COMPETE,
+    RES_DIR,
     TASKS,
     VOTER_BIO_MODE,
     VOTER_MODEL_NAME,
@@ -41,6 +43,11 @@ from new_experiments.src.personas import load_voter_bios  # noqa: E402
 
 
 METHOD_PAIRS: List[Tuple[str, str]] = [("base", "rft"), ("base", "tfb"), ("rft", "tfb")]
+
+
+def _competition_part_path(task: str, model_name: str) -> str:
+    """Per-model intermediate file for a single (task, model) shard."""
+    return os.path.join(RES_DIR, task, "competition_parts", f"{model_name}.json")
 
 
 def _load_player0(task: str, model_name: str) -> Dict[str, List[str]]:
@@ -56,7 +63,7 @@ def _load_player0(task: str, model_name: str) -> Dict[str, List[str]]:
     return out
 
 
-def _run_one(task: str, limit: int | None) -> dict:
+def _run_one(task: str, limit: int | None, models: List[str]) -> dict:
     # Use the *test* persona split so the compete-time voter pool is disjoint
     # from the train-time audience used in generate1.py. Sample
     # NUM_VOTERS_COMPETE of the 200 test personas without replacement using
@@ -68,7 +75,7 @@ def _run_one(task: str, limit: int | None) -> dict:
     voters = Voters(bios=bios, task=task, model_name=VOTER_MODEL_NAME)
 
     results: dict = {"mean": {}, "std": {}}
-    for model_name in MODELS:
+    for model_name in models:
         results["mean"][model_name] = {}
         results["std"][model_name] = {}
         cands = _load_player0(task, model_name)
@@ -100,17 +107,74 @@ def _run_one(task: str, limit: int | None) -> dict:
     return results
 
 
+def _merge_parts(task: str) -> None:
+    """Consolidate every res/{task}/competition_parts/**/*.json into competition.json."""
+    parts_dir = os.path.join(RES_DIR, task, "competition_parts")
+    if not os.path.isdir(parts_dir):
+        print(f"[compete-merge] {task}: no parts dir at {parts_dir}; skipping")
+        return
+    part_files = sorted(glob.glob(os.path.join(parts_dir, "**", "*.json"), recursive=True))
+    if not part_files:
+        print(f"[compete-merge] {task}: no part files under {parts_dir}; skipping")
+        return
+
+    merged: dict = {"mean": {}, "std": {}}
+    for path in part_files:
+        with open(path) as f:
+            part = json.load(f)
+        for k in ("mean", "std"):
+            for model_name, pair_to_val in part.get(k, {}).items():
+                if model_name in merged[k]:
+                    print(
+                        f"[compete-merge] WARNING: {task} model={model_name} "
+                        f"already merged; overwriting from {path}"
+                    )
+                merged[k][model_name] = pair_to_val
+
+    out_path = competition_path(task)
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w") as f:
+        json.dump(merged, f, indent=2)
+    print(f"[compete-merge] wrote {out_path}  (merged {len(part_files)} part(s))")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--task", choices=TASKS, default=None)
+    p.add_argument(
+        "--model",
+        default=None,
+        help=(
+            "Restrict to a single model and write to a per-model part file under "
+            "res/{task}/competition_parts/. Use --merge afterwards to consolidate."
+        ),
+    )
+    p.add_argument(
+        "--merge",
+        action="store_true",
+        help="Consolidate per-model part files into the final competition.json (no API calls).",
+    )
     p.add_argument("--limit", type=int, default=None)
     args = p.parse_args()
 
+    if args.model is not None and args.model not in MODELS:
+        raise SystemExit(f"--model must be one of {MODELS}, got {args.model!r}")
+
     tasks = [args.task] if args.task else TASKS
+
+    if args.merge:
+        for task in tasks:
+            _merge_parts(task)
+        return
+
+    models = [args.model] if args.model else list(MODELS)
     for task in tasks:
-        out_path = competition_path(task)
+        if args.model:
+            out_path = _competition_part_path(task, args.model)
+        else:
+            out_path = competition_path(task)
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        results = _run_one(task, args.limit)
+        results = _run_one(task, args.limit, models)
         with open(out_path, "w") as f:
             json.dump(results, f, indent=2)
         print(f"[compete] wrote {out_path}")

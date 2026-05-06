@@ -73,6 +73,22 @@ python -m new_experiments.scripts.estimate_costs --limit 64   # smoke (~$70)
 | `scripts/launch_full.sh` | Detached (`nohup`) full run with logging | ~$460 |
 | `run_experiments.sh` | Bare orchestrator used by the others | — |
 
+### SLURM eval shards
+
+After all 15 (model, task) training shards under `submit_train_parallel.sh`
+finish, choose one of:
+
+| Submission | Parallelism | When to use |
+|---|---|---|
+| `bash submit_eval.sh [smoke]` | 3 array tasks (one per task) | default; each shard sweeps all 5 models internally |
+| `bash submit_eval_parallel.sh [smoke]` | 15 array tasks (one per model x task) + 1 dependent merge job | max parallelism; useful when OpenAI rate or wall-clock matters |
+
+The per-model variant writes to `res/{task}/competition_parts/{model}.json`
+and `res/probes/{task}_{qid}_parts/{model}.csv`. The auto-submitted
+`run_eval_merge.sh` (afterok dependency) consolidates them into the
+canonical `res/{task}/competition.json` and `res/probes/{task}_{qid}.csv`
+that the analysis notebooks read.
+
 To re-run a single stage:
 
 ```bash

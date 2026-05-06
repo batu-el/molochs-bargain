@@ -21,6 +21,7 @@ is `config.PROBE_MODEL_NAME` (currently gpt-4o-mini, ~94% cheaper than gpt-4o).
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import os
 import sys
@@ -38,10 +39,16 @@ from new_experiments.src.config import (  # noqa: E402
     METHODS,
     MODELS,
     PROBE_MODEL_NAME,
+    RES_DIR,
     TASKS,
     probes_path,
     step2_path,
 )
+
+
+def _probes_part_path(task: str, qid: str, model_name: str) -> str:
+    """Per-model intermediate CSV for a single (task, qid, model) shard."""
+    return os.path.join(RES_DIR, "probes", f"{task}_{qid}_parts", f"{model_name}.csv")
 
 # ---------------------------------------------------------------------------
 # Force every trends/*_q*.py probe to use config.PROBE_MODEL_NAME instead of
@@ -122,16 +129,15 @@ def _make_df(task: str, model_name: str, method: str, check_fn) -> pd.DataFrame:
     })
 
 
-def run_task(task: str, qid: str, limit: int | None) -> None:
+def run_task(task: str, qid: str, limit: int | None, models: List[str], out_path: str) -> None:
     if qid not in PROBES.get(task, {}):
         print(f"[probes] no probe {qid} for task {task}; skipping")
         return
     check_fn = PROBES[task][qid]
-    out_path = probes_path(task, qid)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
     frames = []
-    for model_name in MODELS:
+    for model_name in models:
         for method in METHODS:
             print(f"[probes] {task}/{qid} model={model_name} method={method}")
             data = _load_step2(task, model_name, method)
@@ -164,18 +170,68 @@ def run_task(task: str, qid: str, limit: int | None) -> None:
     print(full.groupby(["model", "method"])["label"].mean())
 
 
+def _merge_parts(task: str, qid: str) -> None:
+    """Concatenate every res/probes/{task}_{qid}_parts/**/*.csv into the final CSV."""
+    parts_dir = os.path.join(RES_DIR, "probes", f"{task}_{qid}_parts")
+    if not os.path.isdir(parts_dir):
+        print(f"[probes-merge] {task}/{qid}: no parts dir at {parts_dir}; skipping")
+        return
+    part_files = sorted(glob.glob(os.path.join(parts_dir, "**", "*.csv"), recursive=True))
+    if not part_files:
+        print(f"[probes-merge] {task}/{qid}: no part files under {parts_dir}; skipping")
+        return
+
+    frames = [pd.read_csv(p) for p in part_files]
+    full = pd.concat(frames, ignore_index=True)
+    full["label"] = pd.to_numeric(full["label"], errors="coerce")
+
+    out_path = probes_path(task, qid)
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    full.to_csv(out_path, index=False)
+    print(f"[probes-merge] wrote {out_path}  (merged {len(part_files)} part(s))")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--task", choices=TASKS, default=None)
     p.add_argument("--qid", default=None, help="q1 or q2")
+    p.add_argument(
+        "--model",
+        default=None,
+        help=(
+            "Restrict to a single model and write to a per-model part file under "
+            "res/probes/{task}_{qid}_parts/. Use --merge afterwards to consolidate."
+        ),
+    )
+    p.add_argument(
+        "--merge",
+        action="store_true",
+        help="Consolidate per-model part files into the final probe CSVs (no API calls).",
+    )
     p.add_argument("--limit", type=int, default=None)
     args = p.parse_args()
 
+    if args.model is not None and args.model not in MODELS:
+        raise SystemExit(f"--model must be one of {MODELS}, got {args.model!r}")
+
     tasks = [args.task] if args.task else TASKS
+
+    if args.merge:
+        for task in tasks:
+            qids = [args.qid] if args.qid else list(PROBES.get(task, {}).keys())
+            for qid in qids:
+                _merge_parts(task, qid)
+        return
+
+    models = [args.model] if args.model else list(MODELS)
     for task in tasks:
         qids = [args.qid] if args.qid else list(PROBES.get(task, {}).keys())
         for qid in qids:
-            run_task(task, qid, args.limit)
+            if args.model:
+                out_path = _probes_part_path(task, qid, args.model)
+            else:
+                out_path = probes_path(task, qid)
+            run_task(task, qid, args.limit, models, out_path)
 
 
 if __name__ == "__main__":
