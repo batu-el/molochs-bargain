@@ -11,11 +11,12 @@ Direct port of `artsco/step2.1.ipynb`:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import random
 from collections import Counter
 
-from datasets import Dataset, load_dataset
+from datasets import Dataset
 
 from new_experiments.src.config import (
     MODELS,
@@ -27,6 +28,16 @@ from new_experiments.src.config import (
 from new_experiments.src.data_utils import build_tfb_prompt
 from new_experiments.src.format_adapters import render_think_only_completion
 from new_experiments.src.tinker_utils import get_tokenizer
+
+
+def _load_json_records(path: str):
+    """Load JSON array or JSONL without routing large nested strings through PyArrow."""
+    with open(path, "r", encoding="utf-8") as f:
+        first = f.read(1)
+        f.seek(0)
+        if first == "[":
+            return json.load(f)
+        return [json.loads(line) for line in f if line.strip()]
 
 
 def get_rft(dataset):
@@ -63,8 +74,8 @@ def get_tfb(dataset, dataset_base, tokenizer, task: str, model_name: str):
 def build_one(task: str, model_name: str, split: str = "train", seed: int = 0) -> None:
     rng = random.Random(seed)
 
-    step1_ds = load_dataset("json", data_files=step1_path(task, model_name, split), split="train")
-    base_ds = load_dataset("json", data_files=raw_split_path(task, split), split="train")
+    step1_ds = _load_json_records(step1_path(task, model_name, split))
+    base_ds = _load_json_records(raw_split_path(task, split))
     tokenizer = get_tokenizer(model_name)
 
     # ----- RFT -----
