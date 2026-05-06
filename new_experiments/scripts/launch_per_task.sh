@@ -70,7 +70,7 @@ if ! skipped train; then
     pids=()
     for task in "${TASKS[@]}"; do
         (
-            python -m new_experiments.src.train --task "$task" --batch_size 16 \
+            python -m new_experiments.src.train --task "$task" --batch_size 32 \
                 2>&1 | tee "$ROOT_LOG/train_${task}.log"
         ) &
         pids+=($!)

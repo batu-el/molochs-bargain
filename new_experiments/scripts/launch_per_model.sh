@@ -55,7 +55,7 @@ run_per_model() {
         echo "=== build_train_data ==="
         python -m new_experiments.src.build_train_data --model "$model"
         echo "=== train ==="
-        python -m new_experiments.src.train --model "$model" --batch_size 16
+        python -m new_experiments.src.train --model "$model" --batch_size 32
         echo "=== generate22 ==="
         python -m new_experiments.src.generate22 --model "$model" --max_concurrency 32
         echo "=== generate2 ==="

@@ -28,7 +28,7 @@ mode="${1:-full}"
 
 LIMIT="${LIMIT:-}"
 MAX_CONC="${MAX_CONC:-32}"
-BATCH_SIZE="${BATCH_SIZE:-16}"
+BATCH_SIZE="${BATCH_SIZE:-32}"
 TIME_LIMIT="${TIME_LIMIT:-24:00:00}"
 ARRAY_RANGE="${ARRAY_RANGE:-0-14}"          # default: all 15 (model, task) pairs
 THROTTLE="${THROTTLE:-}"                    # e.g. "%5" to cap at 5 concurrent

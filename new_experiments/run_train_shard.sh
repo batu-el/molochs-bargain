@@ -63,7 +63,7 @@ export PYTHONPATH="${REPO_ROOT}:${PYTHONPATH:-}"
 # ----- Per-stage knobs (override via --export on submit) -----
 LIMIT="${LIMIT:-}"                          # e.g. "64" for smoke; empty = full
 MAX_CONC="${MAX_CONC:-32}"                  # Tinker / OpenAI concurrency
-BATCH_SIZE="${BATCH_SIZE:-16}"              # Tinker SFT per-step batch
+BATCH_SIZE="${BATCH_SIZE:-32}"              # Tinker SFT per-step batch
 PYTHON="${PYTHON:-python}"
 
 LIMIT_ARG=()

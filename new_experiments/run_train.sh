@@ -63,7 +63,7 @@ LIMIT="${LIMIT:-}"                          # e.g. "64" for smoke; empty = full
 ONLY="${ONLY:-}"                            # comma-list of stages to run alone
 SKIP="${SKIP:-}"                            # comma-list of stages to skip
 MAX_CONC="${MAX_CONC:-32}"                  # Tinker / OpenAI concurrency
-BATCH_SIZE="${BATCH_SIZE:-16}"              # Tinker SFT per-step batch
+BATCH_SIZE="${BATCH_SIZE:-32}"              # Tinker SFT per-step batch
 
 # Build the run_experiments.sh argv from the env vars above.
 RUN_ARGS=()

@@ -30,7 +30,7 @@ LIMIT=""
 ONLY=""
 SKIP=""
 MAX_CONC="${MAX_CONC:-32}"
-BATCH_SIZE="${BATCH_SIZE:-16}"
+BATCH_SIZE="${BATCH_SIZE:-32}"
 PYTHON="${PYTHON:-python}"
 
 # ---------- argparse ----------
