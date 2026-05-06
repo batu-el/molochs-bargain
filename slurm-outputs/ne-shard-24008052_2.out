@@ -12,3 +12,329 @@
 ------------------------------------------------------------
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [generate1] task=task_sm model=meta-llama/Llama-3.1-8B-Instruct prompts=1024 -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/meta-llama/Llama-3.1-8B-Instruct/train_step1.json
+[generate1] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/meta-llama/Llama-3.1-8B-Instruct/train_step1.json
+------------------------------------------------------------
+[shard 2] step=build_train  cmd=python -m new_experiments.src.build_train_data --task task_sm --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[build_train_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/meta-llama/Llama-3.1-8B-Instruct/train_rft.json (3072 rows)
+[build_train_data] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_sm/meta-llama/Llama-3.1-8B-Instruct/train_tfb.json (6144 rows)
+------------------------------------------------------------
+[shard 2] step=train  cmd=python -m new_experiments.src.train --task task_sm --model meta-llama/Llama-3.1-8B-Instruct --batch_size 32
+------------------------------------------------------------
+[train] task=task_sm model=meta-llama/Llama-3.1-8B-Instruct method=rft -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/models/task_sm/meta-llama/Llama-3.1-8B-Instruct/rft/state.json
+[train] encoding 3072 examples ...
+[train] kept 3072/3072 examples after encoding
+[train] 3072 datums, batch_size=32, total_steps=96
+[train] epoch=0 step=1/96 loss=0.7440 lr=1.00e-04 elapsed=2.0s
+[train] epoch=0 step=2/96 loss=0.7303 lr=2.00e-04 elapsed=4.2s
+[train] epoch=0 step=3/96 loss=0.7594 lr=2.00e-04 elapsed=6.1s
+[train] epoch=0 step=4/96 loss=0.7123 lr=2.00e-04 elapsed=8.0s
+[train] epoch=0 step=5/96 loss=0.6694 lr=2.00e-04 elapsed=11.1s
+[train] epoch=0 step=6/96 loss=0.6682 lr=2.00e-04 elapsed=13.0s
+[train] epoch=0 step=7/96 loss=0.6537 lr=1.99e-04 elapsed=14.8s
+[train] epoch=0 step=8/96 loss=0.7121 lr=1.99e-04 elapsed=17.1s
+[train] epoch=0 step=9/96 loss=0.6838 lr=1.98e-04 elapsed=19.1s
+[train] epoch=0 step=10/96 loss=0.6992 lr=1.98e-04 elapsed=22.1s
+[train] epoch=0 step=11/96 loss=0.6277 lr=1.97e-04 elapsed=24.1s
+[train] epoch=0 step=12/96 loss=0.6218 lr=1.96e-04 elapsed=26.1s
+[train] epoch=0 step=13/96 loss=0.6861 lr=1.95e-04 elapsed=28.0s
+[train] epoch=0 step=14/96 loss=0.6281 lr=1.94e-04 elapsed=30.3s
+[train] epoch=0 step=15/96 loss=0.6478 lr=1.93e-04 elapsed=32.2s
+[train] epoch=0 step=16/96 loss=0.6575 lr=1.92e-04 elapsed=34.2s
+[train] epoch=0 step=17/96 loss=0.6397 lr=1.90e-04 elapsed=36.0s
+[train] epoch=0 step=18/96 loss=0.5789 lr=1.89e-04 elapsed=37.9s
+[train] epoch=0 step=19/96 loss=0.6666 lr=1.87e-04 elapsed=41.4s
+[train] epoch=0 step=20/96 loss=0.6513 lr=1.86e-04 elapsed=43.3s
+[train] epoch=0 step=21/96 loss=0.6384 lr=1.84e-04 elapsed=45.6s
+[train] epoch=0 step=22/96 loss=0.6092 lr=1.82e-04 elapsed=47.5s
+[train] epoch=0 step=23/96 loss=0.6176 lr=1.81e-04 elapsed=49.3s
+[train] epoch=0 step=24/96 loss=0.6580 lr=1.79e-04 elapsed=52.3s
+[train] epoch=0 step=25/96 loss=0.6167 lr=1.77e-04 elapsed=54.1s
+[train] epoch=0 step=26/96 loss=0.6078 lr=1.75e-04 elapsed=56.9s
+[train] epoch=0 step=27/96 loss=0.5836 lr=1.73e-04 elapsed=58.8s
+[train] epoch=0 step=28/96 loss=0.6005 lr=1.70e-04 elapsed=60.6s
+[train] epoch=0 step=29/96 loss=0.5997 lr=1.68e-04 elapsed=62.3s
+[train] epoch=0 step=30/96 loss=0.5530 lr=1.66e-04 elapsed=64.0s
+[train] epoch=0 step=31/96 loss=0.5922 lr=1.63e-04 elapsed=66.2s
+[train] epoch=0 step=32/96 loss=0.6694 lr=1.61e-04 elapsed=68.1s
+[train] epoch=0 step=33/96 loss=0.6312 lr=1.58e-04 elapsed=70.6s
+[train] epoch=0 step=34/96 loss=0.5504 lr=1.56e-04 elapsed=72.5s
+[train] epoch=0 step=35/96 loss=0.6019 lr=1.53e-04 elapsed=74.5s
+[train] epoch=0 step=36/96 loss=0.5946 lr=1.51e-04 elapsed=76.5s
+[train] epoch=0 step=37/96 loss=0.5878 lr=1.48e-04 elapsed=78.7s
+[train] epoch=0 step=38/96 loss=0.5637 lr=1.45e-04 elapsed=81.0s
+[train] epoch=0 step=39/96 loss=0.6079 lr=1.42e-04 elapsed=82.9s
+[train] epoch=0 step=40/96 loss=0.5512 lr=1.40e-04 elapsed=84.9s
+[train] epoch=0 step=41/96 loss=0.5740 lr=1.37e-04 elapsed=86.8s
+[train] epoch=0 step=42/96 loss=0.5960 lr=1.34e-04 elapsed=88.6s
+[train] epoch=0 step=43/96 loss=0.5822 lr=1.31e-04 elapsed=90.6s
+[train] epoch=0 step=44/96 loss=0.6040 lr=1.28e-04 elapsed=92.5s
+[train] epoch=0 step=45/96 loss=0.5152 lr=1.25e-04 elapsed=94.3s
+[train] epoch=0 step=46/96 loss=0.5954 lr=1.22e-04 elapsed=96.3s
+[train] epoch=0 step=47/96 loss=0.5646 lr=1.19e-04 elapsed=98.1s
+[train] epoch=0 step=48/96 loss=0.5608 lr=1.16e-04 elapsed=101.3s
+[train] epoch=0 step=49/96 loss=0.5663 lr=1.13e-04 elapsed=103.5s
+[train] epoch=0 step=50/96 loss=0.5318 lr=1.10e-04 elapsed=105.5s
+[train] epoch=0 step=51/96 loss=0.5011 lr=1.07e-04 elapsed=107.7s
+[train] epoch=0 step=52/96 loss=0.5307 lr=1.04e-04 elapsed=110.6s
+[train] epoch=0 step=53/96 loss=0.5178 lr=1.01e-04 elapsed=112.4s
+[train] epoch=0 step=54/96 loss=0.5892 lr=9.80e-05 elapsed=114.5s
+[train] epoch=0 step=55/96 loss=0.5529 lr=9.50e-05 elapsed=116.5s
+[train] epoch=0 step=56/96 loss=0.4817 lr=9.21e-05 elapsed=118.2s
+[train] epoch=0 step=57/96 loss=0.5261 lr=8.91e-05 elapsed=120.7s
+[train] epoch=0 step=58/96 loss=0.5263 lr=8.62e-05 elapsed=123.0s
+[train] epoch=0 step=59/96 loss=0.5112 lr=8.33e-05 elapsed=125.0s
+[train] epoch=0 step=60/96 loss=0.5358 lr=8.05e-05 elapsed=127.1s
+[train] epoch=0 step=61/96 loss=0.4812 lr=7.77e-05 elapsed=128.9s
+[train] epoch=0 step=62/96 loss=0.5083 lr=7.49e-05 elapsed=131.5s
+[train] epoch=0 step=63/96 loss=0.4703 lr=7.21e-05 elapsed=133.8s
+[train] epoch=0 step=64/96 loss=0.4555 lr=6.94e-05 elapsed=135.8s
+[train] epoch=0 step=65/96 loss=0.4769 lr=6.67e-05 elapsed=137.7s
+[train] epoch=0 step=66/96 loss=0.5271 lr=6.41e-05 elapsed=140.4s
+[train] epoch=0 step=67/96 loss=0.5160 lr=6.16e-05 elapsed=142.2s
+[train] epoch=0 step=68/96 loss=0.4729 lr=5.91e-05 elapsed=144.3s
+[train] epoch=0 step=69/96 loss=0.4943 lr=5.66e-05 elapsed=146.3s
+[train] epoch=0 step=70/96 loss=0.4795 lr=5.42e-05 elapsed=148.2s
+[train] epoch=0 step=71/96 loss=0.5057 lr=5.19e-05 elapsed=150.6s
+[train] epoch=0 step=72/96 loss=0.4816 lr=4.96e-05 elapsed=152.5s
+[train] epoch=0 step=73/96 loss=0.4457 lr=4.74e-05 elapsed=154.4s
+[train] epoch=0 step=74/96 loss=0.4403 lr=4.53e-05 elapsed=156.3s
+[train] epoch=0 step=75/96 loss=0.4342 lr=4.33e-05 elapsed=158.7s
+[train] epoch=0 step=76/96 loss=0.4452 lr=4.13e-05 elapsed=161.0s
+[train] epoch=0 step=77/96 loss=0.4161 lr=3.94e-05 elapsed=164.0s
+[train] epoch=0 step=78/96 loss=0.4723 lr=3.75e-05 elapsed=166.1s
+[train] epoch=0 step=79/96 loss=0.4583 lr=3.58e-05 elapsed=167.8s
+[train] epoch=0 step=80/96 loss=0.4702 lr=3.41e-05 elapsed=170.5s
+[train] epoch=0 step=81/96 loss=0.4420 lr=3.26e-05 elapsed=172.4s
+[train] epoch=0 step=82/96 loss=0.4947 lr=3.11e-05 elapsed=174.5s
+[train] epoch=0 step=83/96 loss=0.4205 lr=2.97e-05 elapsed=176.5s
+[train] epoch=0 step=84/96 loss=0.4367 lr=2.84e-05 elapsed=178.2s
+[train] epoch=0 step=85/96 loss=0.4456 lr=2.71e-05 elapsed=180.5s
+[train] epoch=0 step=86/96 loss=0.4225 lr=2.60e-05 elapsed=182.3s
+[train] epoch=0 step=87/96 loss=0.4353 lr=2.50e-05 elapsed=184.0s
+[train] epoch=0 step=88/96 loss=0.4736 lr=2.40e-05 elapsed=186.2s
+[train] epoch=0 step=89/96 loss=0.3899 lr=2.32e-05 elapsed=187.9s
+[train] epoch=0 step=90/96 loss=0.4269 lr=2.25e-05 elapsed=191.2s
+[train] epoch=0 step=91/96 loss=0.4421 lr=2.18e-05 elapsed=193.1s
+[train] epoch=0 step=92/96 loss=0.4537 lr=2.13e-05 elapsed=194.9s
+[train] epoch=0 step=93/96 loss=0.4500 lr=2.08e-05 elapsed=197.6s
+[train] epoch=0 step=94/96 loss=0.4167 lr=2.05e-05 elapsed=200.6s
+[train] epoch=0 step=95/96 loss=0.4593 lr=2.02e-05 elapsed=202.2s
+[train] epoch=0 step=96/96 loss=0.3939 lr=2.01e-05 elapsed=204.3s
+[train] final checkpoint -> tinker://892d75f3-b141-57b5-84f3-3506772eca09:train:0/sampler_weights/sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__rft__final
+[train] saved state -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/models/task_sm/meta-llama/Llama-3.1-8B-Instruct/rft/state.json
+[train] task=task_sm model=meta-llama/Llama-3.1-8B-Instruct method=tfb -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/models/task_sm/meta-llama/Llama-3.1-8B-Instruct/tfb/state.json
+[train] encoding 6144 examples ...
+[train] kept 6144/6144 examples after encoding
+[train] 6144 datums, batch_size=32, total_steps=192
+[train] epoch=0 step=1/192 loss=1.2752 lr=4.00e-05 elapsed=1.9s
+[train] epoch=0 step=2/192 loss=1.2963 lr=8.00e-05 elapsed=3.8s
+[train] epoch=0 step=3/192 loss=1.3026 lr=1.20e-04 elapsed=6.8s
+[train] epoch=0 step=4/192 loss=1.1799 lr=1.60e-04 elapsed=8.7s
+[train] epoch=0 step=5/192 loss=1.0024 lr=2.00e-04 elapsed=10.8s
+[train] epoch=0 step=6/192 loss=1.0056 lr=2.00e-04 elapsed=12.7s
+[train] epoch=0 step=7/192 loss=0.9267 lr=2.00e-04 elapsed=15.0s
+[train] epoch=0 step=8/192 loss=0.8536 lr=2.00e-04 elapsed=16.7s
+[train] epoch=0 step=9/192 loss=0.8721 lr=2.00e-04 elapsed=19.2s
+[train] epoch=0 step=10/192 loss=0.8333 lr=2.00e-04 elapsed=21.3s
+[train] epoch=0 step=11/192 loss=0.8189 lr=2.00e-04 elapsed=23.2s
+[train] epoch=0 step=12/192 loss=0.8194 lr=2.00e-04 elapsed=25.7s
+[train] epoch=0 step=13/192 loss=0.8440 lr=1.99e-04 elapsed=27.8s
+[train] epoch=0 step=14/192 loss=0.8284 lr=1.99e-04 elapsed=29.6s
+[train] epoch=0 step=15/192 loss=0.7761 lr=1.99e-04 elapsed=31.4s
+[train] epoch=0 step=16/192 loss=0.7815 lr=1.99e-04 elapsed=33.4s
+[train] epoch=0 step=17/192 loss=0.7808 lr=1.98e-04 elapsed=35.7s
+[train] epoch=0 step=18/192 loss=0.7373 lr=1.98e-04 elapsed=37.6s
+[train] epoch=0 step=19/192 loss=0.7504 lr=1.98e-04 elapsed=39.4s
+[train] epoch=0 step=20/192 loss=0.7525 lr=1.98e-04 elapsed=41.2s
+[train] epoch=0 step=21/192 loss=0.7416 lr=1.97e-04 elapsed=43.0s
+[train] epoch=0 step=22/192 loss=0.7849 lr=1.97e-04 elapsed=46.5s
+[train] epoch=0 step=23/192 loss=0.7472 lr=1.96e-04 elapsed=48.2s
+[train] epoch=0 step=24/192 loss=0.7368 lr=1.96e-04 elapsed=49.9s
+[train] epoch=0 step=25/192 loss=0.8042 lr=1.95e-04 elapsed=52.2s
+[train] epoch=0 step=26/192 loss=0.7332 lr=1.95e-04 elapsed=55.5s
+[train] epoch=0 step=27/192 loss=0.7127 lr=1.94e-04 elapsed=57.1s
+[train] epoch=0 step=28/192 loss=0.7282 lr=1.94e-04 elapsed=59.2s
+[train] epoch=0 step=29/192 loss=0.7562 lr=1.93e-04 elapsed=61.2s
+[train] epoch=0 step=30/192 loss=0.6752 lr=1.93e-04 elapsed=63.3s
+[train] epoch=0 step=31/192 loss=0.7283 lr=1.92e-04 elapsed=65.5s
+[train] epoch=0 step=32/192 loss=0.7361 lr=1.92e-04 elapsed=67.4s
+[train] epoch=0 step=33/192 loss=0.7190 lr=1.91e-04 elapsed=69.2s
+[train] epoch=0 step=34/192 loss=0.7206 lr=1.90e-04 elapsed=71.2s
+[train] epoch=0 step=35/192 loss=0.7025 lr=1.90e-04 elapsed=72.9s
+[train] epoch=0 step=36/192 loss=0.7124 lr=1.89e-04 elapsed=75.3s
+[train] epoch=0 step=37/192 loss=0.6956 lr=1.88e-04 elapsed=77.1s
+[train] epoch=0 step=38/192 loss=0.7366 lr=1.87e-04 elapsed=78.9s
+[train] epoch=0 step=39/192 loss=0.7551 lr=1.87e-04 elapsed=80.8s
+[train] epoch=0 step=40/192 loss=0.6840 lr=1.86e-04 elapsed=85.9s
+[train] epoch=0 step=41/192 loss=0.7163 lr=1.85e-04 elapsed=87.6s
+[train] epoch=0 step=42/192 loss=0.6871 lr=1.84e-04 elapsed=89.6s
+[train] epoch=0 step=43/192 loss=0.6606 lr=1.83e-04 elapsed=91.5s
+[train] epoch=0 step=44/192 loss=0.6637 lr=1.82e-04 elapsed=93.3s
+[train] epoch=0 step=45/192 loss=0.7273 lr=1.81e-04 elapsed=96.0s
+[train] epoch=0 step=46/192 loss=0.7179 lr=1.80e-04 elapsed=125.1s
+[train] epoch=0 step=47/192 loss=0.6840 lr=1.79e-04 elapsed=128.0s
+[train] epoch=0 step=48/192 loss=0.7086 lr=1.79e-04 elapsed=130.5s
+[train] epoch=0 step=49/192 loss=0.6557 lr=1.78e-04 elapsed=132.4s
+[train] epoch=0 step=50/192 loss=0.6956 lr=1.77e-04 elapsed=134.9s
+[train] epoch=0 step=51/192 loss=0.6956 lr=1.75e-04 elapsed=136.6s
+[train] epoch=0 step=52/192 loss=0.7068 lr=1.74e-04 elapsed=138.5s
+[train] epoch=0 step=53/192 loss=0.6834 lr=1.73e-04 elapsed=140.3s
+[train] epoch=0 step=54/192 loss=0.6599 lr=1.72e-04 elapsed=142.5s
+[train] epoch=0 step=55/192 loss=0.7196 lr=1.71e-04 elapsed=145.5s
+[train] epoch=0 step=56/192 loss=0.6635 lr=1.70e-04 elapsed=147.7s
+[train] epoch=0 step=57/192 loss=0.7154 lr=1.69e-04 elapsed=149.8s
+[train] epoch=0 step=58/192 loss=0.6470 lr=1.68e-04 elapsed=151.6s
+[train] epoch=0 step=59/192 loss=0.6580 lr=1.67e-04 elapsed=153.4s
+[train] epoch=0 step=60/192 loss=0.6448 lr=1.65e-04 elapsed=155.7s
+[train] epoch=0 step=61/192 loss=0.6354 lr=1.64e-04 elapsed=157.6s
+[train] epoch=0 step=62/192 loss=0.6406 lr=1.63e-04 elapsed=159.4s
+[train] epoch=0 step=63/192 loss=0.6584 lr=1.62e-04 elapsed=161.2s
+[train] epoch=0 step=64/192 loss=0.6700 lr=1.61e-04 elapsed=163.1s
+[train] epoch=0 step=65/192 loss=0.6822 lr=1.59e-04 elapsed=165.3s
+[train] epoch=0 step=66/192 loss=0.6862 lr=1.58e-04 elapsed=167.8s
+[train] epoch=0 step=67/192 loss=0.6197 lr=1.57e-04 elapsed=170.6s
+[train] epoch=0 step=68/192 loss=0.6315 lr=1.55e-04 elapsed=172.7s
+[train] epoch=0 step=69/192 loss=0.6197 lr=1.54e-04 elapsed=175.5s
+[train] epoch=0 step=70/192 loss=0.6890 lr=1.53e-04 elapsed=179.8s
+[train] epoch=0 step=71/192 loss=0.6477 lr=1.51e-04 elapsed=183.1s
+[train] epoch=0 step=72/192 loss=0.6396 lr=1.50e-04 elapsed=186.8s
+[train] epoch=0 step=73/192 loss=0.6549 lr=1.49e-04 elapsed=190.1s
+[train] epoch=0 step=74/192 loss=0.6352 lr=1.47e-04 elapsed=192.0s
+[train] epoch=0 step=75/192 loss=0.6172 lr=1.46e-04 elapsed=193.6s
+[train] epoch=0 step=76/192 loss=0.6320 lr=1.45e-04 elapsed=195.5s
+[train] epoch=0 step=77/192 loss=0.6468 lr=1.43e-04 elapsed=197.3s
+[train] epoch=0 step=78/192 loss=0.6043 lr=1.42e-04 elapsed=199.1s
+[train] epoch=0 step=79/192 loss=0.5949 lr=1.40e-04 elapsed=201.5s
+[train] epoch=0 step=80/192 loss=0.6077 lr=1.39e-04 elapsed=203.6s
+[train] epoch=0 step=81/192 loss=0.6042 lr=1.38e-04 elapsed=206.1s
+[train] epoch=0 step=82/192 loss=0.6339 lr=1.36e-04 elapsed=208.5s
+[train] epoch=0 step=83/192 loss=0.7011 lr=1.35e-04 elapsed=210.7s
+[train] epoch=0 step=84/192 loss=0.6988 lr=1.33e-04 elapsed=212.6s
+[train] epoch=0 step=85/192 loss=0.6256 lr=1.32e-04 elapsed=215.2s
+[train] epoch=0 step=86/192 loss=0.6317 lr=1.30e-04 elapsed=217.1s
+[train] epoch=0 step=87/192 loss=0.5845 lr=1.29e-04 elapsed=219.2s
+[train] epoch=0 step=88/192 loss=0.6409 lr=1.27e-04 elapsed=221.2s
+[train] epoch=0 step=89/192 loss=0.5625 lr=1.26e-04 elapsed=223.1s
+[train] epoch=0 step=90/192 loss=0.6522 lr=1.24e-04 elapsed=225.2s
+[train] epoch=0 step=91/192 loss=0.6122 lr=1.23e-04 elapsed=227.1s
+[train] epoch=0 step=92/192 loss=0.6577 lr=1.21e-04 elapsed=229.1s
+[train] epoch=0 step=93/192 loss=0.6655 lr=1.20e-04 elapsed=231.0s
+[train] epoch=0 step=94/192 loss=0.6030 lr=1.18e-04 elapsed=233.3s
+[train] epoch=0 step=95/192 loss=0.6398 lr=1.17e-04 elapsed=236.0s
+[train] epoch=0 step=96/192 loss=0.6298 lr=1.15e-04 elapsed=237.8s
+[train] epoch=0 step=97/192 loss=0.6021 lr=1.14e-04 elapsed=239.7s
+[train] epoch=0 step=98/192 loss=0.5892 lr=1.12e-04 elapsed=241.8s
+[train] epoch=0 step=99/192 loss=0.5679 lr=1.11e-04 elapsed=243.8s
+[train] epoch=0 step=100/192 loss=0.6560 lr=1.09e-04 elapsed=246.3s
+[train] epoch=0 step=101/192 loss=0.5973 lr=1.08e-04 elapsed=248.5s
+[train] epoch=0 step=102/192 loss=0.6376 lr=1.06e-04 elapsed=251.7s
+[train] epoch=0 step=103/192 loss=0.6203 lr=1.05e-04 elapsed=253.5s
+[train] epoch=0 step=104/192 loss=0.6267 lr=1.03e-04 elapsed=255.4s
+[train] epoch=0 step=105/192 loss=0.6235 lr=1.02e-04 elapsed=257.2s
+[train] epoch=0 step=106/192 loss=0.5814 lr=1.00e-04 elapsed=259.4s
+[train] epoch=0 step=107/192 loss=0.5893 lr=9.87e-05 elapsed=261.1s
+[train] epoch=0 step=108/192 loss=0.6330 lr=9.72e-05 elapsed=263.0s
+[train] epoch=0 step=109/192 loss=0.5660 lr=9.57e-05 elapsed=265.6s
+[train] epoch=0 step=110/192 loss=0.5694 lr=9.42e-05 elapsed=267.5s
+[train] epoch=0 step=111/192 loss=0.6172 lr=9.27e-05 elapsed=269.6s
+[train] epoch=0 step=112/192 loss=0.5682 lr=9.12e-05 elapsed=271.4s
+[train] epoch=0 step=113/192 loss=0.5965 lr=8.98e-05 elapsed=273.4s
+[train] epoch=0 step=114/192 loss=0.5878 lr=8.83e-05 elapsed=275.6s
+[train] epoch=0 step=115/192 loss=0.6482 lr=8.68e-05 elapsed=277.3s
+[train] epoch=0 step=116/192 loss=0.5818 lr=8.54e-05 elapsed=279.2s
+[train] epoch=0 step=117/192 loss=0.5760 lr=8.39e-05 elapsed=281.1s
+[train] epoch=0 step=118/192 loss=0.6144 lr=8.25e-05 elapsed=283.0s
+[train] epoch=0 step=119/192 loss=0.5765 lr=8.10e-05 elapsed=285.9s
+[train] epoch=0 step=120/192 loss=0.6109 lr=7.96e-05 elapsed=287.8s
+[train] epoch=0 step=121/192 loss=0.6249 lr=7.82e-05 elapsed=289.7s
+[train] epoch=0 step=122/192 loss=0.5734 lr=7.68e-05 elapsed=292.1s
+[train] epoch=0 step=123/192 loss=0.6491 lr=7.54e-05 elapsed=293.8s
+[train] epoch=0 step=124/192 loss=0.5785 lr=7.40e-05 elapsed=296.9s
+[train] epoch=0 step=125/192 loss=0.5959 lr=7.26e-05 elapsed=299.4s
+[train] epoch=0 step=126/192 loss=0.6085 lr=7.12e-05 elapsed=301.1s
+[train] epoch=0 step=127/192 loss=0.5557 lr=6.99e-05 elapsed=303.3s
+[train] epoch=0 step=128/192 loss=0.5832 lr=6.85e-05 elapsed=305.7s
+[train] epoch=0 step=129/192 loss=0.5902 lr=6.72e-05 elapsed=307.4s
+[train] epoch=0 step=130/192 loss=0.5887 lr=6.59e-05 elapsed=309.2s
+[train] epoch=0 step=131/192 loss=0.5685 lr=6.46e-05 elapsed=311.2s
+[train] epoch=0 step=132/192 loss=0.5402 lr=6.33e-05 elapsed=313.1s
+[train] epoch=0 step=133/192 loss=0.5761 lr=6.20e-05 elapsed=315.2s
+[train] epoch=0 step=134/192 loss=0.5458 lr=6.07e-05 elapsed=317.0s
+[train] epoch=0 step=135/192 loss=0.5698 lr=5.95e-05 elapsed=318.7s
+[train] epoch=0 step=136/192 loss=0.5686 lr=5.82e-05 elapsed=321.0s
+[train] epoch=0 step=137/192 loss=0.5772 lr=5.70e-05 elapsed=323.2s
+[train] epoch=0 step=138/192 loss=0.5960 lr=5.58e-05 elapsed=325.5s
+[train] epoch=0 step=139/192 loss=0.5169 lr=5.46e-05 elapsed=327.4s
+[train] epoch=0 step=140/192 loss=0.5949 lr=5.34e-05 elapsed=330.5s
+[train] epoch=0 step=141/192 loss=0.6227 lr=5.22e-05 elapsed=332.4s
+[train] epoch=0 step=142/192 loss=0.5539 lr=5.11e-05 elapsed=335.1s
+[train] epoch=0 step=143/192 loss=0.5300 lr=4.99e-05 elapsed=337.0s
+[train] epoch=0 step=144/192 loss=0.5679 lr=4.88e-05 elapsed=339.2s
+[train] epoch=0 step=145/192 loss=0.5582 lr=4.77e-05 elapsed=341.4s
+[train] epoch=0 step=146/192 loss=0.5573 lr=4.66e-05 elapsed=343.1s
+[train] epoch=0 step=147/192 loss=0.6062 lr=4.56e-05 elapsed=345.3s
+[train] epoch=0 step=148/192 loss=0.5913 lr=4.45e-05 elapsed=347.1s
+[train] epoch=0 step=149/192 loss=0.6380 lr=4.35e-05 elapsed=348.8s
+[train] epoch=0 step=150/192 loss=0.5774 lr=4.25e-05 elapsed=350.8s
+[train] epoch=0 step=151/192 loss=0.5941 lr=4.15e-05 elapsed=353.2s
+[train] epoch=0 step=152/192 loss=0.5068 lr=4.05e-05 elapsed=355.6s
+[train] epoch=0 step=153/192 loss=0.5157 lr=3.96e-05 elapsed=357.4s
+[train] epoch=0 step=154/192 loss=0.4978 lr=3.86e-05 elapsed=359.2s
+[train] epoch=0 step=155/192 loss=0.4919 lr=3.77e-05 elapsed=361.1s
+[train] epoch=0 step=156/192 loss=0.5824 lr=3.68e-05 elapsed=363.1s
+[train] epoch=0 step=157/192 loss=0.5855 lr=3.60e-05 elapsed=365.7s
+[train] epoch=0 step=158/192 loss=0.5335 lr=3.51e-05 elapsed=367.6s
+[train] epoch=0 step=159/192 loss=0.5676 lr=3.43e-05 elapsed=369.4s
+[train] epoch=0 step=160/192 loss=0.5187 lr=3.35e-05 elapsed=371.2s
+[train] epoch=0 step=161/192 loss=0.5557 lr=3.27e-05 elapsed=373.0s
+[train] epoch=0 step=162/192 loss=0.5499 lr=3.19e-05 elapsed=375.2s
+[train] epoch=0 step=163/192 loss=0.5386 lr=3.12e-05 elapsed=377.1s
+[train] epoch=0 step=164/192 loss=0.5845 lr=3.05e-05 elapsed=379.0s
+[train] epoch=0 step=165/192 loss=0.5619 lr=2.98e-05 elapsed=381.2s
+[train] epoch=0 step=166/192 loss=0.5122 lr=2.91e-05 elapsed=383.4s
+[train] epoch=0 step=167/192 loss=0.5231 lr=2.85e-05 elapsed=386.0s
+[train] epoch=0 step=168/192 loss=0.5617 lr=2.78e-05 elapsed=388.0s
+[train] epoch=0 step=169/192 loss=0.5512 lr=2.72e-05 elapsed=390.0s
+[train] epoch=0 step=170/192 loss=0.6144 lr=2.66e-05 elapsed=392.0s
+[train] epoch=0 step=171/192 loss=0.5454 lr=2.61e-05 elapsed=393.9s
+[train] epoch=0 step=172/192 loss=0.5811 lr=2.55e-05 elapsed=396.6s
+[train] epoch=0 step=173/192 loss=0.5048 lr=2.50e-05 elapsed=398.8s
+[train] epoch=0 step=174/192 loss=0.5291 lr=2.45e-05 elapsed=400.8s
+[train] epoch=0 step=175/192 loss=0.5202 lr=2.41e-05 elapsed=402.7s
+[train] epoch=0 step=176/192 loss=0.5092 lr=2.36e-05 elapsed=405.2s
+[train] epoch=0 step=177/192 loss=0.5364 lr=2.32e-05 elapsed=407.1s
+[train] epoch=0 step=178/192 loss=0.5081 lr=2.28e-05 elapsed=409.5s
+[train] epoch=0 step=179/192 loss=0.5275 lr=2.25e-05 elapsed=411.8s
+[train] epoch=0 step=180/192 loss=0.5444 lr=2.21e-05 elapsed=415.2s
+[train] epoch=0 step=181/192 loss=0.4915 lr=2.18e-05 elapsed=417.8s
+[train] epoch=0 step=182/192 loss=0.5134 lr=2.15e-05 elapsed=421.5s
+[train] epoch=0 step=183/192 loss=0.5345 lr=2.13e-05 elapsed=425.4s
+[train] epoch=0 step=184/192 loss=0.5096 lr=2.10e-05 elapsed=429.0s
+[train] epoch=0 step=185/192 loss=0.5161 lr=2.08e-05 elapsed=432.6s
+[train] epoch=0 step=186/192 loss=0.5508 lr=2.06e-05 elapsed=434.9s
+[train] epoch=0 step=187/192 loss=0.5246 lr=2.05e-05 elapsed=436.8s
+[train] epoch=0 step=188/192 loss=0.5465 lr=2.03e-05 elapsed=438.6s
+[train] epoch=0 step=189/192 loss=0.4851 lr=2.02e-05 elapsed=440.8s
+[train] epoch=0 step=190/192 loss=0.5379 lr=2.01e-05 elapsed=443.1s
+[train] epoch=0 step=191/192 loss=0.5344 lr=2.01e-05 elapsed=445.7s
+[train] epoch=0 step=192/192 loss=0.5204 lr=2.00e-05 elapsed=447.6s
+[train] final checkpoint -> tinker://892d75f3-b141-57b5-84f3-3506772eca09:train:1/sampler_weights/sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__tfb__final
+[train] saved state -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/models/task_sm/meta-llama/Llama-3.1-8B-Instruct/tfb/state.json
+------------------------------------------------------------
+[shard 2] step=generate22  cmd=python -m new_experiments.src.generate22 --task task_sm --model meta-llama/Llama-3.1-8B-Instruct --max_concurrency 32
+------------------------------------------------------------
+[generate22] task=task_sm model=meta-llama/Llama-3.1-8B-Instruct split=test prompts=1024
+[generate22] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/meta-llama/Llama-3.1-8B-Instruct/base/test_step2.json
+------------------------------------------------------------
+[shard 2] step=generate2  cmd=python -m new_experiments.src.generate2 --task task_sm --model meta-llama/Llama-3.1-8B-Instruct --max_concurrency 32
+------------------------------------------------------------
+[generate2] task=task_sm model=meta-llama/Llama-3.1-8B-Instruct method=rft split=test prompts=1024
+[generate2] checkpoint=tinker://892d75f3-b141-57b5-84f3-3506772eca09:train:0/sampler_weights/sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__rft__final
+[generate2] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/meta-llama/Llama-3.1-8B-Instruct/rft/test_step2.json
+[generate2] task=task_sm model=meta-llama/Llama-3.1-8B-Instruct method=tfb split=test prompts=1024
+[generate2] checkpoint=tinker://892d75f3-b141-57b5-84f3-3506772eca09:train:1/sampler_weights/sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__tfb__final
+[generate2] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/meta-llama/Llama-3.1-8B-Instruct/tfb/test_step2.json
+============================================================
+[shard 2] DONE  task=task_sm  model=meta-llama/Llama-3.1-8B-Instruct
+============================================================

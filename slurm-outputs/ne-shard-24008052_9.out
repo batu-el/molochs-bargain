@@ -12,3 +12,7 @@
 ------------------------------------------------------------
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [generate1] task=task_elections model=Qwen/Qwen3-32B prompts=1024 -> /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/Qwen/Qwen3-32B/train_step1.json
+[generate1] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/data/task_elections/Qwen/Qwen3-32B/train_step1.json
+------------------------------------------------------------
+[shard 9] step=build_train  cmd=python -m new_experiments.src.build_train_data --task task_elections --model Qwen/Qwen3-32B
+------------------------------------------------------------
