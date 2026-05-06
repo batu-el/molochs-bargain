@@ -1,0 +1,12 @@
+{
+  "task": "task_elections",
+  "model_name": "Qwen/Qwen3-8B",
+  "method": "rft",
+  "checkpoint_uri": "tinker://22313369-060a-5baa-836c-302feb1d787f:train:0/sampler_weights/sft__task_elections__Qwen__Qwen3-8B__rft__final",
+  "checkpoint_name": "sft__task_elections__Qwen__Qwen3-8B__rft__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 32,
+  "total_steps": 95
+}

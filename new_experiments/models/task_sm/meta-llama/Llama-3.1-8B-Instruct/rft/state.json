@@ -1,0 +1,12 @@
+{
+  "task": "task_sm",
+  "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+  "method": "rft",
+  "checkpoint_uri": "tinker://892d75f3-b141-57b5-84f3-3506772eca09:train:0/sampler_weights/sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__rft__final",
+  "checkpoint_name": "sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__rft__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 32,
+  "total_steps": 96
+}
