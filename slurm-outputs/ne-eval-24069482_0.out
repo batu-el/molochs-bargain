@@ -1,0 +1,8 @@
+============================================================
+[eval 0/3]  task=task_elections
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval 0] step=compete  cmd=python -m new_experiments.src.compete --task task_elections
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)

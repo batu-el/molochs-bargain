@@ -1,0 +1,38 @@
+============================================================
+[eval-pm 2/15]  task=task_sm  model=meta-llama/Llama-3.1-8B-Instruct
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 2] step=compete  cmd=python -m new_experiments.src.compete --task task_sm --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] meta-llama/Llama-3.1-8B-Instruct base-rft: mean=0.548 std=0.268
+[compete] meta-llama/Llama-3.1-8B-Instruct base-tfb: mean=0.542 std=0.268
+[compete] meta-llama/Llama-3.1-8B-Instruct rft-tfb: mean=0.494 std=0.261
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/competition_parts/meta-llama/Llama-3.1-8B-Instruct.json
+------------------------------------------------------------
+[eval-pm 2] step=probes  cmd=python -m new_experiments.src.probes --task task_sm --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sm/q1 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_sm/q1 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_sm/q1 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q1_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.143555
+                                  rft       0.123047
+                                  tfb       0.123047
+Name: label, dtype: float64
+[probes] task_sm/q2 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_sm/q2 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_sm/q2 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q2_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.032227
+                                  rft       0.032227
+                                  tfb       0.026367
+Name: label, dtype: float64
+============================================================
+[eval-pm 2] DONE  task=task_sm  model=meta-llama/Llama-3.1-8B-Instruct
+============================================================

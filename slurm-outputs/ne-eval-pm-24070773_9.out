@@ -1,0 +1,9 @@
+============================================================
+[eval-pm 9/15]  task=task_elections  model=Qwen/Qwen3-32B
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 9] step=compete  cmd=python -m new_experiments.src.compete --task task_elections --model Qwen/Qwen3-32B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] Qwen/Qwen3-32B base-rft: mean=0.504 std=0.169

@@ -1,0 +1,10 @@
+============================================================
+[eval-pm 4/15]  task=task_sales  model=meta-llama/Llama-3.3-70B-Instruct
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 4] step=compete  cmd=python -m new_experiments.src.compete --task task_sales --model meta-llama/Llama-3.3-70B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] meta-llama/Llama-3.3-70B-Instruct base-rft: mean=0.492 std=0.222
+[compete] meta-llama/Llama-3.3-70B-Instruct base-tfb: mean=0.452 std=0.224
