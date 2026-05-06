@@ -115,7 +115,7 @@ run_step prep \
 run_step generate1 \
     "$PYTHON" -m new_experiments.src.generate1 \
         --task "$TASK" --model "$MODEL" \
-        --max_concurrency "$MAX_CONC" "${LIMIT_ARG[@]}"
+        --max_concurrency "$MAX_CONC" ${LIMIT_ARG[@]+"${LIMIT_ARG[@]}"}
 
 run_step build_train \
     "$PYTHON" -m new_experiments.src.build_train_data --task "$TASK" --model "$MODEL"
@@ -127,12 +127,12 @@ run_step train \
 run_step generate22 \
     "$PYTHON" -m new_experiments.src.generate22 \
         --task "$TASK" --model "$MODEL" \
-        --max_concurrency "$MAX_CONC" "${LIMIT_ARG[@]}"
+        --max_concurrency "$MAX_CONC" ${LIMIT_ARG[@]+"${LIMIT_ARG[@]}"}
 
 run_step generate2 \
     "$PYTHON" -m new_experiments.src.generate2 \
         --task "$TASK" --model "$MODEL" \
-        --max_concurrency "$MAX_CONC" "${LIMIT_ARG[@]}"
+        --max_concurrency "$MAX_CONC" ${LIMIT_ARG[@]+"${LIMIT_ARG[@]}"}
 
 echo "============================================================"
 echo "[shard ${TID}] DONE  task=${TASK}  model=${MODEL}"

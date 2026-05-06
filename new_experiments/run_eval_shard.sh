@@ -88,10 +88,10 @@ run_step() {
 
 # ----- Per-task evaluation pipeline (compete + probes in one job) -----
 run_step compete \
-    "$PYTHON" -m new_experiments.src.compete --task "$TASK" "${LIMIT_ARG[@]}"
+    "$PYTHON" -m new_experiments.src.compete --task "$TASK" ${LIMIT_ARG[@]+"${LIMIT_ARG[@]}"}
 
 run_step probes \
-    "$PYTHON" -m new_experiments.src.probes --task "$TASK" "${LIMIT_ARG[@]}"
+    "$PYTHON" -m new_experiments.src.probes --task "$TASK" ${LIMIT_ARG[@]+"${LIMIT_ARG[@]}"}
 
 echo "============================================================"
 echo "[eval ${TID}] DONE  task=${TASK}"
