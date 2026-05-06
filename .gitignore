@@ -1,0 +1,37 @@
+# ---------- Secrets ----------
+.env
+.env.*
+!.env.example
+*.pem
+credentials.json
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Local data / models / results ----------
+artsco/models/
+artsco/res/
+new_experiments/data/
+new_experiments/models/
+new_experiments/res/
+new_experiments/logs/
+
+# ---------- HF / Tinker / WandB caches ----------
+.cache/
+wandb/
+hf_cache/
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+
+# ---------- Editors ----------
+.vscode/
+.idea/

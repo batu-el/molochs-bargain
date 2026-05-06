@@ -1,0 +1,8 @@
+tinker
+tinker-cookbook
+transformers>=4.45.0
+datasets>=2.20.0
+openai>=1.40.0
+tqdm
+numpy
+pandas

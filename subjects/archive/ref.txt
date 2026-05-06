@@ -1,0 +1,5 @@
+Twin-2K-500: A dataset for building digital twins of
+over 2,000 people based on their answers to over 500
+questions
+
+https://arxiv.org/pdf/2505.17479
