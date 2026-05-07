@@ -1,33 +1,43 @@
 """Voter persona loader for the new experiments.
 
-Loads paired (persona text, demographics) records from `subjects/`:
+Loads paired (persona text, demographics) records from the *fixed* train/test
+audiences in `subjects/`:
 
-- `subjects/personas_{split}.json`     : list[str]  -- free-form persona descriptions
-- `subjects/demographics_{split}.json` : list[dict] -- structured demographic fields
+- `subjects/{audience}_persona_{N}.json`     : list[str]  -- N free-form persona paragraphs
+- `subjects/{audience}_demographic_{N}.json` : list[dict] -- N structured demographic dicts
 
-Personas and demographics are aligned by index (record `i` in personas_train.json
-describes the same person as record `i` in demographics_train.json).
+where `audience` is "train" or "test" and N comes from `NUM_VOTERS_TRAIN` /
+`NUM_VOTERS_TEST` in `config.py`. Both audiences are sampled once (with a
+fixed seed) by `new_experiments/scripts/build_audiences.py` from the larger
+800-train / 200-test pool that lives next to them in `subjects/`. We commit to
+these people across every (model, task, prompt, method) so all comparisons
+share the same evaluators.
 
-The voter biography fed to the OpenAI roleplay prompt is selected by `bio_mode`:
+Personas and demographics are aligned by index (record `i` in
+`train_persona_{N}.json` describes the same person as record `i` in
+`train_demographic_{N}.json`). The voter biography fed to the OpenAI roleplay
+prompt is selected by `bio_mode`:
 
 - "persona"      (DEFAULT): free-form persona paragraph only.
-- "demographics" (ABLATION): structured demographic list only -- used to test
-                  the contribution of the rich personality text by isolating
-                  what a voter can do with demographics alone.
+- "demographics" (ABLATION): structured demographic list only -- isolates what a
+                  voter can do with demographics alone.
 - "both": demographics header + persona paragraph (combined view).
 
 This replaces the older `artsco/voter/utils.load_persona100()` (100 historical-
-figure dicts) with 800 train + 200 test demographically realistic personas.
+figure dicts) with the demographically realistic audiences.
 """
 
 from __future__ import annotations
 
 import json
-import os
-import random
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List
 
-from new_experiments.src.config import subjects_path
+from new_experiments.src.config import (
+    AUDIENCES,
+    NUM_VOTERS_TEST,
+    NUM_VOTERS_TRAIN,
+    audience_path,
+)
 
 BioMode = str  # one of {"persona", "demographics", "both"}
 _VALID_BIO_MODES = ("persona", "demographics", "both")
@@ -92,84 +102,71 @@ def _load_json(path: str) -> Any:
         return json.load(f)
 
 
+_EXPECTED_SIZE = {"train": NUM_VOTERS_TRAIN, "test": NUM_VOTERS_TEST}
+
+
 def load_voter_bios(
-    split: str,
-    n: int | None = None,
-    seed: int | None = 0,
+    audience: str = "train",
     bio_mode: BioMode = "persona",
 ) -> List[str]:
-    """Return a list of voter biographies.
+    """Return the fixed list of voter biographies for `audience`.
+
+    The on-disk file is selected via `audience_path(...)`, which uses the
+    `NUM_VOTERS_TRAIN` / `NUM_VOTERS_TEST` constants from `config.py` to pick
+    the size suffix (e.g. `subjects/train_persona_20.json`).
 
     Args:
-        split: "train" or "test" (selects `personas_{split}.json` and
-            `demographics_{split}.json`).
-        n: number of personas to return. If None, returns the full pool
-            (800 train / 200 test) in file order.
-        seed: random seed for sampling without replacement when ``n`` is
-            smaller than the pool. Pass ``None`` to fall back to the
-            deterministic ``[:n]`` head of the file (legacy behavior).
-            Default 0 -> reproducible random subset.
+        audience: "train" or "test".
         bio_mode: which view of the voter to return (default "persona"):
             - "persona"      : free-form persona paragraph only (DEFAULT).
             - "demographics" : structured demographic list only (ABLATION).
             - "both"         : demographics header + persona paragraph.
 
     Raises:
-        ValueError on bad arguments / asking for more voters than available.
+        ValueError on bad arguments.
         AssertionError if persona/demographic files have mismatched lengths.
     """
-    if split not in ("train", "test"):
-        raise ValueError(f"split must be 'train' or 'test', got {split!r}")
+    if audience not in AUDIENCES:
+        raise ValueError(f"audience must be one of {AUDIENCES}, got {audience!r}")
     if bio_mode not in _VALID_BIO_MODES:
         raise ValueError(
             f"bio_mode must be one of {_VALID_BIO_MODES}, got {bio_mode!r}"
         )
 
-    personas: Sequence[str] = _load_json(subjects_path("personas", split))
-    demographics: Sequence[Dict[str, Any]] = _load_json(subjects_path("demographics", split))
+    personas: List[str] = _load_json(audience_path("persona", audience))
+    demographics: List[Dict[str, Any]] = _load_json(audience_path("demographic", audience))
 
     if len(personas) != len(demographics):
         raise AssertionError(
-            f"persona/demographics length mismatch for split={split}: "
+            f"persona/demographic length mismatch for audience={audience}: "
             f"{len(personas)} personas vs {len(demographics)} demographics"
         )
 
-    bios = [_format_voter_bio(p, d, bio_mode) for p, d in zip(personas, demographics)]
-    total = len(bios)
-
-    if n is None:
-        return bios
-    if n > total:
-        raise ValueError(
-            f"requested n={n} voters but only {total} {split} personas available"
+    expected = _EXPECTED_SIZE[audience]
+    if len(personas) != expected:
+        # Soft warning so non-default audience sizes still work; the fixed-N
+        # assumption only matters for cost estimates and reproducibility.
+        print(
+            f"[personas] WARNING: audience={audience} has {len(personas)} "
+            f"people, expected {expected}. Re-run "
+            "new_experiments/scripts/build_audiences.py to refresh."
         )
 
-    if seed is None or n == total:
-        return bios[:n]
-
-    # Reproducible sample without replacement. Using a private Random instance
-    # so we don't disturb the global RNG state (callers may set their own).
-    # NB: the *index set* is identical across bio_modes for a given (n, seed),
-    # so the persona / demographics / both views always describe the same 25
-    # underlying people -- ablations only change the bio surface form.
-    rng = random.Random(seed)
-    indices = rng.sample(range(total), n)
-    indices.sort()  # keep the original order for stable iteration / logging
-    return [bios[i] for i in indices]
+    return [_format_voter_bio(p, d, bio_mode) for p, d in zip(personas, demographics)]
 
 
-def available_voter_count(split: str) -> int:
-    """Number of personas available in `subjects/personas_{split}.json`."""
-    if split not in ("train", "test"):
-        raise ValueError(f"split must be 'train' or 'test', got {split!r}")
-    return len(_load_json(subjects_path("personas", split)))
+def available_voter_count(audience: str = "train") -> int:
+    """Number of people in the configured `audience` file."""
+    if audience not in AUDIENCES:
+        raise ValueError(f"audience must be one of {AUDIENCES}, got {audience!r}")
+    return len(_load_json(audience_path("persona", audience)))
 
 
 if __name__ == "__main__":
-    for split in ("train", "test"):
+    for aud in AUDIENCES:
         for mode in _VALID_BIO_MODES:
-            sampled = load_voter_bios(split, n=25, seed=0, bio_mode=mode)
-            print(f"[personas] split={split} mode={mode} count={len(sampled)} (seed=0)")
+            sampled = load_voter_bios(audience=aud, bio_mode=mode)
+            print(f"[personas] audience={aud} mode={mode} count={len(sampled)}")
             print("-" * 80)
             print(sampled[0])
             print("-" * 80)

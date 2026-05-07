@@ -1,11 +1,23 @@
-"""Step 2.1 — turn step1 output into RFT and TFB SFT datasets.
+"""Step 2.1 — turn step1 output into RFT, TFB, DPO, and KTO SFT datasets.
 
-Direct port of `artsco/step2.1.ipynb`:
+For every train prompt the step1 file already has two model completions and
+their per-voter votes. From that we build four parallel training corpora:
 
-- RFT picks the player with more voter support per prompt and keeps the
-  (prompt, completion) pair, then replicates 3x and shuffles.
-- TFB constructs (tfb_prompt, "<think> voter_think </think>") pairs using a
-  voter-think prompt builder, then concatenates with the RFT data.
+| Method | Examples per prompt | Loss                                                     |
+|--------|--------------------|----------------------------------------------------------|
+| RFT    | (prompt, winner) only                          | SFT NLL on winner                              |
+| TFB    | (prompt, winner) + (tfb_prompt, voter_think)   | SFT NLL warm-up on voter chains-of-thought     |
+| DPO    | (prompt, winner, loser) paired                 | pairwise contrastive vs reference (DPO loss)  |
+| KTO    | (prompt, winner, des=True) + (prompt, loser, des=False) | per-example KTO loss vs reference     |
+
+Notes:
+- Ties (winner_votes == loser_votes) are skipped for *all* four methods so each
+  prompt contributes deterministically.
+- The TFB augmentation is *only* about reusing voter chains-of-thought as warm-
+  up data on top of RFT-style targets; it does NOT interact with DPO or KTO.
+- We deliberately do NOT replicate the dataset (no `* 3` like the original
+  pipeline). NUM_EPOCHS=3 in config.py is the explicit, comparable knob across
+  all four methods.
 """
 
 from __future__ import annotations
@@ -15,6 +27,7 @@ import json
 import os
 import random
 from collections import Counter
+from typing import List
 
 from datasets import Dataset
 
@@ -40,19 +53,28 @@ def _load_json_records(path: str):
         return [json.loads(line) for line in f if line.strip()]
 
 
+def _winner_loser_idx(votes: List[int]) -> tuple[int, int] | None:
+    """Return (winner_idx, loser_idx) in {0,1} or None on ties / empty votes."""
+    counts = Counter(votes)
+    diff = counts.get(0, 0) - counts.get(1, 0)
+    if diff > 0:
+        return 0, 1
+    if diff < 0:
+        return 1, 0
+    return None
+
+
 def get_rft(dataset):
     rft = []
     for idx in range(len(dataset)):
-        votes = dataset[idx]["voter_votes"]
-        counts = Counter(votes)
-        diff = counts.get(0, 0) - counts.get(1, 0)
-        if diff > 0:
-            entry = {k: v[0] for k, v in dataset[idx].items() if k in ("prompt", "completion")}
-        elif diff < 0:
-            entry = {k: v[1] for k, v in dataset[idx].items() if k in ("prompt", "completion")}
-        else:
+        wl = _winner_loser_idx(dataset[idx]["voter_votes"])
+        if wl is None:
             continue
-        rft.append(entry)
+        winner = wl[0]
+        rft.append({
+            "prompt": dataset[idx]["prompt"][winner],
+            "completion": dataset[idx]["completion"][winner],
+        })
     return rft
 
 
@@ -71,6 +93,55 @@ def get_tfb(dataset, dataset_base, tokenizer, task: str, model_name: str):
     return tfb
 
 
+def get_dpo(dataset):
+    """Pairs of (prompt, chosen, rejected). Skip ties."""
+    out = []
+    for idx in range(len(dataset)):
+        wl = _winner_loser_idx(dataset[idx]["voter_votes"])
+        if wl is None:
+            continue
+        winner, loser = wl
+        ex = dataset[idx]
+        # Both candidates were sampled from the same prompt, so prompt[0]==prompt[1].
+        out.append({
+            "prompt": ex["prompt"][winner],
+            "chosen": ex["completion"][winner],
+            "rejected": ex["completion"][loser],
+        })
+    return out
+
+
+def get_kto(dataset):
+    """Per-example (prompt, completion, desirable). Each non-tie prompt yields
+    one desirable=True (winner) and one desirable=False (loser) entry.
+    """
+    out = []
+    for idx in range(len(dataset)):
+        wl = _winner_loser_idx(dataset[idx]["voter_votes"])
+        if wl is None:
+            continue
+        winner, loser = wl
+        ex = dataset[idx]
+        out.append({
+            "prompt": ex["prompt"][winner],
+            "completion": ex["completion"][winner],
+            "desirable": True,
+        })
+        out.append({
+            "prompt": ex["prompt"][loser],
+            "completion": ex["completion"][loser],
+            "desirable": False,
+        })
+    return out
+
+
+def _write_dataset(rows: List[dict], path: str) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.exists(path):
+        os.remove(path)
+    Dataset.from_list(rows).to_json(path)
+
+
 def build_one(task: str, model_name: str, split: str = "train", seed: int = 0) -> None:
     rng = random.Random(seed)
 
@@ -78,27 +149,37 @@ def build_one(task: str, model_name: str, split: str = "train", seed: int = 0) -
     base_ds = _load_json_records(raw_split_path(task, split))
     tokenizer = get_tokenizer(model_name)
 
-    # ----- RFT -----
+    # ----- RFT (winner only) -----
     rft_list = get_rft(step1_ds)
-    rft_list = rft_list * 3
     rng.shuffle(rft_list)
     rft_path = train_data_path(task, model_name, split, "rft")
-    os.makedirs(os.path.dirname(rft_path), exist_ok=True)
-    if os.path.exists(rft_path):
-        os.remove(rft_path)
-    Dataset.from_list(rft_list).to_json(rft_path)
+    _write_dataset(rft_list, rft_path)
     print(f"[build_train_data] wrote {rft_path} ({len(rft_list)} rows)")
 
-    # ----- TFB -----
-    tfb_list = get_tfb(step1_ds, base_ds, tokenizer, task=task, model_name=model_name)
-    rng.shuffle(tfb_list)
-    tfb_list = tfb_list[: len(rft_list)] + rft_list
+    # ----- TFB (RFT + voter-think warm-up; sized symmetrically to RFT) -----
+    tfb_voter = get_tfb(step1_ds, base_ds, tokenizer, task=task, model_name=model_name)
+    rng.shuffle(tfb_voter)
+    tfb_list = tfb_voter[: len(rft_list)] + rft_list
     rng.shuffle(tfb_list)
     tfb_path = train_data_path(task, model_name, split, "tfb")
-    if os.path.exists(tfb_path):
-        os.remove(tfb_path)
-    Dataset.from_list(tfb_list).to_json(tfb_path)
+    _write_dataset(tfb_list, tfb_path)
     print(f"[build_train_data] wrote {tfb_path} ({len(tfb_list)} rows)")
+
+    # ----- DPO (paired chosen/rejected) -----
+    dpo_list = get_dpo(step1_ds)
+    rng.shuffle(dpo_list)
+    dpo_path = train_data_path(task, model_name, split, "dpo")
+    _write_dataset(dpo_list, dpo_path)
+    print(f"[build_train_data] wrote {dpo_path} ({len(dpo_list)} pairs)")
+
+    # ----- KTO (unpaired (prompt, completion, desirable)) -----
+    kto_list = get_kto(step1_ds)
+    # Don't shuffle: train.py interleaves desirable/undesirable in the batch
+    # (every consecutive pair is the same prompt's winner+loser) so the per-
+    # batch KL anchor stays balanced and the loss has a stable mean signal.
+    kto_path = train_data_path(task, model_name, split, "kto")
+    _write_dataset(kto_list, kto_path)
+    print(f"[build_train_data] wrote {kto_path} ({len(kto_list)} entries)")
 
 
 def main():

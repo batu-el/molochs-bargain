@@ -29,11 +29,9 @@ from artsco.voter.voters import Voters  # noqa: E402
 from new_experiments.src.config import (  # noqa: E402
     MODELS,
     NUM_PLAYERS,
-    NUM_VOTERS_TRAIN,
     TASKS,
     VOTER_BIO_MODE,
     VOTER_MODEL_NAME,
-    VOTER_SAMPLE_SEED,
     step1_path,
     templated_split_path,
 )
@@ -77,14 +75,13 @@ async def _run(task: str, model_name: str, max_concurrency: int, limit: int | No
     player_candidates = [[extract_answer(c, task, model_name) for c in row] for row in completions]
 
     # ----- Voter feedback (GPT-4o-mini) -----
-    # Sample NUM_VOTERS_TRAIN of the 800 train personas (in `subjects/`)
-    # without replacement using a fixed seed -> same voters across all
-    # (model, task, prompt). bio_mode controls which surface form is fed
-    # to the voter (persona text by default; "demographics" for the
+    # Use the *fixed* 50-person train audience (sampled once into
+    # `subjects/train_persona_50.json` + `train_demographic_50.json` by
+    # `new_experiments/scripts/build_50_audiences.py`). Same 50 people see
+    # every (model, task, prompt). bio_mode controls which surface form is
+    # fed to the voter (persona text by default; "demographics" for the
     # ablation, see config.VOTER_BIO_MODE).
-    bios = load_voter_bios(
-        "train", n=NUM_VOTERS_TRAIN, seed=VOTER_SAMPLE_SEED, bio_mode=VOTER_BIO_MODE,
-    )
+    bios = load_voter_bios(audience="train", bio_mode=VOTER_BIO_MODE)
     voters = Voters(bios=bios, task=task, model_name=VOTER_MODEL_NAME)
     voter_votes, voter_thinks, _voter_choices = voters.get_votes_list(player_candidates)
 

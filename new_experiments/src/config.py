@@ -55,8 +55,18 @@ def tokenizer_for(model_name: str) -> str:
 # ---------- Tasks ----------
 TASKS = ["task_elections", "task_sales", "task_sm"]
 SPLITS = ["train", "test"]
-METHODS = ["base", "rft", "tfb"]
-TRAINED_METHODS = ["rft", "tfb"]
+# Five training methods plus the untrained `base` control. The contrastive
+# preference methods (dpo, kto) need a frozen *reference* model -- we always
+# use the base model as the reference; see `tinker_utils.compute_ref_logprob_sums`.
+#   rft : SFT NLL on the (prompt, winner) only.
+#   tfb : SFT NLL on (prompt, voter_think) warm-up + RFT data appended.
+#   dpo : pairwise contrastive on (prompt, winner, loser) vs reference.
+#   kto : per-example KTO loss on (prompt, completion, desirable=True/False)
+#         with batch-mean KL anchor against reference.
+METHODS = ["base", "rft", "tfb", "dpo", "kto"]
+TRAINED_METHODS = ["rft", "tfb", "dpo", "kto"]
+# Methods that need a frozen base-model reference for the loss.
+PREF_METHODS = ["dpo", "kto"]
 
 # ---------- Voter / probe model names ----------
 # Voters: gpt-4o-mini (matches the original artsco setup).
@@ -71,14 +81,32 @@ PROBE_MODEL_NAME = "gpt-4o-mini"
 NUM_PLAYERS = 2
 MAX_NEW_TOKENS = 1480
 TEMPERATURE = 0.7
-# Voter pool sizes. Personas are drawn from `subjects/personas_{train,test}.json`
-# (800 train, 200 test demographically realistic personas). We *sample without
-# replacement* from each pool using `VOTER_SAMPLE_SEED` for reproducibility, so
-# the same 50 train personas are reused across all (model, task, prompt) tuples
-# during generate1, and the same 50 test personas across all compete pairs.
-NUM_VOTERS_TRAIN = 25          # for generate1 audience feedback (25/800 train personas)
-NUM_VOTERS_COMPETE = 25        # for compete.py pairwise comparison (25/200 test personas)
-VOTER_SAMPLE_SEED = 0          # any int; pass to load_voter_bios(..., seed=...)
+# ---------- Fixed audience (train only) ----------
+# We commit to a *single* fixed audience drawn from the train pool, used both
+# during training (generate1 audience feedback) AND during evaluation
+# (compete pairwise voter competition). Materialized once into
+# `subjects/train_{persona,demographic}_{N}.json` by
+# `new_experiments/scripts/build_audiences.py` (seed=0 sample of the 800 train
+# demographic-realistic persona pool). The same N people see every
+# (model, task, prompt, method).
+#
+# A separate `..._test_*.json` audience file *can* be materialized via the
+# same script (and `audience_path("...", "test")` will resolve to it), but the
+# default pipeline below does NOT use it -- compete only iterates over
+# `AUDIENCES`.
+#
+# N is baked into the file name suffix so multiple sizes can coexist on disk
+# (e.g. `..._20.json` and `..._50.json`); the active size is selected by
+# `NUM_VOTERS_TRAIN`.
+NUM_VOTERS_TRAIN = 20          # generate1 + compete (the only audience used)
+NUM_VOTERS_TEST = 20           # only used by build_audiences.py if you also
+                               # want to materialize a held-out test audience
+                               # for ad-hoc analyses; not wired to compete.
+VOTER_SAMPLE_SEED = 0          # only used by build_audiences.py at materialization time
+# Audience identifiers iterated over by compete.py + estimate_costs.py.
+# Currently single-audience (train only); add "test" here to also re-evaluate
+# with the held-out audience.
+AUDIENCES = ("train",)
 
 # Voter bio surface form. The 800/200 subject pool ships with a *paired*
 # free-form persona text and a structured demographics dict per person:
@@ -93,11 +121,24 @@ VOTER_BIO_MODE = "persona"
 LORA_RANK = 16
 LORA_ALPHA = 32
 LEARNING_RATE = 2e-4
-NUM_EPOCHS = 1
-PER_DEVICE_BATCH = 32          # tinker batches over a list of Datum
+NUM_EPOCHS = 1                 # single pass over the training set for every method
+PER_DEVICE_BATCH = 16          # tinker batches over a list of Datum
 WARMUP_RATIO = 0.03
 MIN_LR_RATIO = 0.1             # cosine_with_min_lr min_lr_rate
 MAX_SEQ_LENGTH = 4096
+
+# ---------- Preference-method hyperparameters (DPO + KTO) ----------
+# DPO sigmoid logistic loss with reference-anchored log-ratios.
+DPO_BETA = 0.1
+# KTO per-example loss vs. reference, with batch-mean KL anchor (z_ref).
+KTO_BETA = 0.1
+KTO_DESIRABLE_WEIGHT = 1.0     # paper default lambda_D
+KTO_UNDESIRABLE_WEIGHT = 1.0   # paper default lambda_U
+# DPO/KTO need pairs/labels in a deterministic order inside the SFT batch:
+#   - DPO: (chosen, rejected) interleaved every 2 entries -> batch must be even.
+#   - KTO: (desirable, undesirable) interleaved every 2 entries (each prompt
+#          contributes one of each, so the batch is naturally balanced).
+PREF_BATCH_PAIR_STRIDE = 2
 
 # ---------- Paths ----------
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -117,7 +158,7 @@ SUBJECTS_DIR = os.path.join(ROOT_DIR, "subjects")
 
 
 def subjects_path(kind: str, split: str) -> str:
-    """Return the path to `subjects/{kind}_{split}.json`.
+    """Return the path to `subjects/{kind}_{split}.json` (the full 800/200 pool).
 
     Args:
         kind: "personas" or "demographics".
@@ -128,6 +169,41 @@ def subjects_path(kind: str, split: str) -> str:
     if split not in ("train", "test"):
         raise ValueError(f"split must be 'train' or 'test', got {split!r}")
     return os.path.join(SUBJECTS_DIR, f"{kind}_{split}.json")
+
+
+def _audience_size_for(split: str) -> int:
+    return NUM_VOTERS_TRAIN if split == "train" else NUM_VOTERS_TEST
+
+
+def audience_path(kind: str, split: str, n: int | None = None) -> str:
+    """Return the path to the fixed audience file for `(kind, split, n)`.
+
+    Layout:
+        subjects/train_persona_{n}.json
+        subjects/test_persona_{n}.json
+        subjects/train_demographic_{n}.json
+        subjects/test_demographic_{n}.json
+
+    `n` defaults to `NUM_VOTERS_TRAIN` for split="train" and `NUM_VOTERS_TEST`
+    for split="test", so most callers don't need to pass it. Multiple sizes can
+    coexist on disk side by side (e.g. `..._20.json` and `..._50.json`) -- the
+    config constants pick which one is wired into generate1 / compete.
+
+    Materialized once by `new_experiments/scripts/build_audiences.py` so every
+    (model, task, method) sees the *same* people.
+
+    Args:
+        kind: "persona" (singular) or "demographic" (singular).
+        split: "train" or "test".
+        n: optional override of the audience size; defaults to the matching
+            NUM_VOTERS_{TRAIN,TEST} constant.
+    """
+    if kind not in ("persona", "demographic"):
+        raise ValueError(f"kind must be 'persona' or 'demographic', got {kind!r}")
+    if split not in ("train", "test"):
+        raise ValueError(f"split must be 'train' or 'test', got {split!r}")
+    size = n if n is not None else _audience_size_for(split)
+    return os.path.join(SUBJECTS_DIR, f"{split}_{kind}_{size}.json")
 
 
 def raw_split_path(task: str, split: str) -> str:
@@ -153,6 +229,16 @@ def train_data_path(task: str, model_name: str, split: str, method: str) -> str:
 def model_state_path(task: str, model_name: str, method: str) -> str:
     """JSON with the Tinker checkpoint URI for the trained adapter."""
     return os.path.join(MODELS_DIR, task, model_name, method, "state.json")
+
+
+def ref_logprob_cache_path(task: str, model_name: str, method: str) -> str:
+    """Sidecar cache of base-model reference logprob sums for DPO/KTO.
+
+    Computed once per (task, model, method) by `tinker_utils.compute_ref_logprob_sums`
+    and reused across re-runs of `train.py` so we only pay the base-model
+    forward pass once per training entry.
+    """
+    return os.path.join(MODELS_DIR, task, model_name, method, "ref_logprobs.json")
 
 
 def step2_path(task: str, model_name: str, method: str, split: str) -> str:

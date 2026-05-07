@@ -1,10 +1,32 @@
 """Step 7 — pairwise voter competition between methods.
 
-Mirrors `artsco/step2.2{election,sales,sm}.ipynb`:
-For every (model, task) and every method pair (base, rft), (base, tfb),
-(rft, tfb), build N test-set duels using the player-0 candidate from each
-method and ask `NUM_VOTERS_COMPETE` simulated voters to choose. Report mean
-preference for the second method (>0.5 means the second won).
+For every (model, task) and every method pair we build N test-set duels using
+the player-0 candidate from each method, then ask the fixed train-audience
+voters (`NUM_VOTERS_TRAIN` people from `subjects/train_{persona,demographic}_{N}.json`)
+to choose. The *same* audience evaluates training rollouts in generate1 and
+the test-set duels here, so the comparison is end-to-end consistent.
+
+Method pairs (5 methods total: base, rft, tfb, dpo, kto -> 4 base-vs-trained pairs):
+
+    (base, rft), (base, tfb), (base, dpo), (base, kto)
+
+(`> 0.5` means the trained method won against base.)
+
+Output JSON schema (per (task, model)):
+
+    {
+      "audiences": {
+        "train": {"mean": {model: {pair: float}}, "std": {model: {pair: float}}}
+      }
+    }
+
+The `audiences` wrapper is kept (with a single "train" key) so re-introducing
+a held-out test audience later only requires adding "test" to
+`config.AUDIENCES` -- no schema migration. To enable that, also confirm the
+matching `subjects/test_{persona,demographic}_{N}.json` file exists.
+
+When run with `--model X` it writes to `res/{task}/competition_parts/{X}.json`;
+the consolidating `--merge` pass writes the canonical `res/{task}/competition.json`.
 """
 
 from __future__ import annotations
@@ -28,21 +50,23 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 from artsco.voter.voters import Voters  # noqa: E402
 
 from new_experiments.src.config import (  # noqa: E402
+    AUDIENCES,
     METHODS,
     MODELS,
-    NUM_VOTERS_COMPETE,
     RES_DIR,
     TASKS,
     VOTER_BIO_MODE,
     VOTER_MODEL_NAME,
-    VOTER_SAMPLE_SEED,
     competition_path,
     step2_path,
 )
 from new_experiments.src.personas import load_voter_bios  # noqa: E402
 
 
-METHOD_PAIRS: List[Tuple[str, str]] = [("base", "rft"), ("base", "tfb"), ("rft", "tfb")]
+# Base-vs-trained pairs only. Each trained method is scored against the
+# untrained base model, so result["mean"][model]["base-X"] > 0.5 means
+# method X beats base for that (model, task).
+METHOD_PAIRS: List[Tuple[str, str]] = [("base", m) for m in ("rft", "tfb", "dpo", "kto")]
 
 
 def _competition_part_path(task: str, model_name: str) -> str:
@@ -63,21 +87,27 @@ def _load_player0(task: str, model_name: str) -> Dict[str, List[str]]:
     return out
 
 
-def _run_one(task: str, limit: int | None, models: List[str]) -> dict:
-    # Use the *test* persona split so the compete-time voter pool is disjoint
-    # from the train-time audience used in generate1.py. Sample
-    # NUM_VOTERS_COMPETE of the 200 test personas without replacement using
-    # a fixed seed; bio_mode follows config.VOTER_BIO_MODE so persona vs
-    # demographics ablations stay aligned across train and test stages.
-    bios = load_voter_bios(
-        "test", n=NUM_VOTERS_COMPETE, seed=VOTER_SAMPLE_SEED, bio_mode=VOTER_BIO_MODE,
-    )
-    voters = Voters(bios=bios, task=task, model_name=VOTER_MODEL_NAME)
+def _empty_results() -> Dict[str, Dict[str, Dict[str, Dict[str, float]]]]:
+    return {
+        "audiences": {a: {"mean": {}, "std": {}} for a in AUDIENCES}
+    }
 
-    results: dict = {"mean": {}, "std": {}}
+
+def _run_one(task: str, limit: int | None, models: List[str]) -> dict:
+    """Run pairwise voter competition for `models` on `task` under each audience."""
+    # Build a Voters instance per audience once and reuse across (model, pair).
+    voters_by_audience: Dict[str, Voters] = {}
+    for aud in AUDIENCES:
+        bios = load_voter_bios(audience=aud, bio_mode=VOTER_BIO_MODE)
+        voters_by_audience[aud] = Voters(bios=bios, task=task, model_name=VOTER_MODEL_NAME)
+        print(f"[compete] task={task} audience={aud} (bios={len(bios)})")
+
+    results = _empty_results()
     for model_name in models:
-        results["mean"][model_name] = {}
-        results["std"][model_name] = {}
+        for aud in AUDIENCES:
+            results["audiences"][aud]["mean"][model_name] = {}
+            results["audiences"][aud]["std"][model_name] = {}
+
         cands = _load_player0(task, model_name)
 
         for first, second in METHOD_PAIRS:
@@ -89,20 +119,24 @@ def _run_one(task: str, limit: int | None, models: List[str]) -> dict:
                 n = min(n, limit)
             duels = list(zip(cands[first][:n], cands[second][:n]))
 
-            votes_2d, _thoughts_2d, _choices_2d = voters.get_votes_list(duels)
-            second_wins = []
-            for v in votes_2d:
-                c = Counter(v)
-                total = c.get(0, 0) + c.get(1, 0)
-                if total == 0:
-                    continue
-                second_wins.append(round(c.get(1, 0) / total, 2))
-            mean = float(np.mean(second_wins)) if second_wins else float("nan")
-            std = float(np.std(second_wins)) if second_wins else float("nan")
-            key = f"{first}-{second}"
-            results["mean"][model_name][key] = mean
-            results["std"][model_name][key] = std
-            print(f"[compete] {model_name} {key}: mean={mean:.3f} std={std:.3f}")
+            for aud in AUDIENCES:
+                votes_2d, _thoughts_2d, _choices_2d = voters_by_audience[aud].get_votes_list(duels)
+                second_wins = []
+                for v in votes_2d:
+                    c = Counter(v)
+                    total = c.get(0, 0) + c.get(1, 0)
+                    if total == 0:
+                        continue
+                    second_wins.append(round(c.get(1, 0) / total, 2))
+                mean = float(np.mean(second_wins)) if second_wins else float("nan")
+                std = float(np.std(second_wins)) if second_wins else float("nan")
+                key = f"{first}-{second}"
+                results["audiences"][aud]["mean"][model_name][key] = mean
+                results["audiences"][aud]["std"][model_name][key] = std
+                print(
+                    f"[compete] aud={aud} {model_name} {key}: "
+                    f"mean={mean:.3f} std={std:.3f}"
+                )
 
     return results
 
@@ -118,18 +152,26 @@ def _merge_parts(task: str) -> None:
         print(f"[compete-merge] {task}: no part files under {parts_dir}; skipping")
         return
 
-    merged: dict = {"mean": {}, "std": {}}
+    merged = _empty_results()
     for path in part_files:
         with open(path) as f:
             part = json.load(f)
-        for k in ("mean", "std"):
-            for model_name, pair_to_val in part.get(k, {}).items():
-                if model_name in merged[k]:
-                    print(
-                        f"[compete-merge] WARNING: {task} model={model_name} "
-                        f"already merged; overwriting from {path}"
-                    )
-                merged[k][model_name] = pair_to_val
+        # Backwards-compat: old per-model parts may still use the flat
+        # {"mean":..., "std":...} layout (single audience). Lift them under the
+        # train-audience bucket so they don't break the merge.
+        if "audiences" not in part:
+            part = {"audiences": {"train": {"mean": part.get("mean", {}), "std": part.get("std", {})}}}
+        for aud, bucket in part["audiences"].items():
+            if aud not in merged["audiences"]:
+                merged["audiences"][aud] = {"mean": {}, "std": {}}
+            for k in ("mean", "std"):
+                for model_name, pair_to_val in bucket.get(k, {}).items():
+                    if model_name in merged["audiences"][aud][k]:
+                        print(
+                            f"[compete-merge] WARNING: {task} aud={aud} "
+                            f"model={model_name} already merged; overwriting from {path}"
+                        )
+                    merged["audiences"][aud][k][model_name] = pair_to_val
 
     out_path = competition_path(task)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)

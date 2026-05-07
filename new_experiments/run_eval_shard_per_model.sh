@@ -19,8 +19,9 @@
 # so each (model, task) cell is its own job. Each shard runs:
 #
 #   1. compete  - pairwise voter competition for THIS model on THIS task
-#                 over the 3 method pairs (base/rft, base/tfb, rft/tfb), using
-#                 gpt-4o-mini voters. Writes a per-model part file:
+#                 over the 4 base-vs-trained method pairs (base vs rft /
+#                 tfb / dpo / kto), evaluated under the single fixed train
+#                 audience using gpt-4o-mini. Writes a per-model part file:
 #                   res/{task}/competition_parts/{model}.json
 #   2. probes   - q1/q2 misalignment probes for THIS model on THIS task using
 #                 gpt-4o-mini (override via config.PROBE_MODEL_NAME). Writes:

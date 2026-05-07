@@ -29,12 +29,14 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, ROOT)
 
 from new_experiments.src.config import (  # noqa: E402
+    AUDIENCES,
     LORA_RANK,
     MODELS,
     NUM_EPOCHS,
     NUM_PLAYERS,
-    NUM_VOTERS_COMPETE,
+    NUM_VOTERS_TEST,
     NUM_VOTERS_TRAIN,
+    PREF_METHODS,
     PROBE_MODEL_NAME,
     TASKS,
     TRAINED_METHODS,
@@ -139,7 +141,7 @@ def _openai_cost(model: str, in_tok: int, out_tok: int) -> float:
 
 
 # ---------- Per-stage estimators ----------
-def estimate_generate1(limit: int | None) -> StageCost:
+def estimate_generate1(limit: int | None, n_voters_train: int = NUM_VOTERS_TRAIN) -> StageCost:
     """Baseline + voter feedback on train split (Tinker sample + GPT-4o-mini voters)."""
     sc = StageCost(name="generate1", detail="baseline sampling + GPT-4o-mini voter feedback (train)")
 
@@ -150,9 +152,9 @@ def estimate_generate1(limit: int | None) -> StageCost:
         sc.tinker_prefill_tokens += n * tok["prompt"]
         sc.tinker_sample_tokens += n * NUM_PLAYERS * tok["completion"]
 
-        # Voter calls (gpt-4o-mini): NUM_VOTERS_TRAIN voters x n prompts.
+        # Voter calls (gpt-4o-mini): n_voters_train voters x n prompts.
         # Each voter sees both candidates.
-        voter_calls = NUM_VOTERS_TRAIN * n
+        voter_calls = n_voters_train * n
         # voter prompt = bio (BIO_TOKENS, depends on VOTER_BIO_MODE) +
         # instructions (~250) + 2 candidates (~2 * completion).
         in_per_call = BIO_TOKENS + 250 + 2 * tok["completion"]
@@ -173,38 +175,70 @@ def estimate_generate1(limit: int | None) -> StageCost:
 
 
 def estimate_train() -> StageCost:
-    """LoRA SFT on RFT and TFB datasets (Tinker train tokens)."""
+    """LoRA SFT on RFT, TFB, DPO, KTO datasets (Tinker train tokens).
+
+    Approximate dataset sizes after build_train_data (mirrors the logic in
+    src/build_train_data.py with no replication factor):
+      - ~50% of train prompts have a non-tied winner -> ~0.5 * n examples
+      - rft: 1 row per non-tie prompt = 0.5 * n  rows of (prompt + winner)
+      - tfb: rft rows + same-sized voter-think rows (sized to len(rft))
+      - dpo: 1 pair per non-tie prompt; each pair contributes 2 fwd/bwd
+             prompts (chosen + rejected) -> 1.0 * n datums of (prompt + completion)
+             PLUS one base-model REFERENCE forward per datum (charged at the
+             prefill rate for Llama/Qwen/gpt-oss).
+      - kto: 2 entries per non-tie prompt (winner desirable + loser undesirable)
+             -> 1.0 * n datums of (prompt + completion) plus 1 reference forward
+             per datum.
+    """
+    methods_str = ",".join(TRAINED_METHODS)
     sc = StageCost(
         name="train",
-        detail=f"Tinker LoRA SFT (rank={LORA_RANK}, epochs={NUM_EPOCHS}, methods=rft+tfb)",
+        detail=f"Tinker LoRA (rank={LORA_RANK}, epochs={NUM_EPOCHS}, methods={methods_str})",
     )
 
-    # Approximate dataset sizes after build_train_data (mirrors step2.1 logic).
-    # ~50% of train prompts have a non-tied winner, x3 replication = 1.5 * n entries.
-    # TFB = rft + min(rft_size, voter_thinks_total) -> ~2 * rft_size.
+    train_tokens_total = 0
+    ref_forward_tokens = 0  # base-model forward, charged at prefill price
     for task in TASKS:
         n = _row_count(task, "train")
         tok = TASK_TOKENS[task]
-        n_rft = int(n * 0.5 * 3)               # ~1536
-        n_tfb = int(n_rft * 2)                  # ~3072 (rft + voter-think samples)
-        # RFT entries: prompt + completion
+        n_pref = int(n * 0.5)                  # non-tied prompts ~ pairs/entries
+        n_rft = n_pref                          # one (prompt + winner) per pair
+        n_tfb = 2 * n_rft                       # voter-think + rft
+        n_dpo_datums = 2 * n_pref               # (chosen, rejected)
+        n_kto_datums = 2 * n_pref               # (winner True, loser False)
+
         rft_tokens = n_rft * (tok["prompt"] + tok["completion"])
-        # TFB voter-think entries: tfb_prompt (~candidates+context) + voter_think (~130)
-        # Half of TFB is rft_list, half is voter-think entries (approximation).
-        tfb_voter = (n_tfb - n_rft) * (tok["tfb_prompt"] + tok["voter_think"])
         tfb_rft = n_rft * (tok["prompt"] + tok["completion"])
-        train_tokens = (rft_tokens + tfb_voter + tfb_rft) * NUM_EPOCHS
-        sc.tinker_train_tokens += train_tokens
+        tfb_voter = n_rft * (tok["tfb_prompt"] + tok["voter_think"])  # half is voter-think
+        dpo_tokens = n_dpo_datums * (tok["prompt"] + tok["completion"])
+        kto_tokens = n_kto_datums * (tok["prompt"] + tok["completion"])
+
+        # Backwards always done with weights only over completion tokens, but
+        # tinker bills the FULL prefill+forward of each datum, so use
+        # (prompt + completion) for all methods.
+        per_epoch = rft_tokens + (tfb_rft + tfb_voter) + dpo_tokens + kto_tokens
+        train_tokens_total += per_epoch * NUM_EPOCHS
+
+        # One base-model forward per pref datum, computed once and cached.
+        ref_forward_tokens += (n_dpo_datums + n_kto_datums) * (tok["prompt"] + tok["completion"])
+
+    sc.tinker_train_tokens = train_tokens_total
+    sc.tinker_prefill_tokens = ref_forward_tokens
 
     for model in MODELS:
-        sc.by_model_cost[model] = _tinker_cost(model, 0, 0, sc.tinker_train_tokens)
+        sc.by_model_cost[model] = _tinker_cost(
+            model, sc.tinker_prefill_tokens, 0, sc.tinker_train_tokens
+        )
     return sc
 
 
 def estimate_generate2(limit: int | None) -> StageCost:
-    """Test inference for base + rft + tfb (Tinker sample only)."""
-    sc = StageCost(name="generate2/22", detail="Tinker sampling on test split (base + rft + tfb)")
-    n_methods = 1 + len(TRAINED_METHODS)  # base + rft + tfb
+    """Test inference for base + every trained method (Tinker sample only)."""
+    n_methods = 1 + len(TRAINED_METHODS)  # base + rft + tfb + dpo + kto
+    sc = StageCost(
+        name="generate2/22",
+        detail=f"Tinker sampling on test split ({n_methods} methods incl. base)",
+    )
     for task in TASKS:
         n = _apply_limit(_row_count(task, "test"), limit)
         tok = TASK_TOKENS[task]
@@ -217,18 +251,31 @@ def estimate_generate2(limit: int | None) -> StageCost:
     return sc
 
 
-def estimate_compete(limit: int | None) -> StageCost:
-    """Pairwise voter competition between methods (gpt-4o-mini)."""
+def estimate_compete(
+    limit: int | None,
+    n_voters_train: int = NUM_VOTERS_TRAIN,
+    n_voters_test: int = NUM_VOTERS_TEST,
+) -> StageCost:
+    """Pairwise voter competition (gpt-4o-mini).
+
+    Sums the per-audience voter calls based on `config.AUDIENCES`. Default
+    AUDIENCES = ("train",) -> only the train audience runs; passing
+    `n_voters_test` is therefore a no-op unless "test" is added to AUDIENCES.
+    """
+    voters_per_audience = {"train": n_voters_train, "test": n_voters_test}
+    active_audiences = [a for a in AUDIENCES if a in voters_per_audience]
+    n_voters_total = sum(voters_per_audience[a] for a in active_audiences)
+    pairs = len(TRAINED_METHODS)  # base-vs-trained only; see compete.METHOD_PAIRS
+    aud_str = "+".join(f"{a}={voters_per_audience[a]}" for a in active_audiences)
     sc = StageCost(
         name="compete",
-        detail=f"{NUM_VOTERS_COMPETE} voters, 3 method pairs (base/rft/tfb), gpt-4o-mini",
+        detail=f"audiences=[{aud_str}], {pairs} method pairs, gpt-4o-mini",
     )
-    pairs = 3  # (base, rft), (base, tfb), (rft, tfb)
     for task in TASKS:
         n = _apply_limit(_row_count(task, "test"), limit)
         tok = TASK_TOKENS[task]
-        calls = NUM_VOTERS_COMPETE * n * pairs * len(MODELS)
-        # bio (BIO_TOKENS, see generate1) + instructions (~250) + 2 candidates.
+        # Each (audience, voter) -> one OpenAI call per duel.
+        calls = n_voters_total * n * pairs * len(MODELS)
         in_per_call = BIO_TOKENS + 250 + 2 * tok["completion"]
         out_per_call = 200
         sc.openai_input_tokens["gpt-4o-mini"] = sc.openai_input_tokens.get("gpt-4o-mini", 0) + calls * in_per_call
@@ -282,14 +329,20 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--limit", type=int, default=None,
                    help="Same --limit you'd pass to run_experiments.sh; caps n per task.")
+    p.add_argument("--voters_train", type=int, default=NUM_VOTERS_TRAIN,
+                   help=f"Train-audience size (default {NUM_VOTERS_TRAIN}). Used by "
+                        "generate1 (audience feedback) AND compete (in-distribution audience).")
+    p.add_argument("--voters_test", type=int, default=NUM_VOTERS_TEST,
+                   help=f"Test-audience size (default {NUM_VOTERS_TEST}). Used by "
+                        "compete (out-of-distribution audience).")
     p.add_argument("--json", action="store_true", help="Output JSON instead of a table.")
     args = p.parse_args()
 
     stages: List[StageCost] = [
-        estimate_generate1(args.limit),
+        estimate_generate1(args.limit, n_voters_train=args.voters_train),
         estimate_train(),
         estimate_generate2(args.limit),
-        estimate_compete(args.limit),
+        estimate_compete(args.limit, n_voters_train=args.voters_train, n_voters_test=args.voters_test),
         estimate_probes(args.limit),
     ]
 
@@ -299,9 +352,13 @@ def main():
 
     print("=" * 110)
     print(f"new_experiments cost estimate  (models: {', '.join(MODELS)})")
-    print(f"  voters: train={NUM_VOTERS_TRAIN}  compete={NUM_VOTERS_COMPETE}  "
+    aud_strs = []
+    if "train" in AUDIENCES: aud_strs.append(f"train={args.voters_train}")
+    if "test"  in AUDIENCES: aud_strs.append(f"test={args.voters_test}")
+    print(f"  voters: audiences=[{', '.join(aud_strs) or 'NONE'}]  "
           f"bio_mode={VOTER_BIO_MODE} (~{BIO_TOKENS} tokens/bio)  "
           f"probe_model={PROBE_MODEL_NAME}")
+    print(f"  methods: trained={TRAINED_METHODS} (preference={PREF_METHODS}, epochs={NUM_EPOCHS})")
     if args.limit:
         print(f"  --limit {args.limit}  (capped to first {args.limit} prompts per task)")
     print("=" * 110)

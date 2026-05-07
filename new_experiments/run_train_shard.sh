@@ -19,11 +19,13 @@
 # full per-(model, task) training pipeline:
 #
 #   1. prep         (chat-template train + test for this single model+task)
-#   2. generate1    (Tinker baseline + GPT-4o-mini voter feedback on train)
-#   3. build_train  (RFT + TFB SFT datasets)
-#   4. train        (Tinker LoRA SFT for both rft and tfb)
+#   2. generate1    (Tinker baseline + GPT-4o-mini voter feedback on train,
+#                    using the fixed 50-person *train* audience)
+#   3. build_train  (RFT + TFB + DPO + KTO datasets)
+#   4. train        (Tinker LoRA for all 4 trained methods; dpo/kto additionally
+#                    precompute and cache base-model ref logprobs once)
 #   5. generate22   (Tinker base-model test inference)
-#   6. generate2    (Tinker rft + tfb test inference)
+#   6. generate2    (Tinker rft + tfb + dpo + kto test inference)
 #
 # After all 15 array tasks complete, run new_experiments/run_eval_shard.sh
 # (compete + probes) - those need every (model, task) to be done first.

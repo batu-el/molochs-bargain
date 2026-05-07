@@ -15,15 +15,18 @@
 # new_experiments/run_train.sh  (SLURM batch)
 #
 # Single SLURM job that runs the *entire* new_experiments pipeline
-# sequentially across all 5 models x 3 tasks x {base, rft, tfb}:
+# sequentially across all 5 models x 3 tasks x {base, rft, tfb, dpo, kto}:
 #
 #   1. prep         — chat-template every (task, model, split)
 #   2. generate1    — Tinker baseline sampling + GPT-4o-mini voter feedback (train)
-#   3. build_train  — RFT + TFB SFT datasets
-#   4. train        — Tinker LoRA SFT (5 models x 3 tasks x 2 methods = 30 runs)
+#   3. build_train  — RFT + TFB + DPO + KTO datasets
+#   4. train        — Tinker LoRA SFT/DPO/KTO (5 models x 3 tasks x 4 methods = 60 runs;
+#                     dpo/kto also do a one-time base-model ref-logprob forward pass)
 #   5. generate22   — Tinker base-model test inference
-#   6. generate2    — Tinker trained-model test inference
-#   7. compete      — pairwise GPT-4o-mini voter competition
+#   6. generate2    — Tinker trained-model test inference (4 methods)
+#   7. compete      — pairwise GPT-4o-mini voter competition under the single
+#                     fixed train audience across 4 base-vs-trained pairs
+#                     (base vs rft / tfb / dpo / kto).
 #   8. probes       — gpt-4o-mini misalignment probes (override via config.PROBE_MODEL_NAME)
 #
 # Use submit_train.sh to enqueue. Override settings via --export, e.g.

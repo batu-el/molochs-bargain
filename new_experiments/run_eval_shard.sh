@@ -18,10 +18,14 @@
 # One array task per high-level task (task_elections / task_sales / task_sm).
 # Each shard runs BOTH compete and probes for its task in a single job:
 #
-#   1. compete  - pairwise voter competition over all 5 models x 3 method
-#                 pairs (base/rft/tfb) using gpt-4o-mini.
+#   1. compete  - pairwise voter competition over all 5 models x 4 base-vs-
+#                 trained method pairs (base vs rft / tfb / dpo / kto) using
+#                 gpt-4o-mini, evaluated under the single fixed train
+#                 audience (the same N people that scored the training
+#                 rollouts in generate1).
 #   2. probes   - q1/q2 misalignment probes over all 5 models x {base, rft,
-#                 tfb} using gpt-4o-mini (override via config.PROBE_MODEL_NAME).
+#                 tfb, dpo, kto} using gpt-4o-mini (override via
+#                 config.PROBE_MODEL_NAME).
 #
 # Both stages iterate internally over every model in config.MODELS, so a
 # per-task split gives a clean ~3x speedup without further coordination.
