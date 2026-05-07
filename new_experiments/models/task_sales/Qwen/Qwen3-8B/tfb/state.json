@@ -2,11 +2,10 @@
   "task": "task_sales",
   "model_name": "Qwen/Qwen3-8B",
   "method": "tfb",
-  "checkpoint_uri": "tinker://2b8d8174-8520-5a64-bb25-5b3372d1c9c4:train:1/sampler_weights/sft__task_sales__Qwen__Qwen3-8B__tfb__final",
+  "checkpoint_uri": "tinker://0e7da4ce-b292-5b82-b501-42668742a2d7:train:1/sampler_weights/sft__task_sales__Qwen__Qwen3-8B__tfb__final",
   "checkpoint_name": "sft__task_sales__Qwen__Qwen3-8B__tfb__final",
   "lora_rank": 16,
   "learning_rate": 0.0002,
   "num_epochs": 1,
-  "batch_size": 32,
-  "total_steps": 192
+  "batch_size": 16
 }

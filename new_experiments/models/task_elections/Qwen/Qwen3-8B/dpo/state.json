@@ -1,0 +1,12 @@
+{
+  "task": "task_elections",
+  "model_name": "Qwen/Qwen3-8B",
+  "method": "dpo",
+  "checkpoint_uri": "tinker://5ab67a6b-a69f-54f2-a2e1-6b51ab5c5158:train:2/sampler_weights/sft__task_elections__Qwen__Qwen3-8B__dpo__final",
+  "checkpoint_name": "sft__task_elections__Qwen__Qwen3-8B__dpo__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "beta": 0.1
+}

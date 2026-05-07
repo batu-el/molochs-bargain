@@ -1,0 +1,12 @@
+{
+  "task": "task_sales",
+  "model_name": "openai/gpt-oss-20b",
+  "method": "dpo",
+  "checkpoint_uri": "tinker://ec933ad1-de6e-5b76-a1ea-5b07b0903aae:train:2/sampler_weights/sft__task_sales__openai__gpt-oss-20b__dpo__final",
+  "checkpoint_name": "sft__task_sales__openai__gpt-oss-20b__dpo__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "beta": 0.1
+}

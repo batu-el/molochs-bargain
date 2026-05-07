@@ -2,11 +2,10 @@
   "task": "task_elections",
   "model_name": "meta-llama/Llama-3.3-70B-Instruct",
   "method": "tfb",
-  "checkpoint_uri": "tinker://4d1ab9a2-9ea2-55e3-b48d-21a10b120900:train:1/sampler_weights/sft__task_elections__meta-llama__Llama-3.3-70B-Instruct__tfb__final",
+  "checkpoint_uri": "tinker://6ce70098-c30a-5691-a380-580a1a5184c1:train:1/sampler_weights/sft__task_elections__meta-llama__Llama-3.3-70B-Instruct__tfb__final",
   "checkpoint_name": "sft__task_elections__meta-llama__Llama-3.3-70B-Instruct__tfb__final",
   "lora_rank": 16,
   "learning_rate": 0.0002,
   "num_epochs": 1,
-  "batch_size": 16,
-  "total_steps": 5
+  "batch_size": 16
 }

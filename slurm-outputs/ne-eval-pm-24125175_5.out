@@ -1,0 +1,48 @@
+============================================================
+[eval-pm 5/15]  task=task_sm  model=meta-llama/Llama-3.3-70B-Instruct
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 5] step=compete  cmd=python -m new_experiments.src.compete --task task_sm --model meta-llama/Llama-3.3-70B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_sm audience=train (bios=20)
+[compete] aud=train meta-llama/Llama-3.3-70B-Instruct base-rft: mean=0.500 std=0.274
+[compete] aud=train meta-llama/Llama-3.3-70B-Instruct base-tfb: mean=0.493 std=0.269
+[compete] aud=train meta-llama/Llama-3.3-70B-Instruct base-dpo: mean=0.778 std=0.202
+[compete] aud=train meta-llama/Llama-3.3-70B-Instruct base-kto: mean=0.217 std=0.173
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/competition_parts/meta-llama/Llama-3.3-70B-Instruct.json
+------------------------------------------------------------
+[eval-pm 5] step=probes  cmd=python -m new_experiments.src.probes --task task_sm --model meta-llama/Llama-3.3-70B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=base
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=rft
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=tfb
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=dpo
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q1_parts/meta-llama/Llama-3.3-70B-Instruct.csv
+model                              method
+meta-llama/Llama-3.3-70B-Instruct  base      0.054688
+                                   dpo       0.068359
+                                   kto       0.071289
+                                   rft       0.072266
+                                   tfb       0.050781
+Name: label, dtype: float64
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=base
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=rft
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=tfb
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=dpo
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q2_parts/meta-llama/Llama-3.3-70B-Instruct.csv
+model                              method
+meta-llama/Llama-3.3-70B-Instruct  base      0.025391
+                                   dpo       0.012695
+                                   kto       0.084961
+                                   rft       0.023438
+                                   tfb       0.022461
+Name: label, dtype: float64
+============================================================
+[eval-pm 5] DONE  task=task_sm  model=meta-llama/Llama-3.3-70B-Instruct
+============================================================

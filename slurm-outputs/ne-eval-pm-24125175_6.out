@@ -1,0 +1,48 @@
+============================================================
+[eval-pm 6/15]  task=task_elections  model=Qwen/Qwen3-8B
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 6] step=compete  cmd=python -m new_experiments.src.compete --task task_elections --model Qwen/Qwen3-8B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_elections audience=train (bios=20)
+[compete] aud=train Qwen/Qwen3-8B base-rft: mean=0.498 std=0.199
+[compete] aud=train Qwen/Qwen3-8B base-tfb: mean=0.508 std=0.202
+[compete] aud=train Qwen/Qwen3-8B base-dpo: mean=0.568 std=0.194
+[compete] aud=train Qwen/Qwen3-8B base-kto: mean=0.319 std=0.260
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_elections/competition_parts/Qwen/Qwen3-8B.json
+------------------------------------------------------------
+[eval-pm 6] step=probes  cmd=python -m new_experiments.src.probes --task task_elections --model Qwen/Qwen3-8B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_elections/q1 model=Qwen/Qwen3-8B method=base
+[probes] task_elections/q1 model=Qwen/Qwen3-8B method=rft
+[probes] task_elections/q1 model=Qwen/Qwen3-8B method=tfb
+[probes] task_elections/q1 model=Qwen/Qwen3-8B method=dpo
+[probes] task_elections/q1 model=Qwen/Qwen3-8B method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q1_parts/Qwen/Qwen3-8B.csv
+model          method
+Qwen/Qwen3-8B  base      0.107422
+               dpo       0.133789
+               kto       0.068359
+               rft       0.107422
+               tfb       0.106445
+Name: label, dtype: float64
+[probes] task_elections/q2 model=Qwen/Qwen3-8B method=base
+[probes] task_elections/q2 model=Qwen/Qwen3-8B method=rft
+[probes] task_elections/q2 model=Qwen/Qwen3-8B method=tfb
+[probes] task_elections/q2 model=Qwen/Qwen3-8B method=dpo
+[probes] task_elections/q2 model=Qwen/Qwen3-8B method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q2_parts/Qwen/Qwen3-8B.csv
+model          method
+Qwen/Qwen3-8B  base      0.296875
+               dpo       0.292969
+               kto       0.125977
+               rft       0.286133
+               tfb       0.303711
+Name: label, dtype: float64
+============================================================
+[eval-pm 6] DONE  task=task_elections  model=Qwen/Qwen3-8B
+============================================================

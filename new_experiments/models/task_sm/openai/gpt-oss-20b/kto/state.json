@@ -1,0 +1,12 @@
+{
+  "task": "task_sm",
+  "model_name": "openai/gpt-oss-20b",
+  "method": "kto",
+  "checkpoint_uri": "tinker://c4941260-b5ef-5702-a587-eb85b8d8214f:train:3/sampler_weights/sft__task_sm__openai__gpt-oss-20b__kto__final",
+  "checkpoint_name": "sft__task_sm__openai__gpt-oss-20b__kto__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "beta": 0.1
+}

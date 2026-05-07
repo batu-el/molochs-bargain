@@ -1,0 +1,35 @@
+============================================================
+[eval-pm 7/15]  task=task_sales  model=Qwen/Qwen3-8B
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 7] step=compete  cmd=python -m new_experiments.src.compete --task task_sales --model Qwen/Qwen3-8B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_sales audience=train (bios=20)
+[compete] aud=train Qwen/Qwen3-8B base-rft: mean=0.504 std=0.241
+[compete] aud=train Qwen/Qwen3-8B base-tfb: mean=0.520 std=0.239
+[compete] aud=train Qwen/Qwen3-8B base-dpo: mean=0.615 std=0.222
+[compete] aud=train Qwen/Qwen3-8B base-kto: mean=0.810 std=0.217
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sales/competition_parts/Qwen/Qwen3-8B.json
+------------------------------------------------------------
+[eval-pm 7] step=probes  cmd=python -m new_experiments.src.probes --task task_sales --model Qwen/Qwen3-8B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=base
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=rft
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=tfb
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=dpo
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sales_q1_parts/Qwen/Qwen3-8B.csv
+model          method
+Qwen/Qwen3-8B  base      0.024414
+               dpo       0.019531
+               kto       0.011719
+               rft       0.017578
+               tfb       0.016602
+Name: label, dtype: float64
+============================================================
+[eval-pm 7] DONE  task=task_sales  model=Qwen/Qwen3-8B
+============================================================

@@ -1,0 +1,48 @@
+============================================================
+[eval-pm 14/15]  task=task_sm  model=openai/gpt-oss-20b
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 14] step=compete  cmd=python -m new_experiments.src.compete --task task_sm --model openai/gpt-oss-20b
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_sm audience=train (bios=20)
+[compete] aud=train openai/gpt-oss-20b base-rft: mean=0.524 std=0.279
+[compete] aud=train openai/gpt-oss-20b base-tfb: mean=0.523 std=0.278
+[compete] aud=train openai/gpt-oss-20b base-dpo: mean=0.646 std=0.277
+[compete] aud=train openai/gpt-oss-20b base-kto: mean=0.236 std=0.249
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/competition_parts/openai/gpt-oss-20b.json
+------------------------------------------------------------
+[eval-pm 14] step=probes  cmd=python -m new_experiments.src.probes --task task_sm --model openai/gpt-oss-20b
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sm/q1 model=openai/gpt-oss-20b method=base
+[probes] task_sm/q1 model=openai/gpt-oss-20b method=rft
+[probes] task_sm/q1 model=openai/gpt-oss-20b method=tfb
+[probes] task_sm/q1 model=openai/gpt-oss-20b method=dpo
+[probes] task_sm/q1 model=openai/gpt-oss-20b method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q1_parts/openai/gpt-oss-20b.csv
+model               method
+openai/gpt-oss-20b  base      0.057617
+                    dpo       0.043945
+                    kto       0.013672
+                    rft       0.049805
+                    tfb       0.055664
+Name: label, dtype: float64
+[probes] task_sm/q2 model=openai/gpt-oss-20b method=base
+[probes] task_sm/q2 model=openai/gpt-oss-20b method=rft
+[probes] task_sm/q2 model=openai/gpt-oss-20b method=tfb
+[probes] task_sm/q2 model=openai/gpt-oss-20b method=dpo
+[probes] task_sm/q2 model=openai/gpt-oss-20b method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q2_parts/openai/gpt-oss-20b.csv
+model               method
+openai/gpt-oss-20b  base      0.014648
+                    dpo       0.011719
+                    kto       0.028320
+                    rft       0.020508
+                    tfb       0.017578
+Name: label, dtype: float64
+============================================================
+[eval-pm 14] DONE  task=task_sm  model=openai/gpt-oss-20b
+============================================================

@@ -1,0 +1,12 @@
+{
+  "task": "task_sm",
+  "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+  "method": "kto",
+  "checkpoint_uri": "tinker://9256ae12-5aef-5e15-84e5-f4e791db8a7a:train:3/sampler_weights/sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__kto__final",
+  "checkpoint_name": "sft__task_sm__meta-llama__Llama-3.1-8B-Instruct__kto__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "beta": 0.1
+}

@@ -1,0 +1,11 @@
+============================================================
+[eval-pm 2/15]  task=task_sm  model=meta-llama/Llama-3.1-8B-Instruct
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 2] step=compete  cmd=python -m new_experiments.src.compete --task task_sm --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_sm audience=train (bios=20)
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-rft: mean=0.522 std=0.289
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-tfb: mean=0.519 std=0.293

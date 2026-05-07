@@ -2,11 +2,10 @@
   "task": "task_sm",
   "model_name": "Qwen/Qwen3-32B",
   "method": "rft",
-  "checkpoint_uri": "tinker://5679f398-2c20-5b7f-b11f-c65d710429b6:train:0/sampler_weights/sft__task_sm__Qwen__Qwen3-32B__rft__final",
+  "checkpoint_uri": "tinker://abc8299f-e80e-5c76-aad1-2b0ab2b5896b:train:0/sampler_weights/sft__task_sm__Qwen__Qwen3-32B__rft__final",
   "checkpoint_name": "sft__task_sm__Qwen__Qwen3-32B__rft__final",
   "lora_rank": 16,
   "learning_rate": 0.0002,
   "num_epochs": 1,
-  "batch_size": 32,
-  "total_steps": 96
+  "batch_size": 16
 }

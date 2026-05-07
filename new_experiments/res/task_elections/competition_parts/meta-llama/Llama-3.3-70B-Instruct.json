@@ -1,0 +1,22 @@
+{
+  "audiences": {
+    "train": {
+      "mean": {
+        "meta-llama/Llama-3.3-70B-Instruct": {
+          "base-rft": 0.5106542968750001,
+          "base-tfb": 0.5136328125,
+          "base-dpo": 0.62966796875,
+          "base-kto": 0.22943359375
+        }
+      },
+      "std": {
+        "meta-llama/Llama-3.3-70B-Instruct": {
+          "base-rft": 0.2053685274131588,
+          "base-tfb": 0.20437281616164082,
+          "base-dpo": 0.1852022941414307,
+          "base-kto": 0.2475269703667864
+        }
+      }
+    }
+  }
+}

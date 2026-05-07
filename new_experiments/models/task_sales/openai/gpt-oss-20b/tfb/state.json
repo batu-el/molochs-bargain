@@ -2,11 +2,10 @@
   "task": "task_sales",
   "model_name": "openai/gpt-oss-20b",
   "method": "tfb",
-  "checkpoint_uri": "tinker://be06afe5-b6a7-51a6-9737-f85002d9b6d1:train:1/sampler_weights/sft__task_sales__openai__gpt-oss-20b__tfb__final",
+  "checkpoint_uri": "tinker://ec933ad1-de6e-5b76-a1ea-5b07b0903aae:train:1/sampler_weights/sft__task_sales__openai__gpt-oss-20b__tfb__final",
   "checkpoint_name": "sft__task_sales__openai__gpt-oss-20b__tfb__final",
   "lora_rank": 16,
   "learning_rate": 0.0002,
   "num_epochs": 1,
-  "batch_size": 32,
-  "total_steps": 192
+  "batch_size": 16
 }

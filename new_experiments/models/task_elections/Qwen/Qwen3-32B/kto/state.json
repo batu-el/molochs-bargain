@@ -1,0 +1,12 @@
+{
+  "task": "task_elections",
+  "model_name": "Qwen/Qwen3-32B",
+  "method": "kto",
+  "checkpoint_uri": "tinker://e7b0b24a-98ba-5bfb-a359-c5c0356714ea:train:3/sampler_weights/sft__task_elections__Qwen__Qwen3-32B__kto__final",
+  "checkpoint_name": "sft__task_elections__Qwen__Qwen3-32B__kto__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "beta": 0.1
+}

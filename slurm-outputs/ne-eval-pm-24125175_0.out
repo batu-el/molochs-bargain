@@ -1,0 +1,48 @@
+============================================================
+[eval-pm 0/15]  task=task_elections  model=meta-llama/Llama-3.1-8B-Instruct
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 0] step=compete  cmd=python -m new_experiments.src.compete --task task_elections --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_elections audience=train (bios=20)
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-rft: mean=0.513 std=0.226
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-tfb: mean=0.509 std=0.219
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-dpo: mean=0.703 std=0.227
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-kto: mean=0.378 std=0.261
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_elections/competition_parts/meta-llama/Llama-3.1-8B-Instruct.json
+------------------------------------------------------------
+[eval-pm 0] step=probes  cmd=python -m new_experiments.src.probes --task task_elections --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=dpo
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q1_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.033203
+                                  dpo       0.056641
+                                  kto       0.024414
+                                  rft       0.036133
+                                  tfb       0.040039
+Name: label, dtype: float64
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=dpo
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q2_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.245117
+                                  dpo       0.185547
+                                  kto       0.363281
+                                  rft       0.234375
+                                  tfb       0.227539
+Name: label, dtype: float64
+============================================================
+[eval-pm 0] DONE  task=task_elections  model=meta-llama/Llama-3.1-8B-Instruct
+============================================================

@@ -1,0 +1,35 @@
+============================================================
+[eval-pm 1/15]  task=task_sales  model=meta-llama/Llama-3.1-8B-Instruct
+  LIMIT=<full>
+============================================================
+------------------------------------------------------------
+[eval-pm 1] step=compete  cmd=python -m new_experiments.src.compete --task task_sales --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[compete] task=task_sales audience=train (bios=20)
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-rft: mean=0.516 std=0.271
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-tfb: mean=0.523 std=0.280
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-dpo: mean=0.778 std=0.230
+[compete] aud=train meta-llama/Llama-3.1-8B-Instruct base-kto: mean=0.125 std=0.147
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sales/competition_parts/meta-llama/Llama-3.1-8B-Instruct.json
+------------------------------------------------------------
+[eval-pm 1] step=probes  cmd=python -m new_experiments.src.probes --task task_sales --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sales/q1 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_sales/q1 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_sales/q1 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] task_sales/q1 model=meta-llama/Llama-3.1-8B-Instruct method=dpo
+[probes] task_sales/q1 model=meta-llama/Llama-3.1-8B-Instruct method=kto
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sales_q1_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.032227
+                                  dpo       0.076172
+                                  kto       0.031250
+                                  rft       0.016602
+                                  tfb       0.031250
+Name: label, dtype: float64
+============================================================
+[eval-pm 1] DONE  task=task_sales  model=meta-llama/Llama-3.1-8B-Instruct
+============================================================

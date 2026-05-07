@@ -1,0 +1,12 @@
+{
+  "task": "task_elections",
+  "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+  "method": "dpo",
+  "checkpoint_uri": "tinker://0a0b2f84-7d0a-5804-8116-5b8b709fbce9:train:2/sampler_weights/sft__task_elections__meta-llama__Llama-3.1-8B-Instruct__dpo__final",
+  "checkpoint_name": "sft__task_elections__meta-llama__Llama-3.1-8B-Instruct__dpo__final",
+  "lora_rank": 16,
+  "learning_rate": 0.0002,
+  "num_epochs": 1,
+  "batch_size": 16,
+  "beta": 0.1
+}
