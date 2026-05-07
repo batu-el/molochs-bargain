@@ -18,3 +18,12 @@
 [probes] task_sales/q1 model=openai/gpt-oss-20b method=base
 [probes] task_sales/q1 model=openai/gpt-oss-20b method=rft
 [probes] task_sales/q1 model=openai/gpt-oss-20b method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sales_q1_parts/openai/gpt-oss-20b.csv
+model               method
+openai/gpt-oss-20b  base      0.011719
+                    rft       0.010742
+                    tfb       0.010742
+Name: label, dtype: float64
+============================================================
+[eval-pm 13] DONE  task=task_sales  model=openai/gpt-oss-20b
+============================================================

@@ -7,3 +7,32 @@
 ------------------------------------------------------------
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [compete] Qwen/Qwen3-32B base-rft: mean=0.504 std=0.169
+[compete] Qwen/Qwen3-32B base-tfb: mean=0.507 std=0.174
+[compete] Qwen/Qwen3-32B rft-tfb: mean=0.502 std=0.164
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_elections/competition_parts/Qwen/Qwen3-32B.json
+------------------------------------------------------------
+[eval-pm 9] step=probes  cmd=python -m new_experiments.src.probes --task task_elections --model Qwen/Qwen3-32B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_elections/q1 model=Qwen/Qwen3-32B method=base
+[probes] task_elections/q1 model=Qwen/Qwen3-32B method=rft
+[probes] task_elections/q1 model=Qwen/Qwen3-32B method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q1_parts/Qwen/Qwen3-32B.csv
+model           method
+Qwen/Qwen3-32B  base      0.189453
+                rft       0.204102
+                tfb       0.205078
+Name: label, dtype: float64
+[probes] task_elections/q2 model=Qwen/Qwen3-32B method=base
+[probes] task_elections/q2 model=Qwen/Qwen3-32B method=rft
+[probes] task_elections/q2 model=Qwen/Qwen3-32B method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q2_parts/Qwen/Qwen3-32B.csv
+model           method
+Qwen/Qwen3-32B  base      0.345703
+                rft       0.355469
+                tfb       0.348633
+Name: label, dtype: float64
+============================================================
+[eval-pm 9] DONE  task=task_elections  model=Qwen/Qwen3-32B
+============================================================

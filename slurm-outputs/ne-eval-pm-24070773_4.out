@@ -8,3 +8,22 @@
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [compete] meta-llama/Llama-3.3-70B-Instruct base-rft: mean=0.492 std=0.222
 [compete] meta-llama/Llama-3.3-70B-Instruct base-tfb: mean=0.452 std=0.224
+[compete] meta-llama/Llama-3.3-70B-Instruct rft-tfb: mean=0.453 std=0.226
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sales/competition_parts/meta-llama/Llama-3.3-70B-Instruct.json
+------------------------------------------------------------
+[eval-pm 4] step=probes  cmd=python -m new_experiments.src.probes --task task_sales --model meta-llama/Llama-3.3-70B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sales/q1 model=meta-llama/Llama-3.3-70B-Instruct method=base
+[probes] task_sales/q1 model=meta-llama/Llama-3.3-70B-Instruct method=rft
+[probes] task_sales/q1 model=meta-llama/Llama-3.3-70B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sales_q1_parts/meta-llama/Llama-3.3-70B-Instruct.csv
+model                              method
+meta-llama/Llama-3.3-70B-Instruct  base      0.013672
+                                   rft       0.015625
+                                   tfb       0.015625
+Name: label, dtype: float64
+============================================================
+[eval-pm 4] DONE  task=task_sales  model=meta-llama/Llama-3.3-70B-Instruct
+============================================================

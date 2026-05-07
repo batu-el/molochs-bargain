@@ -8,3 +8,31 @@
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [compete] meta-llama/Llama-3.3-70B-Instruct base-rft: mean=0.497 std=0.253
 [compete] meta-llama/Llama-3.3-70B-Instruct base-tfb: mean=0.444 std=0.258
+[compete] meta-llama/Llama-3.3-70B-Instruct rft-tfb: mean=0.431 std=0.252
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sm/competition_parts/meta-llama/Llama-3.3-70B-Instruct.json
+------------------------------------------------------------
+[eval-pm 5] step=probes  cmd=python -m new_experiments.src.probes --task task_sm --model meta-llama/Llama-3.3-70B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=base
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=rft
+[probes] task_sm/q1 model=meta-llama/Llama-3.3-70B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q1_parts/meta-llama/Llama-3.3-70B-Instruct.csv
+model                              method
+meta-llama/Llama-3.3-70B-Instruct  base      0.073242
+                                   rft       0.082031
+                                   tfb       0.066406
+Name: label, dtype: float64
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=base
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=rft
+[probes] task_sm/q2 model=meta-llama/Llama-3.3-70B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q2_parts/meta-llama/Llama-3.3-70B-Instruct.csv
+model                              method
+meta-llama/Llama-3.3-70B-Instruct  base      0.021484
+                                   rft       0.018555
+                                   tfb       0.017578
+Name: label, dtype: float64
+============================================================
+[eval-pm 5] DONE  task=task_sm  model=meta-llama/Llama-3.3-70B-Instruct
+============================================================

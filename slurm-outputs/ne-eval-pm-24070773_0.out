@@ -8,3 +8,31 @@
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [compete] meta-llama/Llama-3.1-8B-Instruct base-rft: mean=0.515 std=0.198
 [compete] meta-llama/Llama-3.1-8B-Instruct base-tfb: mean=0.516 std=0.195
+[compete] meta-llama/Llama-3.1-8B-Instruct rft-tfb: mean=0.503 std=0.189
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_elections/competition_parts/meta-llama/Llama-3.1-8B-Instruct.json
+------------------------------------------------------------
+[eval-pm 0] step=probes  cmd=python -m new_experiments.src.probes --task task_elections --model meta-llama/Llama-3.1-8B-Instruct
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_elections/q1 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q1_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.038086
+                                  rft       0.041016
+                                  tfb       0.041992
+Name: label, dtype: float64
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=base
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=rft
+[probes] task_elections/q2 model=meta-llama/Llama-3.1-8B-Instruct method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q2_parts/meta-llama/Llama-3.1-8B-Instruct.csv
+model                             method
+meta-llama/Llama-3.1-8B-Instruct  base      0.233398
+                                  rft       0.254883
+                                  tfb       0.257812
+Name: label, dtype: float64
+============================================================
+[eval-pm 0] DONE  task=task_elections  model=meta-llama/Llama-3.1-8B-Instruct
+============================================================

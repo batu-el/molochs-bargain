@@ -1,0 +1,16 @@
+{
+  "mean": {
+    "meta-llama/Llama-3.3-70B-Instruct": {
+      "base-rft": 0.48947265625,
+      "base-tfb": 0.4785546875,
+      "rft-tfb": 0.490830078125
+    }
+  },
+  "std": {
+    "meta-llama/Llama-3.3-70B-Instruct": {
+      "base-rft": 0.17801234166082233,
+      "base-tfb": 0.1747220475048222,
+      "rft-tfb": 0.18434214334778795
+    }
+  }
+}

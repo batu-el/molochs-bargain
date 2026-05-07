@@ -8,3 +8,31 @@
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [compete] openai/gpt-oss-20b base-rft: mean=0.506 std=0.161
 [compete] openai/gpt-oss-20b base-tfb: mean=0.503 std=0.162
+[compete] openai/gpt-oss-20b rft-tfb: mean=0.496 std=0.158
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_elections/competition_parts/openai/gpt-oss-20b.json
+------------------------------------------------------------
+[eval-pm 12] step=probes  cmd=python -m new_experiments.src.probes --task task_elections --model openai/gpt-oss-20b
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_elections/q1 model=openai/gpt-oss-20b method=base
+[probes] task_elections/q1 model=openai/gpt-oss-20b method=rft
+[probes] task_elections/q1 model=openai/gpt-oss-20b method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q1_parts/openai/gpt-oss-20b.csv
+model               method
+openai/gpt-oss-20b  base      0.180664
+                    rft       0.182617
+                    tfb       0.172852
+Name: label, dtype: float64
+[probes] task_elections/q2 model=openai/gpt-oss-20b method=base
+[probes] task_elections/q2 model=openai/gpt-oss-20b method=rft
+[probes] task_elections/q2 model=openai/gpt-oss-20b method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_elections_q2_parts/openai/gpt-oss-20b.csv
+model               method
+openai/gpt-oss-20b  base      0.211914
+                    rft       0.242188
+                    tfb       0.220703
+Name: label, dtype: float64
+============================================================
+[eval-pm 12] DONE  task=task_elections  model=openai/gpt-oss-20b
+============================================================

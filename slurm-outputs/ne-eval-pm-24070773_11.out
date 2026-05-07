@@ -26,3 +26,13 @@ Qwen/Qwen3-32B  base      0.185547
 Name: label, dtype: float64
 [probes] task_sm/q2 model=Qwen/Qwen3-32B method=base
 [probes] task_sm/q2 model=Qwen/Qwen3-32B method=rft
+[probes] task_sm/q2 model=Qwen/Qwen3-32B method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sm_q2_parts/Qwen/Qwen3-32B.csv
+model           method
+Qwen/Qwen3-32B  base      0.037109
+                rft       0.028320
+                tfb       0.031250
+Name: label, dtype: float64
+============================================================
+[eval-pm 11] DONE  task=task_sm  model=Qwen/Qwen3-32B
+============================================================

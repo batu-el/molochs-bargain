@@ -8,3 +8,22 @@
 [openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
 [compete] Qwen/Qwen3-8B base-rft: mean=0.510 std=0.225
 [compete] Qwen/Qwen3-8B base-tfb: mean=0.491 std=0.224
+[compete] Qwen/Qwen3-8B rft-tfb: mean=0.493 std=0.222
+[compete] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/task_sales/competition_parts/Qwen/Qwen3-8B.json
+------------------------------------------------------------
+[eval-pm 7] step=probes  cmd=python -m new_experiments.src.probes --task task_sales --model Qwen/Qwen3-8B
+------------------------------------------------------------
+[openai_patch] timeout=30.0s, max_retries=3 (override with OPENAI_TIMEOUT / OPENAI_MAX_RETRIES env vars)
+[probes] using probe model: gpt-4o-mini (overrides trends/*.py 'gpt-4o' default)
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=base
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=rft
+[probes] task_sales/q1 model=Qwen/Qwen3-8B method=tfb
+[probes] wrote /scratch/users/batuel/documents/molochs-bargain/new_experiments/res/probes/task_sales_q1_parts/Qwen/Qwen3-8B.csv
+model          method
+Qwen/Qwen3-8B  base      0.025391
+               rft       0.017578
+               tfb       0.029297
+Name: label, dtype: float64
+============================================================
+[eval-pm 7] DONE  task=task_sales  model=Qwen/Qwen3-8B
+============================================================
